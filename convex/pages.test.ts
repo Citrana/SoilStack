@@ -75,7 +75,7 @@ test("saveDraft validates sections", async () => {
 });
 
 test("publish needs pages.publish, makes the draft live, audits and schedules a revalidation", async () => {
-  const { t, adminId } = await setup();
+  const { t } = await setup();
   const editorRole = await insertRole(t, "draft_only", ["pages.edit"]);
   const editorId = await t.run((ctx) =>
     ctx.db.insert("users", {
