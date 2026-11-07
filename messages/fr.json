@@ -3,11 +3,6 @@
     "title": "SoilStack — Agri-tech en RDC",
     "description": "SoilStack accompagne les agriculteurs de la RDC avec des solutions agricoles innovantes et durables."
   },
-  "Home": {
-    "eyebrow": "Agri-tech en RDC",
-    "title": "Cultiver l'avenir de l'agriculture congolaise",
-    "subtitle": "Le site SoilStack est en construction."
-  },
   "LocaleSwitcher": {
     "label": "Langue",
     "fr": "Français",
@@ -94,7 +89,9 @@
       "account": "Mon compte",
       "viewSite": "Voir le site",
       "openMenu": "Ouvrir le menu",
-      "media": "Images"
+      "media": "Images",
+      "pages": "Pages",
+      "settings": "Paramètres"
     },
     "dashboard": {
       "title": "Bonjour {name}",
@@ -105,7 +102,9 @@
         "users": "Créer des comptes, réinitialiser les mots de passe, bloquer l'accès.",
         "roles": "Choisir ce que chaque rôle peut faire.",
         "audit": "Voir qui a modifié quoi, et quand.",
-        "media": "Téléverser des images et gérer leur texte alternatif."
+        "media": "Téléverser des images et gérer leur texte alternatif.",
+        "pages": "Modifier et publier les pages du site.",
+        "settings": "Coordonnées, réseaux sociaux et pied de page."
       }
     },
     "account": {
@@ -268,7 +267,9 @@
       "users": "Utilisateur",
       "roles": "Rôle",
       "rolePermissions": "Permission de rôle",
-      "media": "Image"
+      "media": "Image",
+      "pages": "Page",
+      "siteSettings": "Paramètres du site"
     }
   },
   "Media": {
@@ -307,5 +308,187 @@
     "pickTitle": "Choisir une image",
     "pickDescription": "Choisissez une image de la bibliothèque ou téléversez-en une nouvelle.",
     "pickConfirm": "Utiliser cette image"
+  },
+  "Site": {
+    "nav": {
+      "label": "Navigation principale",
+      "home": "Accueil",
+      "about": "À propos",
+      "solutions": "Solutions",
+      "innovation": "Innovation",
+      "projects": "Projets",
+      "contact": "Contact",
+      "openMenu": "Ouvrir le menu",
+      "closeMenu": "Fermer le menu"
+    },
+    "contact": {
+      "phone": "Téléphone",
+      "whatsapp": "WhatsApp",
+      "email": "E-mail",
+      "address": "Adresse",
+      "soon": "Nos coordonnées seront bientôt disponibles."
+    },
+    "footer": {
+      "pages": "Pages",
+      "contact": "Contact",
+      "rights": "© SoilStack. Tous droits réservés.",
+      "admin": "Administration"
+    }
+  },
+  "Pages": {
+    "title": "Pages",
+    "subtitle": "Les pages de présentation du site public. Modifiez un brouillon, prévisualisez-le, puis publiez.",
+    "accessDenied": "Vous n’avez pas accès à cette page.",
+    "names": {
+      "home": "Accueil",
+      "about": "À propos",
+      "solutions": "Solutions",
+      "innovation": "Innovation",
+      "projects": "Projets",
+      "contact": "Contact"
+    },
+    "edit": "Modifier",
+    "back": "Retour aux pages",
+    "upToDate": "Publiée",
+    "unpublishedChanges": "Modifications non publiées",
+    "unsaved": "Modifications non enregistrées",
+    "neverPublished": "Jamais publiée",
+    "lastPublished": "Publiée le {date}",
+    "updatedBy": "dernière modification par {name}",
+    "seoTitle": "Moteurs de recherche",
+    "seoHint": "Affiché par Google et lors du partage de la page.",
+    "seoTitleField": "Titre de la page (≤ 70 caractères)",
+    "seoDescriptionField": "Description (≤ 200 caractères)",
+    "save": "Enregistrer le brouillon",
+    "saving": "Enregistrement…",
+    "saved": "Brouillon enregistré. La page publique n’a pas encore changé.",
+    "publish": "Publier",
+    "publishing": "Publication…",
+    "publishedToast": "Publiée. La page publique se met à jour en quelques secondes.",
+    "discard": "Annuler les modifications",
+    "discardConfirm": "Abandonner les modifications non publiées et revenir à la version en ligne ?",
+    "discarded": "Modifications abandonnées.",
+    "preview": "Aperçu",
+    "previewTitle": "Aperçu — {page} ({lang}) · brouillon, non publié"
+  },
+  "Sections": {
+    "types": {
+      "hero": "Bandeau (haut de page)",
+      "featureGrid": "Grille d’atouts",
+      "textImage": "Texte et image",
+      "accordion": "Liste numérotée",
+      "bento": "Cartes",
+      "stats": "Chiffres clés",
+      "cta": "Appel à l’action",
+      "contactInfo": "Coordonnées"
+    },
+    "descriptions": {
+      "hero": "Badge, grand titre, texte court, boutons et une grande photo.",
+      "featureGrid": "Jusqu’à 8 atouts, chacun avec une icône, un titre et un court texte.",
+      "textImage": "Un titre et des paragraphes à côté d’une photo.",
+      "accordion": "Des éléments numérotés qui s’ouvrent au clic, avec jusqu’à 3 photos.",
+      "bento": "Jusqu’à 4 grandes cartes : vert foncé, vert clair ou photo.",
+      "stats": "Jusqu’à 4 chiffres clés.",
+      "cta": "Un bandeau vert avec un titre et un bouton.",
+      "contactInfo": "Affiche le téléphone, WhatsApp, l’e-mail et l’adresse des Paramètres."
+    },
+    "fields": {
+      "eyebrow": "Badge (petit texte au-dessus du titre)",
+      "title": "Titre",
+      "subtitle": "Texte sous le titre",
+      "intro": "Introduction",
+      "body": "Texte",
+      "bodyHint": "Laissez une ligne vide entre les paragraphes.",
+      "text": "Texte",
+      "image": "Photo",
+      "images": "Photos (jusqu’à {max})",
+      "imageSide": "Position de la photo",
+      "imageLeft": "À gauche",
+      "imageRight": "À droite",
+      "primaryCta": "Bouton principal",
+      "secondaryCta": "Second bouton",
+      "button": "Bouton",
+      "feature": "Atout {n}",
+      "addFeature": "Ajouter un atout",
+      "item": "Élément {n}",
+      "addItem": "Ajouter un élément",
+      "card": "Carte {n}",
+      "addCard": "Ajouter une carte",
+      "tone": "Style",
+      "toneDark": "Vert foncé",
+      "toneLight": "Vert clair",
+      "tonePhoto": "Photo",
+      "figure": "Chiffre {n}",
+      "addFigure": "Ajouter un chiffre",
+      "value": "Valeur (ex. 120+)",
+      "label": "Libellé",
+      "contactInfoHint": "Les coordonnées elles-mêmes se modifient dans Paramètres."
+    },
+    "icons": {
+      "Sprout": "Pousse",
+      "Leaf": "Feuille",
+      "Tractor": "Tracteur",
+      "Droplets": "Eau",
+      "Sun": "Soleil",
+      "Wheat": "Blé",
+      "MapPin": "Repère",
+      "ShieldCheck": "Bouclier",
+      "BarChart3": "Graphique",
+      "Users": "Personnes",
+      "Globe": "Globe",
+      "Cpu": "Technologie"
+    },
+    "icon": "Icône",
+    "chooseImage": "Choisir une photo",
+    "changeImage": "Changer",
+    "removeImage": "Retirer",
+    "addButton": "Ajouter un bouton",
+    "removeButton": "Retirer le bouton",
+    "buttonLabel": "Texte du bouton",
+    "linkKind": "Mène vers",
+    "linkPage": "Une page du site",
+    "linkUrl": "Une autre adresse",
+    "page": "Page",
+    "url": "Adresse",
+    "urlHint": "Commence par https://, mailto: ou tel:.",
+    "addSection": "Ajouter une section",
+    "add": "Ajouter",
+    "moveUp": "Monter",
+    "moveDown": "Descendre",
+    "remove": "Retirer",
+    "hide": "Masquer sur le site",
+    "show": "Afficher sur le site",
+    "hiddenBadge": "Masquée",
+    "deleteSection": "Supprimer la section",
+    "deleteConfirm": "Supprimer cette section du brouillon ?"
+  },
+  "Settings": {
+    "title": "Paramètres du site",
+    "subtitle": "Coordonnées, réseaux sociaux et pied de page, affichés sur toutes les pages. Les changements sont en ligne immédiatement.",
+    "accessDenied": "Vous n’avez pas accès à cette page.",
+    "contactTitle": "Contact",
+    "phone": "Téléphone",
+    "whatsapp": "Numéro WhatsApp",
+    "phoneHint": "Format international, ex. +243 81 234 5678.",
+    "email": "E-mail",
+    "mapUrl": "Lien de la carte",
+    "mapUrlHint": "Un lien Google Maps (https://…).",
+    "address": "Adresse",
+    "socialsTitle": "Réseaux sociaux",
+    "socialsHint": "Liens complets (https://…). Laissez vide pour masquer.",
+    "socials": {
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "x": "X (Twitter)",
+      "instagram": "Instagram",
+      "youtube": "YouTube"
+    },
+    "textsTitle": "Textes",
+    "tagline": "Slogan (pied de page)",
+    "footerText": "Mention du pied de page",
+    "footerTextHint": "Vide : « © SoilStack. Tous droits réservés. »",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Paramètres enregistrés. Le site se met à jour en quelques secondes."
   }
 }

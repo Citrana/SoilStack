@@ -16,7 +16,9 @@ export const findSuperAdminInternal = internalQuery({
 });
 
 /**
- * Seeds all reference data (permissions, Super Admin role, starter roles).
+ * Seeds all reference data (permissions, Super Admin role, starter roles)
+ * and the starter content (six pages, site settings) - created only when
+ * missing, so edits survive.
  * Idempotent - run it after every deploy that changes them:
  *   npx convex run seed:seedReferenceData
  */
@@ -25,6 +27,7 @@ export const seedReferenceData = internalAction({
   returns: v.null(),
   handler: async (ctx) => {
     await ctx.runMutation(internal.rbac.seedRbac, {});
+    await ctx.runMutation(internal.pages.seedContent, {});
     return null;
   },
 });

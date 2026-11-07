@@ -72,6 +72,16 @@ this repo, now and later — do not relax them for convenience.
   marks (`convex/lib/richText.ts`) and rendered to HTML **on the server**
   for the public site. Never render raw user HTML.
 - Slugs are unique and generated with `convex/lib/slugs.ts`.
+- Page sections live in `convex/lib/sections.ts` (validators,
+  `validateSections`, `newSection`, and `resolveSections`, the one pure
+  function both `pages.getPublished` and the admin preview use). Their
+  public renderers are in `src/components/site/sections/` and must stay
+  free of server-only APIs (the admin preview renders them client-side).
+- Publishing (and saving settings) schedules `internal.revalidate.notify`
+  with the cache tags it changed (`page:<key>`, `settings`); public
+  loaders in `src/lib/content.ts` tag their cache with the same names
+  (`convex/lib/pages.ts`). A new public content type adds its tags to
+  both and to `ALLOWED_TAGS` in `src/lib/revalidate-request.ts`.
 
 ## Images
 
@@ -276,8 +286,12 @@ Product Manager), the admin at `/[locale]/admin` (login, forced password
 change, dashboard, `/admin/users`, `/admin/roles`, `/admin/audit`,
 `/admin/account`) and the append-only audit log, and the image library
 (`/admin/media`: browser-side resize to WebP, FR/EN alt text, usage
-registry and delete guard, `MediaPicker`).
-Next steps, one PR each into `develop`: site settings + company pages, blog, product catalogue, projects, SEO + performance,
+registry and delete guard, `MediaPicker`), and the company pages: public
+home/about/solutions/innovation/projects/contact (floating navbar, typed
+sections, footer from settings, cached with tag revalidation), the page
+editor at `/admin/pages` (FR/EN draft, live preview, publish) and
+`/admin/settings`.
+Next steps, one PR each into `develop`: blog, product catalogue, projects, SEO + performance,
 deployment docs.
 
 <!-- convex-ai-start -->
