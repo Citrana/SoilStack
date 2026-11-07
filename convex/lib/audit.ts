@@ -77,6 +77,16 @@ export function snapshot<T extends Record<string, unknown>>(
   return Object.fromEntries(keys.map((key) => [key, normalize(doc[key])]));
 }
 
+/** JSON with object keys sorted, so equal values compare equal whatever
+ * order their keys come in (Convex returns stored objects re-ordered). */
+function stableStringify(value: unknown): string {
+  return JSON.stringify(value, (_key, v: unknown) =>
+    v && typeof v === "object" && !Array.isArray(v)
+      ? Object.fromEntries(Object.entries(v).sort(([a], [b]) => a.localeCompare(b)))
+      : v,
+  );
+}
+
 /**
  * Only the fields that changed between two snapshots, for an update's
  * before/after. Returns `null` when nothing changed - skip the entry then.
@@ -90,7 +100,7 @@ export function diff(
   for (const key of new Set([...Object.keys(before), ...Object.keys(after)])) {
     const b = normalize(before[key]);
     const a = normalize(after[key]);
-    if (JSON.stringify(b) !== JSON.stringify(a)) {
+    if (stableStringify(b) !== stableStringify(a)) {
       changedBefore[key] = b;
       changedAfter[key] = a;
     }
