@@ -1,0 +1,245 @@
+@AGENTS.md
+
+# SoilStack — Company website
+
+The public website of SoilStack, an agri-tech company in the DRC, plus the
+admin dashboard that manages its content. Stack: Next.js (App Router,
+Cache Components), TypeScript (strict), Tailwind, shadcn/ui, Convex (data +
+file storage), next-intl.
+
+- **Public site** (no accounts, no cart, no checkout — browse only):
+  company pages (home, about, solutions, innovation, projects, contact),
+  blog, product catalogue.
+- **Admin** (`/[locale]/admin`, login required): pages' content, blog
+  posts, products, projects, images, site settings, users and roles.
+
+This file records **permanent rules**. They apply to every feature built in
+this repo, now and later — do not relax them for convenience.
+
+## Permissions & security
+
+- Every Convex function that reads or writes admin data enforces
+  permissions server-side, through shared wrappers in `convex/lib/rbac.ts`.
+  Never rely on hiding UI elements as a substitute for a server-side check
+  — the client is not trusted.
+- RBAC is **User -> Role -> Permissions** (`users.roleId` -> `roles` ->
+  `rolePermissions` -> `permissions`). There is no direct user-to-permission
+  link and no scopes.
+- Every admin function is built with `authedQuery` / `authedMutation` /
+  `authedAction` (convex-helpers custom functions, `convex/lib/rbac.ts`) and
+  calls `ctx.requirePermission("<key>")` for the permission it needs.
+  Permissions are read fresh on every call (never cached), so a role change
+  takes effect immediately.
+- Permission keys are a typed catalog in `convex/lib/permissions.ts`
+  (`PERMISSIONS`, `PermissionKey`). A new key goes there, then into
+  `messages/{fr,en}.json` under `Permissions`, then `npx convex run
+  seed:seedReferenceData` (idempotent; never overwrites an edited role).
+- The **Super Admin** role is a locked system role: it always holds every
+  permission (the seed syncs new keys onto it), it can't be edited or
+  deleted, and the last active Super Admin can't be demoted or blocked.
+  Nobody can change their own role or status. Only `roles.manage` holders
+  (the Super Admin by default) create roles.
+- **Public queries** (the ones the public site calls) need no login. They
+  return **published** content only, shaped for the public (no drafts,
+  author ids or internal fields — `convex/lib/publicShape.ts`). There is
+  **no public mutation**: visitors never write to the database.
+- Frontend: `useCan(key)` (`src/lib/use-can.ts`) hides UI only. Skip
+  (`"skip"`) queries the user can't run rather than letting them throw.
+
+## Content model
+
+- Every piece of content exists in **both languages**. Localized fields use
+  the shared validators in `convex/lib/i18n.ts`: `loc` (`{ fr, en }`
+  strings) and `locRich` (`{ fr, en }` TipTap JSON). Never add a
+  single-language text field to content.
+- Content is `draft` until published (products can also be `archived`).
+  Pages keep a `draft` and a `published` copy of their sections, so editing
+  never changes the live site until someone with `pages.publish` publishes.
+- Page layouts are a fixed set of typed sections (hero, feature grid,
+  accordion, bento, …). Admins edit their text and images, reorder and hide
+  them; they don't invent new layouts. A new section type is added in code
+  (validator + admin editor + public renderer + both languages).
+- Rich text is TipTap JSON, validated against an allow-list of nodes and
+  marks (`convex/lib/richText.ts`) and rendered to HTML **on the server**
+  for the public site. Never render raw user HTML.
+- Slugs are unique and generated with `convex/lib/slugs.ts`.
+
+## Images
+
+- Images live in Convex file storage, tracked in the `media` table (alt
+  text in both languages, width, height, tiny blur placeholder).
+- The admin resizes images in the browser before upload (longest side ≤
+  2000px, WebP) — `src/lib/image.ts`. The server checks type and size.
+- Public pages render images only with `next/image` (AVIF/WebP, correct
+  `sizes`, blur placeholder, lazy by default, `priority` only for the
+  above-the-fold hero). Always pass width/height to avoid layout shift.
+- A media item still used by a page, post, product or project can't be
+  deleted. A replaced or deleted image's file is removed from storage.
+
+## Performance (slow connections)
+
+- Public pages are **Server Components**. They load data with
+  `fetchQuery` (`src/lib/convex-server.ts`) inside `"use cache"` functions
+  with `cacheLife` and `cacheTag`; publishing in the admin revalidates the
+  matching tags through `/api/revalidate` (shared secret).
+- The public site ships **no Convex client** and as little client JS as
+  possible: only small interactive bits (menu, accordion, language
+  switcher) are client components. The Convex React client is loaded only
+  under `/admin`.
+- No third-party scripts or embeds on public pages. Fonts come from
+  `next/font` (self-hosted).
+
+## Money
+
+- Product prices are **USD only** and optional: `priceCents` is an integer
+  in cents; missing means "Price on request". Never store money as a float.
+  Parse and format only with `convex/lib/money.ts`.
+
+## Audit logging
+
+- Every create, update, delete, publish and unpublish in the admin writes
+  an entry to `auditLogs` in the same mutation, through `ctx.audit({...})`
+  (or `logAudit` in internal mutations — `convex/lib/audit.ts`).
+- Creates log the full new record as `after`, deletes the full old record
+  as `before`, updates only the changed fields (`diff(...)`).
+- **Never** put secrets (passwords, tokens) in a snapshot.
+- `auditLogs` is **append-only**: never patched or deleted (a runtime guard
+  in `authedMutation`'s `ctx.db` and a source-scanning test enforce it).
+  Read on `/admin/audit`, gated by `audit.view`.
+
+## Internationalization
+
+- The site supports **French (default) and English**, always. Every piece
+  of UI — public or admin — ships with both languages from the start. A
+  feature with only one language is not done.
+- UI strings live in `messages/fr.json` and `messages/en.json` (via
+  `next-intl`), never hardcoded in components. Add a key to both files
+  together, in the same commit.
+- Routing is locale-prefixed (`/fr/...`, `/en/...`) via
+  `src/i18n/routing.ts` and `src/proxy.ts`; `/` redirects to `/fr`. Public
+  routes have **localized pathnames** (`/fr/a-propos`, `/en/about`): every
+  new route is declared in `routing.pathnames`. Routes go under
+  `src/app/[locale]/`, and links use `Link` from `@/i18n/navigation`.
+- Use `getTranslations` / `useTranslations` scoped per component/page
+  (e.g. `"Home"`) rather than a flat global namespace. Server pages call
+  `setRequestLocale(locale)`.
+
+## Design
+
+- Clean and modern, green/earth tones. Tokens are CSS variables in
+  `src/app/[locale]/globals.css` (forest, leaf, lime-tint, soil, sand,
+  ink); use them through Tailwind (`bg-forest`, `text-leaf`, `bg-primary`,
+  …), never hardcoded hex values in components.
+- UI is **mobile-first**: design for ~360px wide first (tap targets ≥ 44px,
+  no horizontal page scroll).
+- Admin forms: fields the user must fill in use `<Label required>`;
+  localized fields use the shared FR/EN field component.
+
+## Data changes need the owner's approval first
+
+Once the site holds real content in production, before implementing any
+change that **affects data**, stop and inform the owner, and start only
+after they explicitly approve. This applies to every AI assistant and
+contributor, for every change.
+
+- **What counts as affecting data:** schema changes (new, changed or
+  removed tables, fields or indexes, or a field becoming required);
+  migrations or backfills; anything that rewrites, archives or deletes
+  stored records; changes to seeded reference data (permissions, system
+  roles, default pages); imports, exports or resets; any command run
+  against a deployment's data (`npx convex run`, `import`, `env set`, and
+  anything with `--prod`).
+- **What to tell the owner, before writing the code:** what will change
+  and in which tables; what happens to existing records on prod; whether
+  it can be undone, and how; which commands must run after deploy; whether
+  a backup should be taken first.
+- **Wait for a clear "yes".** Approval for one change doesn't carry over to
+  the next one.
+- A purely read-only change (a new query, a UI change, docs) doesn't need
+  this step. When in doubt, ask.
+
+## Workflow
+
+- Prefer small, focused commits.
+- Every feature ships with basic tests for its Convex logic. This is
+  non-negotiable — no Convex query, mutation, or action merges without a
+  test covering its main behavior and its permission checks (and, for
+  public queries, that drafts and internal fields never leak).
+- **Git flow**: `main` (production) and `develop` (integration). Work on a
+  branch from `develop`, open a PR into `develop` using the PR template
+  (`.github/PULL_REQUEST_TEMPLATE.md`); releases are a PR `develop` ->
+  `main`.
+- **Branch naming**: `<type>/<kebab-case-description>`, e.g.
+  `feat/add-login-page`, `fix/broken-product-price`. Allowed types: `feat`,
+  `fix`, `refactor`, `chore`, `docs`, `test`. `main` and `develop` are the
+  only exceptions. This is enforced by a Husky `pre-commit` hook
+  (`.husky/pre-commit`) — a badly named branch fails the commit outright.
+- **Tests gate every commit**: the same `pre-commit` hook runs `pnpm test`
+  (Vitest). Any failing test blocks the commit. Hooks are installed
+  automatically by `pnpm install` (via the `prepare` script).
+- Node 22+ is required (Convex CLI); `.nvmrc` pins it (`nvm use`).
+
+## Authentication
+
+- Authentication is Convex Auth (`@convex-dev/auth`), email + password only.
+  There is no public sign-up — the Password provider rejects the `signUp`
+  flow. Accounts are created exclusively by a `users.manage` holder
+  (`createUser` in `convex/users.ts`), which generates a strong temporary
+  password (`convex/lib/password.ts`) shown to the admin exactly once and
+  sets `mustChangePassword`. Users must change it at first login and can
+  change their password at any time. A Super Admin resets a forgotten
+  password the same way (new temporary password, `mustChangePassword`).
+- `users.status` (`"active" | "blocked"`) is enforced in Convex Auth's
+  `beforeSessionCreation` callback (`convex/auth.ts`) and re-checked on
+  every call by `getCurrentUserOrNull` (`convex/lib/auth.ts`).
+- Admin route protection is client-side (`src/components/auth-gate.tsx`,
+  `useConvexAuth()`); the real security boundary is the server-side
+  `convex/lib/rbac.ts` wrappers.
+- The first Super Admin is bootstrapped by `convex/seed.ts` from env vars.
+
+## Project layout
+
+```
+convex/
+  schema.ts         # single source of truth for all tables
+  auth.ts           # Convex Auth config (Password provider, callbacks)
+  seed.ts           # reference data (permissions, Super Admin, pages) + first Super Admin
+  rbac.ts users.ts  # roles/permissions, user accounts
+  <domain>.ts       # one file per domain (pages, posts, products, media, …)
+  <domain>.test.ts  # tests for that domain's Convex logic
+  lib/              # shared server-side helpers (see convex/lib/README.md)
+messages/
+  fr.json           # UI strings, French (default)
+  en.json           # UI strings, English — kept in lockstep with fr.json
+src/
+  app/[locale]/     # App Router routes, locale-prefixed
+    (site)/         # public pages (Server Components)
+    admin/          # admin dashboard (client, behind AuthGate)
+  components/       # UI (shadcn primitives in components/ui/, site/, admin/)
+  i18n/             # next-intl routing, navigation, request config
+  lib/              # client/server utilities
+  proxy.ts          # locale-detection proxy (Next.js's middleware convention)
+```
+
+## Current status
+
+This repo has: project setup (Next.js 16 with Cache Components, Tailwind
+design tokens, next-intl with French default and localized pathnames,
+Convex connection with a health check, Vitest + convex-test, Husky hook,
+PR template). Next steps, one PR each into `develop`: auth + RBAC, media
+library, site settings + company pages, blog, product catalogue, projects,
+SEO + performance, deployment docs.
+
+<!-- convex-ai-start -->
+
+This project uses [Convex](https://convex.dev) as its backend.
+
+When working on Convex code, **always read
+`convex/_generated/ai/guidelines.md` first** for important guidelines on
+how to correctly use Convex APIs and patterns. The file contains rules that
+override what you may have learned about Convex from training data.
+
+Convex agent skills for common tasks can be installed by running
+`npx convex ai-files install`.
+
+<!-- convex-ai-end -->
