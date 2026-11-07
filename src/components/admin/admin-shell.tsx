@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import {
   ExternalLink,
   History,
+  ImageIcon,
   LayoutDashboard,
   Menu,
   ShieldCheck,
@@ -14,6 +15,7 @@ import {
 import { useTranslations } from "next-intl";
 import type { FunctionReturnType } from "convex/server";
 import type { api } from "../../../convex/_generated/api";
+import { MEDIA_BROWSE_PERMISSIONS } from "../../../convex/lib/media";
 import type { PermissionKey } from "../../../convex/lib/permissions";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -27,25 +29,26 @@ import { cn } from "@/lib/utils";
 type CurrentUser = NonNullable<FunctionReturnType<typeof api.users.getCurrentUser>>;
 
 type NavItem = {
-  href: "/admin" | "/admin/users" | "/admin/roles" | "/admin/audit";
-  key: "dashboard" | "users" | "roles" | "audit";
+  href: "/admin" | "/admin/media" | "/admin/users" | "/admin/roles" | "/admin/audit";
+  key: "dashboard" | "media" | "users" | "roles" | "audit";
   icon: LucideIcon;
-  /** Shown only to holders of this permission (UI only - see CLAUDE.md). */
-  permission?: PermissionKey;
+  /** Shown only to holders of any of these (UI only - see CLAUDE.md). */
+  anyOf?: readonly PermissionKey[];
 };
 
 /** Admin sections. Later features (pages, blog, products…) add theirs here. */
 export const ADMIN_NAV: readonly NavItem[] = [
   { href: "/admin", key: "dashboard", icon: LayoutDashboard },
-  { href: "/admin/users", key: "users", icon: Users, permission: "users.manage" },
-  { href: "/admin/roles", key: "roles", icon: ShieldCheck, permission: "roles.manage" },
-  { href: "/admin/audit", key: "audit", icon: History, permission: "audit.view" },
+  { href: "/admin/media", key: "media", icon: ImageIcon, anyOf: MEDIA_BROWSE_PERMISSIONS },
+  { href: "/admin/users", key: "users", icon: Users, anyOf: ["users.manage"] },
+  { href: "/admin/roles", key: "roles", icon: ShieldCheck, anyOf: ["roles.manage"] },
+  { href: "/admin/audit", key: "audit", icon: History, anyOf: ["audit.view"] },
 ];
 
 export function useVisibleNav() {
   const permissions = useMyPermissions();
   return ADMIN_NAV.filter(
-    (item) => !item.permission || permissions?.has(item.permission),
+    (item) => !item.anyOf || item.anyOf.some((key) => permissions?.has(key)),
   );
 }
 

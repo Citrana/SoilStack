@@ -77,6 +77,18 @@ function assertPermission(permissions: PermissionSet, key: PermissionKey) {
   }
 }
 
+function assertAnyPermission(
+  permissions: PermissionSet,
+  keys: readonly PermissionKey[],
+) {
+  if (!keys.some((key) => permissions.has(key))) {
+    throw appError(
+      "FORBIDDEN",
+      `Forbidden: needs one of ${keys.map((k) => `"${k}"`).join(", ")}.`,
+    );
+  }
+}
+
 /**
  * Standalone check for code that isn't built on the authed* wrappers.
  * Prefer `ctx.requirePermission` inside authedQuery/authedMutation.
@@ -102,6 +114,9 @@ function buildPermissionCtx(
     can: (key: PermissionKey) => permissions.has(key),
     requirePermission: async (key: PermissionKey) =>
       assertPermission(permissions, key),
+    /** Passes when the user holds at least one of `keys`. */
+    requireAnyPermission: async (keys: readonly PermissionKey[]) =>
+      assertAnyPermission(permissions, keys),
   };
 }
 

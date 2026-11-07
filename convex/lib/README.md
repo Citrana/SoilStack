@@ -6,7 +6,7 @@ Shared server-side helpers, not routable Convex functions themselves.
   `authedQuery` / `authedMutation` / `authedAction` (convex-helpers custom
   functions). They reject unauthenticated/blocked callers and add
   `ctx.user`, `ctx.permissions` (a Set), `ctx.isSuperAdmin`, `ctx.can(key)`
-  and `ctx.requirePermission(key)`. `authedMutation` also adds
+  and `ctx.requirePermission(key)` / `ctx.requireAnyPermission(keys)`. `authedMutation` also adds
   `ctx.audit(entry)` and a `ctx.db` that refuses to modify append-only
   tables (`APPEND_ONLY_RULES`). Permissions are resolved User -> Role ->
   Permissions fresh on every call; the Super Admin always holds every key.
@@ -21,6 +21,10 @@ Shared server-side helpers, not routable Convex functions themselves.
   `auditActionValidator`.
 - `errors.ts` — `appError(code, message)` and the `ERROR_CODES` the admin
   translates (`Errors.<code>` in messages/*.json).
+- `media.ts` — the image library rules: `MEDIA_LIMITS`,
+  `MEDIA_BROWSE_PERMISSIONS`, `setMediaUsages` / `clearMediaUsages` (the
+  usage registry every image-storing feature writes), `mediaUsedBy`, and
+  `publicImage` (what public queries return for an image).
 - `i18n.ts` — `locValidator` (`{ fr, en }`), `pickLoc`, `trimLoc`.
 - `password.ts` — `generateStrongPassword` (admin-created accounts and
   resets) and `MIN_PASSWORD_LENGTH` (shared with the UI).

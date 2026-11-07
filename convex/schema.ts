@@ -55,6 +55,34 @@ export default defineSchema({
     key: v.string(),
   }).index("by_key", ["key"]),
 
+  // Image library (convex/lib/media.ts). Files live in Convex storage,
+  // resized to WebP in the browser before upload.
+  media: defineTable({
+    storageId: v.id("_storage"),
+    filename: v.string(),
+    alt: locValidator,
+    mimeType: v.string(),
+    // Bytes, as stored.
+    size: v.number(),
+    width: v.number(),
+    height: v.number(),
+    // ~16px WebP data URL shown while the real image loads.
+    blurDataUrl: v.string(),
+    uploadedBy: v.id("users"),
+  }),
+
+  // Which records use which image (setMediaUsages). An image with a usage
+  // can't be deleted.
+  mediaUsages: defineTable({
+    mediaId: v.id("media"),
+    ownerTable: v.string(),
+    ownerId: v.string(),
+    // Where in the owner, e.g. "cover", "gallery", "body".
+    field: v.string(),
+  })
+    .index("by_mediaId", ["mediaId"])
+    .index("by_ownerTable_and_ownerId", ["ownerTable", "ownerId"]),
+
   // Append-only (CLAUDE.md, "Audit logging"). Written only by logAudit.
   auditLogs: defineTable({
     actorId: v.id("users"),

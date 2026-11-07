@@ -82,8 +82,24 @@ this repo, now and later — do not relax them for convenience.
 - Public pages render images only with `next/image` (AVIF/WebP, correct
   `sizes`, blur placeholder, lazy by default, `priority` only for the
   above-the-fold hero). Always pass width/height to avoid layout shift.
-- A media item still used by a page, post, product or project can't be
-  deleted. A replaced or deleted image's file is removed from storage.
+- **Every feature that stores image references** (a cover, a gallery, an
+  image inside rich text) calls `setMediaUsages(ctx, { ownerTable,
+  ownerId }, [{ mediaId, field }])` (`convex/lib/media.ts`) in the same
+  mutation that saves them, and `clearMediaUsages` when the owner is
+  deleted. `media.remove` refuses an image that still has a usage
+  (`MEDIA_IN_USE`) and deletes its file from storage when it goes.
+- Public queries return images only through `publicImage(ctx, mediaId)`
+  (url, width, height, blurDataUrl, alt) - never the raw `media` row.
+- Browsing/picking images needs any of `MEDIA_BROWSE_PERMISSIONS`
+  (uploaders and every content editor); uploading needs `media.upload`,
+  deleting `media.delete`. Editors pick images with `<MediaPicker>`
+  (`src/components/admin/media-picker.tsx`).
+- `saveMedia` *returns* a refusal (`{ ok: false, code }`) after deleting a
+  refused file instead of throwing: a thrown error would roll the deletion
+  back. Use the same pattern whenever a mutation must keep a side effect
+  while refusing.
+- Uploads abandoned before `saveMedia` leave orphan files in storage; a
+  cleanup cron is still to do.
 
 ## Performance (slow connections)
 
@@ -258,9 +274,10 @@ Convex Auth (email + password, no sign-up), the permission catalog, the
 locked Super Admin and three starter roles (Content Editor, Blog Writer,
 Product Manager), the admin at `/[locale]/admin` (login, forced password
 change, dashboard, `/admin/users`, `/admin/roles`, `/admin/audit`,
-`/admin/account`) and the append-only audit log.
-Next steps, one PR each into `develop`: media library, site settings +
-company pages, blog, product catalogue, projects, SEO + performance,
+`/admin/account`) and the append-only audit log, and the image library
+(`/admin/media`: browser-side resize to WebP, FR/EN alt text, usage
+registry and delete guard, `MediaPicker`).
+Next steps, one PR each into `develop`: site settings + company pages, blog, product catalogue, projects, SEO + performance,
 deployment docs.
 
 <!-- convex-ai-start -->

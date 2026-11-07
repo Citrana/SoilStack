@@ -20,7 +20,7 @@ import { useCan } from "@/lib/use-can";
 type AuditEntry = PaginatedQueryItem<typeof api.auditLogs.list>;
 
 /** Record types that write audit entries. Later features add theirs. */
-const ENTITY_TABLES = ["users", "roles", "rolePermissions"] as const;
+const ENTITY_TABLES = ["users", "roles", "rolePermissions", "media"] as const;
 type EntityTable = (typeof ENTITY_TABLES)[number];
 
 function isEntityTable(table: string): table is EntityTable {
@@ -111,7 +111,7 @@ export function AuditLogPanel() {
   const actorLabel = (entry: AuditEntry) => entry.actorName || entry.actorEmail || t("unknownActor");
   const subject = (entry: AuditEntry) => {
     const snapshot = { ...entry.before, ...entry.after } as Record<string, unknown>;
-    const label = snapshot.email ?? snapshot.role ?? snapshot.permission;
+    const label = snapshot.email ?? snapshot.role ?? snapshot.permission ?? snapshot.filename;
     return label ? formatValue(label) : "";
   };
   const actionBadge = (entry: AuditEntry) => (
