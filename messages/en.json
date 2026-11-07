@@ -1,0 +1,21 @@
+{
+  "Metadata": {
+    "title": "SoilStack — Agri-tech in the DRC",
+    "description": "SoilStack supports farmers in the DRC with innovative, sustainable agricultural solutions."
+  },
+  "Home": {
+    "eyebrow": "Agri-tech in the DRC",
+    "title": "Growing the future of Congolese agriculture",
+    "subtitle": "The SoilStack website is under construction."
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "fr": "Français",
+    "en": "English"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for doesn't exist or has moved.",
+    "backHome": "Back to home"
+  }
+}

@@ -1,0 +1,49 @@
+"use client";
+
+import { useParams } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { routing, type Locale } from "@/i18n/routing";
+import { usePathname, useRouter } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
+
+/** FR / EN toggle that keeps the visitor on the same page. */
+export function LocaleSwitcher({ className }: { className?: string }) {
+  const t = useTranslations("LocaleSwitcher");
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
+
+  return (
+    <div
+      role="group"
+      aria-label={t("label")}
+      className={cn("inline-flex rounded-full border bg-card p-0.5 text-xs", className)}
+    >
+      {routing.locales.map((loc: Locale) => (
+        <button
+          key={loc}
+          type="button"
+          lang={loc}
+          aria-pressed={loc === locale}
+          title={t(loc)}
+          onClick={() =>
+            router.replace(
+              // @ts-expect-error -- params always match the current pathname
+              { pathname, params },
+              { locale: loc },
+            )
+          }
+          className={cn(
+            "min-h-9 min-w-11 rounded-full px-3 font-medium uppercase transition-colors",
+            loc === locale
+              ? "bg-primary text-primary-foreground"
+              : "text-muted-foreground hover:text-foreground",
+          )}
+        >
+          {loc}
+        </button>
+      ))}
+    </div>
+  );
+}
