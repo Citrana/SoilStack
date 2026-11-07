@@ -8,7 +8,20 @@
  * @module
  */
 
+import type * as auditLogs from "../auditLogs.js";
+import type * as auth from "../auth.js";
 import type * as healthCheck from "../healthCheck.js";
+import type * as http from "../http.js";
+import type * as lib_audit from "../lib/audit.js";
+import type * as lib_auth from "../lib/auth.js";
+import type * as lib_errors from "../lib/errors.js";
+import type * as lib_i18n from "../lib/i18n.js";
+import type * as lib_password from "../lib/password.js";
+import type * as lib_permissions from "../lib/permissions.js";
+import type * as lib_rbac from "../lib/rbac.js";
+import type * as rbac from "../rbac.js";
+import type * as seed from "../seed.js";
+import type * as users from "../users.js";
 
 import type {
   ApiFromModules,
@@ -17,7 +30,20 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  auditLogs: typeof auditLogs;
+  auth: typeof auth;
   healthCheck: typeof healthCheck;
+  http: typeof http;
+  "lib/audit": typeof lib_audit;
+  "lib/auth": typeof lib_auth;
+  "lib/errors": typeof lib_errors;
+  "lib/i18n": typeof lib_i18n;
+  "lib/password": typeof lib_password;
+  "lib/permissions": typeof lib_permissions;
+  "lib/rbac": typeof lib_rbac;
+  rbac: typeof rbac;
+  seed: typeof seed;
+  users: typeof users;
 }>;
 
 /**
