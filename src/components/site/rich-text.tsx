@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import Image from "next/image";
 import type { PublicImage } from "../../../convex/lib/media";
 import type { RichDoc, RichMark, RichNode } from "../../../convex/lib/richText";
@@ -35,7 +35,7 @@ function withMarks(text: string, marks: RichMark[] | undefined, key: number): Re
       );
     }
   }
-  return <span key={key}>{out}</span>;
+  return <Fragment key={key}>{out}</Fragment>;
 }
 
 function renderNode(node: RichNode, key: number, images: Record<string, PublicImage>, locale: Locale): ReactNode {

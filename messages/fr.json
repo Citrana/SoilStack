@@ -91,7 +91,8 @@
       "openMenu": "Ouvrir le menu",
       "media": "Images",
       "pages": "Pages",
-      "settings": "Paramètres"
+      "settings": "Paramètres",
+      "blog": "Blog"
     },
     "dashboard": {
       "title": "Bonjour {name}",
@@ -104,7 +105,8 @@
         "audit": "Voir qui a modifié quoi, et quand.",
         "media": "Téléverser des images et gérer leur texte alternatif.",
         "pages": "Modifier et publier les pages du site.",
-        "settings": "Coordonnées, réseaux sociaux et pied de page."
+        "settings": "Coordonnées, réseaux sociaux et pied de page.",
+        "blog": "Rédiger et publier les articles du blog."
       }
     },
     "account": {
@@ -269,7 +271,8 @@
       "rolePermissions": "Permission de rôle",
       "media": "Image",
       "pages": "Page",
-      "siteSettings": "Paramètres du site"
+      "siteSettings": "Paramètres du site",
+      "posts": "Article"
     }
   },
   "Media": {
@@ -513,5 +516,75 @@
     "tags": "Mots-clés",
     "related": "À lire aussi",
     "allPosts": "Tous les articles"
+  },
+  "RichText": {
+    "toolbar": "Mise en forme du texte",
+    "bold": "Gras",
+    "italic": "Italique",
+    "heading2": "Titre",
+    "heading3": "Sous-titre",
+    "bulletList": "Liste à puces",
+    "orderedList": "Liste numérotée",
+    "quote": "Citation",
+    "separator": "Séparateur",
+    "link": "Lien",
+    "image": "Image",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "linkPrompt": "Adresse du lien (https://…, mailto:…, tel:… ou /fr/page). Laissez vide pour retirer le lien.",
+    "linkInvalid": "Ce lien n’est pas autorisé. Utilisez https://, mailto:, tel: ou une page du site commençant par /."
+  },
+  "BlogAdmin": {
+    "title": "Blog",
+    "subtitle": "Les articles sur ce que fait SoilStack. Rédigez un brouillon dans les deux langues, puis publiez.",
+    "accessDenied": "Vous n’avez pas accès à cette page.",
+    "newPost": "Nouvel article",
+    "newPostDescription": "Commencez par un titre en français ; vous ajouterez ensuite la version anglaise et le texte.",
+    "titleFr": "Titre (français)",
+    "create": "Créer",
+    "creating": "Création…",
+    "empty": "Aucun article pour l’instant.",
+    "searchPlaceholder": "Rechercher un article…",
+    "titleHeader": "Article",
+    "statusHeader": "Statut",
+    "authorHeader": "Auteur",
+    "updatedHeader": "Dernière modification",
+    "allStatuses": "Tous",
+    "statusDraft": "Brouillon",
+    "statusPublished": "Publié",
+    "edit": "Modifier",
+    "view": "Voir",
+    "untitled": "Sans titre",
+    "back": "Retour aux articles",
+    "byAuthor": "Par {name}",
+    "unsaved": "Modifications non enregistrées",
+    "readOnly": "Vous pouvez consulter cet article mais pas le modifier : les articles publiés sont modifiés par les éditeurs, et les brouillons par leur auteur.",
+    "fields": {
+      "title": "Titre",
+      "slug": "Adresse",
+      "excerpt": "Résumé (affiché dans la liste du blog)",
+      "cover": "Photo de couverture",
+      "tags": "Mots-clés",
+      "body": "Texte"
+    },
+    "slugHint": "Lettres minuscules, chiffres et tirets. Suit le titre tant que vous ne la modifiez pas.",
+    "slugPublishedHint": "Changer l’adresse d’un article publié casse les liens déjà partagés.",
+    "tagsPlaceholder": "maïs, sol, Kivu",
+    "tagsHint": "Séparés par des virgules, 8 au maximum.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Brouillon enregistré.",
+    "savedLive": "Enregistré. L’article se met à jour sur le site en quelques secondes.",
+    "publish": "Publier",
+    "publishing": "Publication…",
+    "publishedToast": "Publié. L’article apparaît sur le blog en quelques secondes.",
+    "unpublish": "Dépublier",
+    "unpublishedToast": "Dépublié : l’article est de nouveau un brouillon.",
+    "missingBeforePublish": "À compléter avant de publier : {fields}.",
+    "delete": "Supprimer",
+    "deleteConfirm": "Supprimer définitivement ce brouillon ?",
+    "deleted": "Article supprimé.",
+    "preview": "Aperçu",
+    "previewTitle": "Aperçu ({lang}) · comme sur le site"
   }
 }
