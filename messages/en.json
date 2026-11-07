@@ -17,5 +17,252 @@
     "title": "Page not found",
     "description": "The page you are looking for doesn't exist or has moved.",
     "backHome": "Back to home"
+  },
+  "Common": {
+    "close": "Close",
+    "requiredHint": "Required fields",
+    "french": "French",
+    "english": "English"
+  },
+  "DataTable": {
+    "search": "Search…",
+    "loading": "Loading…",
+    "noResults": "No results.",
+    "pagination": "Pagination",
+    "rowsPerPage": "Rows per page",
+    "page": "Page {page}",
+    "showing": "Showing {start}–{end}",
+    "showingOf": "Showing {start}–{end} of {total}",
+    "previous": "Previous page",
+    "next": "Next page",
+    "details": "Details",
+    "expandRow": "Show details",
+    "collapseRow": "Hide details",
+    "firstPage": "First page",
+    "lastPage": "Last page",
+    "goToPage": "Page {page}",
+    "pageOf": "{page} / {total}"
+  },
+  "Errors": {
+    "generic": "Something went wrong. Please try again.",
+    "NOT_AUTHENTICATED": "Your session has ended. Please log in again.",
+    "FORBIDDEN": "You don't have permission to do this.",
+    "NOT_FOUND": "This item no longer exists.",
+    "INVALID_INPUT": "Some fields are missing or invalid.",
+    "EMAIL_TAKEN": "A user with this email already exists.",
+    "PASSWORD_TOO_SHORT": "The password is too short.",
+    "OWN_ACCOUNT": "You can't do this on your own account.",
+    "LAST_SUPER_ADMIN": "This is the last active Super Admin: keep at least one.",
+    "ROLE_LOCKED": "The Super Admin role is locked.",
+    "ROLE_IN_USE": "Move this role's users to another role first."
+  },
+  "Auth": {
+    "logout": "Log out",
+    "login": {
+      "title": "Admin login",
+      "subtitle": "SoilStack content management",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Log in",
+      "submitting": "Logging in…",
+      "error": "Invalid email or password.",
+      "forgotHint": "Forgot your password? Ask an administrator to reset it."
+    },
+    "changePassword": {
+      "title": "Choose a new password",
+      "description": "You're using a temporary password. Choose your own before continuing.",
+      "newPasswordLabel": "New password",
+      "confirmPasswordLabel": "Confirm new password",
+      "hint": "At least {min} characters.",
+      "submit": "Save password",
+      "submitting": "Saving…",
+      "tooShortError": "The password must be at least {min} characters.",
+      "mismatchError": "The passwords don't match."
+    }
+  },
+  "Admin": {
+    "metaTitle": "Admin — SoilStack",
+    "nav": {
+      "label": "Admin menu",
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "roles": "Roles",
+      "audit": "Audit log",
+      "account": "My account",
+      "viewSite": "View the site",
+      "openMenu": "Open the menu"
+    },
+    "dashboard": {
+      "title": "Hello {name}",
+      "subtitle": "Manage the SoilStack website.",
+      "noSections": "Your role doesn't give access to any section yet. Ask an administrator.",
+      "open": "Open",
+      "descriptions": {
+        "users": "Create accounts, reset passwords, block access.",
+        "roles": "Choose what each role can do.",
+        "audit": "See who changed what, and when."
+      }
+    },
+    "account": {
+      "title": "My account",
+      "profileTitle": "Profile",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "noRole": "No role",
+      "passwordTitle": "Change my password",
+      "passwordChanged": "Your password has been changed."
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "Accounts that can log in to the admin. There is no public sign-up.",
+      "accessDenied": "You don't have access to this page.",
+      "nameHeader": "Name",
+      "emailHeader": "Email",
+      "roleHeader": "Role",
+      "statusHeader": "Status",
+      "lastLoginHeader": "Last login",
+      "actionsHeader": "Actions",
+      "statusActive": "Active",
+      "statusBlocked": "Blocked",
+      "neverLoggedIn": "Never",
+      "you": "You",
+      "noRole": "No role",
+      "roleLabel": "Role",
+      "roleChanged": "Role changed.",
+      "searchPlaceholder": "Search by name or email…",
+      "createUser": "Create user",
+      "createDescription": "A temporary password is generated. Share it with the person; they'll choose their own at first login.",
+      "nameLabel": "Full name",
+      "emailLabel": "Email",
+      "selectRole": "Select a role",
+      "creating": "Creating…",
+      "createButton": "Create user",
+      "passwordDialogTitle": "User created",
+      "passwordDialogWarning": "Copy this temporary password for {email} now — it won't be shown again.",
+      "copyButton": "Copy",
+      "copiedLabel": "Copied",
+      "closeButton": "Done",
+      "block": "Block",
+      "unblock": "Unblock",
+      "blockedToast": "{name} is blocked.",
+      "unblockedToast": "{name} is unblocked.",
+      "resetPassword": "Reset password",
+      "resetConfirmTitle": "Reset {name}'s password?",
+      "resetConfirmText": "A new temporary password will be created. They'll be signed out on every device and must choose their own password at their next login.",
+      "resetConfirm": "Reset password",
+      "resetting": "Resetting…",
+      "cancel": "Cancel",
+      "resetDoneTitle": "New password for {name}",
+      "resetDoneWarning": "This password is shown only once. Share it with {name} in person or by phone."
+    },
+    "roles": {
+      "title": "Roles",
+      "subtitle": "A role is a set of permissions. Each user has one role.",
+      "accessDenied": "You don't have access to this page.",
+      "createRole": "Create role",
+      "createDescription": "Give the role a name in both languages, then choose its permissions.",
+      "nameLabel": "Name",
+      "descriptionLabel": "Description",
+      "creating": "Creating…",
+      "createButton": "Create and choose permissions",
+      "lockedBadge": "Locked",
+      "view": "View",
+      "edit": "Edit",
+      "nameHeader": "Role",
+      "permissionsHeader": "Permissions",
+      "usersHeader": "Users",
+      "permissionCount": "{count, plural, =0 {No permissions} one {# permission} other {# permissions}}",
+      "userCount": "{count, plural, =0 {No users} one {# user} other {# users}}",
+      "back": "Back to roles",
+      "lockedNote": "The Super Admin role is locked: it always holds every permission, so nobody can lock themselves out.",
+      "detailsTitle": "Details",
+      "permissionsTitle": "Permissions",
+      "permissionsHint": "Changes are saved immediately and apply to this role's users right away.",
+      "save": "Save",
+      "saving": "Saving…",
+      "saved": "Role saved.",
+      "delete": "Delete role",
+      "deleted": "Role deleted.",
+      "deleteConfirmTitle": "Delete the role {name}?",
+      "deleteConfirmText": "This can't be undone.",
+      "deleteInUse": "{count, plural, one {# user still has} other {# users still have}} this role. Give them another role first.",
+      "cancel": "Cancel"
+    }
+  },
+  "Permissions": {
+    "pages": {
+      "edit": "Edit page drafts",
+      "publish": "Publish pages"
+    },
+    "blog": {
+      "write": "Write blog posts (own drafts)",
+      "edit_all": "Edit every blog post",
+      "publish": "Publish blog posts"
+    },
+    "products": {
+      "manage": "Manage products and categories",
+      "publish": "Publish products"
+    },
+    "projects": {
+      "manage": "Manage and publish projects"
+    },
+    "media": {
+      "upload": "Upload images",
+      "delete": "Delete images"
+    },
+    "settings": {
+      "manage": "Edit site settings (contact, social links, footer)"
+    },
+    "users": {
+      "manage": "Manage user accounts"
+    },
+    "roles": {
+      "manage": "Manage roles and permissions"
+    },
+    "audit": {
+      "view": "View the audit log"
+    }
+  },
+  "PermissionModules": {
+    "pages": "Pages",
+    "blog": "Blog",
+    "products": "Products",
+    "projects": "Projects",
+    "media": "Images",
+    "settings": "Site settings",
+    "admin": "Administration"
+  },
+  "AuditLog": {
+    "title": "Audit log",
+    "subtitle": "Every change made in the admin. Entries can't be edited or deleted.",
+    "accessDenied": "You don't have access to this page.",
+    "empty": "No entries.",
+    "timeHeader": "When",
+    "whoHeader": "Who",
+    "actionHeader": "Action",
+    "recordHeader": "Record",
+    "field": "Field",
+    "before": "Before",
+    "after": "After",
+    "recordHistory": "History of this record",
+    "unknownActor": "Unknown user",
+    "actorLabel": "Who",
+    "allActors": "Everyone",
+    "entityLabel": "Record type",
+    "allEntities": "All records",
+    "clearFilters": "Clear filters",
+    "actions": {
+      "create": "Created",
+      "update": "Updated",
+      "delete": "Deleted",
+      "publish": "Published",
+      "unpublish": "Unpublished"
+    },
+    "entities": {
+      "users": "User",
+      "roles": "Role",
+      "rolePermissions": "Role permission"
+    }
   }
 }

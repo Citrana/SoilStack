@@ -21,6 +21,14 @@ export const routing = defineRouting({
     "/blog/[slug]": "/blog/[slug]",
     "/products": { fr: "/produits", en: "/products" },
     "/products/[slug]": { fr: "/produits/[slug]", en: "/products/[slug]" },
+    // Admin: same path in both languages.
+    "/admin": "/admin",
+    "/admin/login": "/admin/login",
+    "/admin/account": "/admin/account",
+    "/admin/users": "/admin/users",
+    "/admin/roles": "/admin/roles",
+    "/admin/roles/[roleId]": "/admin/roles/[roleId]",
+    "/admin/audit": "/admin/audit",
   },
 });
 

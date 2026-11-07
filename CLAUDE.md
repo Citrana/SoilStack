@@ -32,19 +32,28 @@ this repo, now and later — do not relax them for convenience.
   takes effect immediately.
 - Permission keys are a typed catalog in `convex/lib/permissions.ts`
   (`PERMISSIONS`, `PermissionKey`). A new key goes there, then into
-  `messages/{fr,en}.json` under `Permissions`, then `npx convex run
-  seed:seedReferenceData` (idempotent; never overwrites an edited role).
+  `messages/{fr,en}.json` under `Permissions` (nested: `pages.edit` ->
+  `Permissions.pages.edit`), then `npx convex run seed:seedReferenceData`
+  (idempotent). Starter roles and later grants to existing roles are
+  one-shot `SEED_STEPS` (applied once, recorded in `appliedSeedSteps`), so
+  a role an admin edited or deleted stays that way.
 - The **Super Admin** role is a locked system role: it always holds every
   permission (the seed syncs new keys onto it), it can't be edited or
   deleted, and the last active Super Admin can't be demoted or blocked.
   Nobody can change their own role or status. Only `roles.manage` holders
-  (the Super Admin by default) create roles.
+  (the Super Admin by default) create roles; assigning a role or creating
+  / resetting a Super Admin also needs `roles.manage`.
 - **Public queries** (the ones the public site calls) need no login. They
   return **published** content only, shaped for the public (no drafts,
   author ids or internal fields — `convex/lib/publicShape.ts`). There is
   **no public mutation**: visitors never write to the database.
 - Frontend: `useCan(key)` (`src/lib/use-can.ts`) hides UI only. Skip
   (`"skip"`) queries the user can't run rather than letting them throw.
+- **Errors**: a Convex function throws only `appError(code, message)`
+  (`convex/lib/errors.ts`). Codes are a typed list; the admin shows
+  `Errors.<code>` from the message files through `useErrorMessage()`
+  (`src/lib/errors.ts`), so errors are translated too. A new code goes in
+  `ERROR_CODES` and both message files (a test checks it).
 
 ## Content model
 
@@ -133,7 +142,21 @@ this repo, now and later — do not relax them for convenience.
 - UI is **mobile-first**: design for ~360px wide first (tap targets ≥ 44px,
   no horizontal page scroll).
 - Admin forms: fields the user must fill in use `<Label required>`;
-  localized fields use the shared FR/EN field component.
+  localized fields use `<LocalizedField>` (`src/components/admin/
+  localized-field.tsx`). Inputs, selects and buttons are 44px tall on
+  phones and compact from `md` (built into `src/components/ui/`).
+- Admin lists use the shared `DataTable` (`src/components/data-table/`,
+  usage in its README) - don't hand-roll tables; give it `renderCard` or
+  `meta.hideBelow` for phones.
+- **Admin pages** (`src/app/[locale]/admin/**/page.tsx`) are tiny server
+  files that render `<AuthGate><SomePanel /></AuthGate>` (client panel from
+  `src/components/admin/`). The layout's `AdminFrame` adds the shell and
+  must **always render `children`**: with Cache Components, a layout that
+  withholds the page segment on the server makes Next.js never stream it,
+  and the browser tab hangs. Gate inside the page, never by not rendering
+  `children` in a layout. A new section adds its route to
+  `routing.pathnames` and its entry to `ADMIN_NAV`
+  (`src/components/admin/admin-shell.tsx`, with its permission).
 
 ## Data changes need the owner's approval first
 
@@ -195,7 +218,12 @@ contributor, for every change.
 - Admin route protection is client-side (`src/components/auth-gate.tsx`,
   `useConvexAuth()`); the real security boundary is the server-side
   `convex/lib/rbac.ts` wrappers.
-- The first Super Admin is bootstrapped by `convex/seed.ts` from env vars.
+- The first Super Admin is bootstrapped once by the internal
+  `seed:seedSuperAdmin` from the `SUPER_ADMIN_NAME` / `SUPER_ADMIN_EMAIL`
+  Convex env vars: it generates the password, prints it once, and forces a
+  change at first sign-in. No password is ever stored in env.
+- Convex Auth needs `JWT_PRIVATE_KEY`, `JWKS` and `SITE_URL` on each
+  deployment (README, "Authentication setup").
 
 ## Project layout
 
@@ -225,10 +253,15 @@ src/
 
 This repo has: project setup (Next.js 16 with Cache Components, Tailwind
 design tokens, next-intl with French default and localized pathnames,
-Convex connection with a health check, Vitest + convex-test, Husky hook,
-PR template). Next steps, one PR each into `develop`: auth + RBAC, media
-library, site settings + company pages, blog, product catalogue, projects,
-SEO + performance, deployment docs.
+Convex, Vitest + convex-test, Husky hook, PR template), and auth + RBAC:
+Convex Auth (email + password, no sign-up), the permission catalog, the
+locked Super Admin and three starter roles (Content Editor, Blog Writer,
+Product Manager), the admin at `/[locale]/admin` (login, forced password
+change, dashboard, `/admin/users`, `/admin/roles`, `/admin/audit`,
+`/admin/account`) and the append-only audit log.
+Next steps, one PR each into `develop`: media library, site settings +
+company pages, blog, product catalogue, projects, SEO + performance,
+deployment docs.
 
 <!-- convex-ai-start -->
 

@@ -17,5 +17,252 @@
     "title": "Page introuvable",
     "description": "La page que vous cherchez n'existe pas ou a été déplacée.",
     "backHome": "Retour à l'accueil"
+  },
+  "Common": {
+    "close": "Fermer",
+    "requiredHint": "Champs obligatoires",
+    "french": "Français",
+    "english": "Anglais"
+  },
+  "DataTable": {
+    "search": "Rechercher…",
+    "loading": "Chargement…",
+    "noResults": "Aucun résultat.",
+    "pagination": "Pagination",
+    "rowsPerPage": "Lignes par page",
+    "page": "Page {page}",
+    "showing": "Affichage {start}–{end}",
+    "showingOf": "Affichage {start}–{end} sur {total}",
+    "previous": "Page précédente",
+    "next": "Page suivante",
+    "details": "Détails",
+    "expandRow": "Afficher les détails",
+    "collapseRow": "Masquer les détails",
+    "firstPage": "Première page",
+    "lastPage": "Dernière page",
+    "goToPage": "Page {page}",
+    "pageOf": "{page} / {total}"
+  },
+  "Errors": {
+    "generic": "Une erreur s'est produite. Veuillez réessayer.",
+    "NOT_AUTHENTICATED": "Votre session a expiré. Veuillez vous reconnecter.",
+    "FORBIDDEN": "Vous n'avez pas l'autorisation de faire cela.",
+    "NOT_FOUND": "Cet élément n'existe plus.",
+    "INVALID_INPUT": "Certains champs sont manquants ou invalides.",
+    "EMAIL_TAKEN": "Un utilisateur avec cet e-mail existe déjà.",
+    "PASSWORD_TOO_SHORT": "Le mot de passe est trop court.",
+    "OWN_ACCOUNT": "Vous ne pouvez pas faire cela sur votre propre compte.",
+    "LAST_SUPER_ADMIN": "C'est le dernier super administrateur actif : gardez-en au moins un.",
+    "ROLE_LOCKED": "Le rôle Super administrateur est verrouillé.",
+    "ROLE_IN_USE": "Attribuez d'abord un autre rôle aux utilisateurs de ce rôle."
+  },
+  "Auth": {
+    "logout": "Se déconnecter",
+    "login": {
+      "title": "Connexion administrateur",
+      "subtitle": "Gestion du contenu SoilStack",
+      "emailLabel": "E-mail",
+      "passwordLabel": "Mot de passe",
+      "submit": "Se connecter",
+      "submitting": "Connexion…",
+      "error": "E-mail ou mot de passe invalide.",
+      "forgotHint": "Mot de passe oublié ? Demandez à un administrateur de le réinitialiser."
+    },
+    "changePassword": {
+      "title": "Choisissez un nouveau mot de passe",
+      "description": "Vous utilisez un mot de passe temporaire. Choisissez le vôtre pour continuer.",
+      "newPasswordLabel": "Nouveau mot de passe",
+      "confirmPasswordLabel": "Confirmez le nouveau mot de passe",
+      "hint": "Au moins {min} caractères.",
+      "submit": "Enregistrer le mot de passe",
+      "submitting": "Enregistrement…",
+      "tooShortError": "Le mot de passe doit contenir au moins {min} caractères.",
+      "mismatchError": "Les mots de passe ne correspondent pas."
+    }
+  },
+  "Admin": {
+    "metaTitle": "Administration — SoilStack",
+    "nav": {
+      "label": "Menu d'administration",
+      "dashboard": "Tableau de bord",
+      "users": "Utilisateurs",
+      "roles": "Rôles",
+      "audit": "Journal d'audit",
+      "account": "Mon compte",
+      "viewSite": "Voir le site",
+      "openMenu": "Ouvrir le menu"
+    },
+    "dashboard": {
+      "title": "Bonjour {name}",
+      "subtitle": "Gérez le site web de SoilStack.",
+      "noSections": "Votre rôle ne donne encore accès à aucune section. Contactez un administrateur.",
+      "open": "Ouvrir",
+      "descriptions": {
+        "users": "Créer des comptes, réinitialiser les mots de passe, bloquer l'accès.",
+        "roles": "Choisir ce que chaque rôle peut faire.",
+        "audit": "Voir qui a modifié quoi, et quand."
+      }
+    },
+    "account": {
+      "title": "Mon compte",
+      "profileTitle": "Profil",
+      "name": "Nom",
+      "email": "E-mail",
+      "role": "Rôle",
+      "noRole": "Aucun rôle",
+      "passwordTitle": "Changer mon mot de passe",
+      "passwordChanged": "Votre mot de passe a été modifié."
+    },
+    "users": {
+      "title": "Utilisateurs",
+      "subtitle": "Les comptes qui peuvent se connecter à l'administration. Il n'y a pas d'inscription publique.",
+      "accessDenied": "Vous n'avez pas accès à cette page.",
+      "nameHeader": "Nom",
+      "emailHeader": "E-mail",
+      "roleHeader": "Rôle",
+      "statusHeader": "Statut",
+      "lastLoginHeader": "Dernière connexion",
+      "actionsHeader": "Actions",
+      "statusActive": "Actif",
+      "statusBlocked": "Bloqué",
+      "neverLoggedIn": "Jamais",
+      "you": "Vous",
+      "noRole": "Aucun rôle",
+      "roleLabel": "Rôle",
+      "roleChanged": "Rôle modifié.",
+      "searchPlaceholder": "Rechercher par nom ou e-mail…",
+      "createUser": "Créer un utilisateur",
+      "createDescription": "Un mot de passe temporaire est généré. Transmettez-le à la personne ; elle choisira le sien à la première connexion.",
+      "nameLabel": "Nom complet",
+      "emailLabel": "E-mail",
+      "selectRole": "Choisissez un rôle",
+      "creating": "Création…",
+      "createButton": "Créer l'utilisateur",
+      "passwordDialogTitle": "Utilisateur créé",
+      "passwordDialogWarning": "Copiez maintenant ce mot de passe temporaire pour {email} — il ne sera plus affiché.",
+      "copyButton": "Copier",
+      "copiedLabel": "Copié",
+      "closeButton": "Terminé",
+      "block": "Bloquer",
+      "unblock": "Débloquer",
+      "blockedToast": "{name} est bloqué(e).",
+      "unblockedToast": "{name} est débloqué(e).",
+      "resetPassword": "Réinitialiser le mot de passe",
+      "resetConfirmTitle": "Réinitialiser le mot de passe de {name} ?",
+      "resetConfirmText": "Un nouveau mot de passe temporaire sera créé. La personne sera déconnectée sur tous ses appareils et devra choisir son propre mot de passe à la prochaine connexion.",
+      "resetConfirm": "Réinitialiser",
+      "resetting": "Réinitialisation…",
+      "cancel": "Annuler",
+      "resetDoneTitle": "Nouveau mot de passe pour {name}",
+      "resetDoneWarning": "Ce mot de passe n'est affiché qu'une seule fois. Transmettez-le à {name} en personne ou par téléphone."
+    },
+    "roles": {
+      "title": "Rôles",
+      "subtitle": "Un rôle est un ensemble de permissions. Chaque utilisateur a un rôle.",
+      "accessDenied": "Vous n'avez pas accès à cette page.",
+      "createRole": "Créer un rôle",
+      "createDescription": "Donnez au rôle un nom dans les deux langues, puis choisissez ses permissions.",
+      "nameLabel": "Nom",
+      "descriptionLabel": "Description",
+      "creating": "Création…",
+      "createButton": "Créer et choisir les permissions",
+      "lockedBadge": "Verrouillé",
+      "view": "Voir",
+      "edit": "Modifier",
+      "nameHeader": "Rôle",
+      "permissionsHeader": "Permissions",
+      "usersHeader": "Utilisateurs",
+      "permissionCount": "{count, plural, =0 {Aucune permission} one {# permission} other {# permissions}}",
+      "userCount": "{count, plural, =0 {Aucun utilisateur} one {# utilisateur} other {# utilisateurs}}",
+      "back": "Retour aux rôles",
+      "lockedNote": "Le rôle Super administrateur est verrouillé : il détient toujours toutes les permissions, pour que personne ne puisse se bloquer.",
+      "detailsTitle": "Détails",
+      "permissionsTitle": "Permissions",
+      "permissionsHint": "Les modifications sont enregistrées immédiatement et s'appliquent tout de suite aux utilisateurs de ce rôle.",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "saved": "Rôle enregistré.",
+      "delete": "Supprimer le rôle",
+      "deleted": "Rôle supprimé.",
+      "deleteConfirmTitle": "Supprimer le rôle {name} ?",
+      "deleteConfirmText": "Cette action est irréversible.",
+      "deleteInUse": "{count, plural, one {# utilisateur a encore} other {# utilisateurs ont encore}} ce rôle. Attribuez-leur d'abord un autre rôle.",
+      "cancel": "Annuler"
+    }
+  },
+  "Permissions": {
+    "pages": {
+      "edit": "Modifier les brouillons des pages",
+      "publish": "Publier les pages"
+    },
+    "blog": {
+      "write": "Rédiger des articles (ses brouillons)",
+      "edit_all": "Modifier tous les articles",
+      "publish": "Publier les articles"
+    },
+    "products": {
+      "manage": "Gérer les produits et catégories",
+      "publish": "Publier les produits"
+    },
+    "projects": {
+      "manage": "Gérer et publier les projets"
+    },
+    "media": {
+      "upload": "Téléverser des images",
+      "delete": "Supprimer des images"
+    },
+    "settings": {
+      "manage": "Modifier les paramètres du site (contact, réseaux sociaux, pied de page)"
+    },
+    "users": {
+      "manage": "Gérer les comptes utilisateurs"
+    },
+    "roles": {
+      "manage": "Gérer les rôles et permissions"
+    },
+    "audit": {
+      "view": "Consulter le journal d'audit"
+    }
+  },
+  "PermissionModules": {
+    "pages": "Pages",
+    "blog": "Blog",
+    "products": "Produits",
+    "projects": "Projets",
+    "media": "Images",
+    "settings": "Paramètres du site",
+    "admin": "Administration"
+  },
+  "AuditLog": {
+    "title": "Journal d'audit",
+    "subtitle": "Chaque modification faite dans l'administration. Les entrées ne peuvent être ni modifiées ni supprimées.",
+    "accessDenied": "Vous n'avez pas accès à cette page.",
+    "empty": "Aucune entrée.",
+    "timeHeader": "Quand",
+    "whoHeader": "Qui",
+    "actionHeader": "Action",
+    "recordHeader": "Élément",
+    "field": "Champ",
+    "before": "Avant",
+    "after": "Après",
+    "recordHistory": "Historique de cet élément",
+    "unknownActor": "Utilisateur inconnu",
+    "actorLabel": "Qui",
+    "allActors": "Tout le monde",
+    "entityLabel": "Type d'élément",
+    "allEntities": "Tous les éléments",
+    "clearFilters": "Effacer les filtres",
+    "actions": {
+      "create": "Créé",
+      "update": "Modifié",
+      "delete": "Supprimé",
+      "publish": "Publié",
+      "unpublish": "Dépublié"
+    },
+    "entities": {
+      "users": "Utilisateur",
+      "roles": "Rôle",
+      "rolePermissions": "Permission de rôle"
+    }
   }
 }
