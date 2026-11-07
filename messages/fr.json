@@ -93,7 +93,8 @@
       "audit": "Journal d'audit",
       "account": "Mon compte",
       "viewSite": "Voir le site",
-      "openMenu": "Ouvrir le menu"
+      "openMenu": "Ouvrir le menu",
+      "media": "Images"
     },
     "dashboard": {
       "title": "Bonjour {name}",
@@ -103,7 +104,8 @@
       "descriptions": {
         "users": "Créer des comptes, réinitialiser les mots de passe, bloquer l'accès.",
         "roles": "Choisir ce que chaque rôle peut faire.",
-        "audit": "Voir qui a modifié quoi, et quand."
+        "audit": "Voir qui a modifié quoi, et quand.",
+        "media": "Téléverser des images et gérer leur texte alternatif."
       }
     },
     "account": {
@@ -265,7 +267,45 @@
     "entities": {
       "users": "Utilisateur",
       "roles": "Rôle",
-      "rolePermissions": "Permission de rôle"
+      "rolePermissions": "Permission de rôle",
+      "media": "Image"
     }
+  },
+  "Media": {
+    "title": "Images",
+    "subtitle": "Toutes les images utilisées sur le site. Elles sont redimensionnées dans votre navigateur avant l’envoi, pour un chargement rapide même avec une connexion lente.",
+    "accessDenied": "Vous n’avez pas accès à cette page.",
+    "upload": "Téléverser des images",
+    "uploading": "Envoi…",
+    "dropHint": "ou déposez des images ici",
+    "limits": "JPEG, PNG, WebP ou AVIF, {mb} Mo maximum chacune.",
+    "clearList": "Effacer la liste",
+    "status": {
+      "preparing": "Redimensionnement…",
+      "uploading": "Envoi…",
+      "saving": "Enregistrement…",
+      "done": "Envoyée"
+    },
+    "empty": "Aucune image pour l’instant.",
+    "loading": "Chargement…",
+    "loadMore": "Charger plus",
+    "missingAlt": "Sans texte alternatif",
+    "usedCount": "{count, plural, one {Utilisée #×} other {Utilisée #×}}",
+    "uploadedBy": "envoyée par {name}",
+    "altLabel": "Texte alternatif (décrit l’image)",
+    "altHint": "Lu par les lecteurs d’écran et les moteurs de recherche, par ex. « Champ de maïs au Kivu à la récolte ».",
+    "saveAlt": "Enregistrer le texte alternatif",
+    "saving": "Enregistrement…",
+    "altSaved": "Texte alternatif enregistré.",
+    "usedByTitle": "Utilisée par",
+    "notUsed": "Utilisée nulle part pour l’instant.",
+    "delete": "Supprimer l’image",
+    "deleteConfirm": "Supprimer définitivement cette image ? Cette action est irréversible.",
+    "deleteBlocked": "Retirez-la d’abord des endroits où elle est utilisée.",
+    "deleted": "Image supprimée.",
+    "cancel": "Annuler",
+    "pickTitle": "Choisir une image",
+    "pickDescription": "Choisissez une image de la bibliothèque ou téléversez-en une nouvelle.",
+    "pickConfirm": "Utiliser cette image"
   }
 }

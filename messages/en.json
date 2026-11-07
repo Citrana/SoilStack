@@ -93,7 +93,8 @@
       "audit": "Audit log",
       "account": "My account",
       "viewSite": "View the site",
-      "openMenu": "Open the menu"
+      "openMenu": "Open the menu",
+      "media": "Images"
     },
     "dashboard": {
       "title": "Hello {name}",
@@ -103,7 +104,8 @@
       "descriptions": {
         "users": "Create accounts, reset passwords, block access.",
         "roles": "Choose what each role can do.",
-        "audit": "See who changed what, and when."
+        "audit": "See who changed what, and when.",
+        "media": "Upload images and manage their alt text."
       }
     },
     "account": {
@@ -265,7 +267,45 @@
     "entities": {
       "users": "User",
       "roles": "Role",
-      "rolePermissions": "Role permission"
+      "rolePermissions": "Role permission",
+      "media": "Image"
     }
+  },
+  "Media": {
+    "title": "Images",
+    "subtitle": "Every image used on the site. Images are resized in your browser before upload, so they load fast on slow connections.",
+    "accessDenied": "You don’t have access to this page.",
+    "upload": "Upload images",
+    "uploading": "Uploading…",
+    "dropHint": "or drop images here",
+    "limits": "JPEG, PNG, WebP or AVIF, up to {mb} MB each.",
+    "clearList": "Clear list",
+    "status": {
+      "preparing": "Resizing…",
+      "uploading": "Uploading…",
+      "saving": "Saving…",
+      "done": "Uploaded"
+    },
+    "empty": "No images yet.",
+    "loading": "Loading…",
+    "loadMore": "Load more",
+    "missingAlt": "No alt text",
+    "usedCount": "{count, plural, one {Used #×} other {Used #×}}",
+    "uploadedBy": "uploaded by {name}",
+    "altLabel": "Alt text (describes the image)",
+    "altHint": "Read by screen readers and search engines, e.g. “Maize field in Kivu at harvest”.",
+    "saveAlt": "Save alt text",
+    "saving": "Saving…",
+    "altSaved": "Alt text saved.",
+    "usedByTitle": "Used by",
+    "notUsed": "Not used anywhere yet.",
+    "delete": "Delete image",
+    "deleteConfirm": "Delete this image for good? This can’t be undone.",
+    "deleteBlocked": "Remove it from where it’s used before deleting it.",
+    "deleted": "Image deleted.",
+    "cancel": "Cancel",
+    "pickTitle": "Choose an image",
+    "pickDescription": "Pick an image from the library, or upload a new one.",
+    "pickConfirm": "Use this image"
   }
 }
