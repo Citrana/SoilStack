@@ -5,14 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { Toaster } from "sonner";
 import { routing } from "@/i18n/routing";
 import { ConvexClientProvider } from "@/lib/convex-client-provider";
-import { AuthGate, FullScreenSpinner } from "@/components/admin/auth-gate";
-
-/**
- * The admin is gated and rendered in the browser (AuthGate), so its pages
- * are never part of the server-rendered shell: opt out of Next's
- * instant-navigation validation for this segment.
- */
-export const instant = false;
+import { AdminFrame, FullScreenSpinner } from "@/components/admin/auth-gate";
 
 export async function generateMetadata({
   params,
@@ -28,14 +21,15 @@ export async function generateMetadata({
 
 /**
  * The only place the Convex React client is loaded (CLAUDE.md,
- * "Performance"): the public site stays free of it. The admin renders in
- * the browser, so the gate (which reads the URL) streams in after a spinner.
+ * "Performance"): the public site stays free of it. The frame always
+ * renders the page; each page gates itself with AuthGate. The frame reads
+ * the URL, so it streams in after a spinner.
  */
 export default function AdminLayout({ children }: LayoutProps<"/[locale]/admin">) {
   return (
     <ConvexClientProvider>
       <Suspense fallback={<FullScreenSpinner />}>
-        <AuthGate>{children}</AuthGate>
+        <AdminFrame>{children}</AdminFrame>
       </Suspense>
       <Toaster position="top-center" richColors closeButton />
     </ConvexClientProvider>

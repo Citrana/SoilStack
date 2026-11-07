@@ -149,10 +149,13 @@ this repo, now and later — do not relax them for convenience.
   usage in its README) - don't hand-roll tables; give it `renderCard` or
   `meta.hideBelow` for phones.
 - **Admin pages** (`src/app/[locale]/admin/**/page.tsx`) are tiny server
-  files that `export const instant = false` and render one client panel
-  from `src/components/admin/`. The admin renders in the browser behind
-  `AuthGate`, inside a `<Suspense>` in the admin layout. A new section adds
-  its route to `routing.pathnames` and its entry to `ADMIN_NAV`
+  files that render `<AuthGate><SomePanel /></AuthGate>` (client panel from
+  `src/components/admin/`). The layout's `AdminFrame` adds the shell and
+  must **always render `children`**: with Cache Components, a layout that
+  withholds the page segment on the server makes Next.js never stream it,
+  and the browser tab hangs. Gate inside the page, never by not rendering
+  `children` in a layout. A new section adds its route to
+  `routing.pathnames` and its entry to `ADMIN_NAV`
   (`src/components/admin/admin-shell.tsx`, with its permission).
 
 ## Data changes need the owner's approval first

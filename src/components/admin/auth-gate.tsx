@@ -18,22 +18,42 @@ export function FullScreenSpinner() {
   );
 }
 
+/** Who is signed in, shared by AdminFrame and AuthGate (one Convex subscription). */
+function useAdminSession() {
+  const { isLoading, isAuthenticated } = useConvexAuth();
+  const currentUser = useQuery(api.users.getCurrentUser, isAuthenticated ? {} : "skip");
+  return { isLoading, isAuthenticated, currentUser };
+}
+
 /**
- * Client-side protection for /admin (CLAUDE.md, "Authentication"): signed
+ * Layout-level frame: adds the admin shell (menu, account) once a user is
+ * signed in and has a real password. It ALWAYS renders `children` - the
+ * page segment - so Next.js streams it on every request; deciding what the
+ * page shows is AuthGate's job, inside each page.
+ */
+export function AdminFrame({ children }: { children: ReactNode }) {
+  const { isAuthenticated, currentUser } = useAdminSession();
+  const pathname = usePathname();
+  const showShell =
+    isAuthenticated &&
+    currentUser != null &&
+    !currentUser.mustChangePassword &&
+    pathname !== LOGIN_PATH;
+  return showShell ? <AdminShell user={currentUser}>{children}</AdminShell> : <>{children}</>;
+}
+
+/**
+ * Page-level protection for /admin (CLAUDE.md, "Authentication"): signed
  * out -> login page; temporary password -> forced change; otherwise the
- * admin shell. The real boundary is server-side (convex/lib/rbac.ts).
+ * page content. The login page uses it too (signed in -> dashboard). The
+ * real boundary is server-side (convex/lib/rbac.ts).
  */
 export function AuthGate({ children }: { children: ReactNode }) {
-  const { isLoading, isAuthenticated } = useConvexAuth();
+  const { isLoading, isAuthenticated, currentUser } = useAdminSession();
   const { signOut } = useAuthActions();
   const pathname = usePathname();
   const router = useRouter();
   const isLoginPage = pathname === LOGIN_PATH;
-
-  const currentUser = useQuery(
-    api.users.getCurrentUser,
-    isAuthenticated ? {} : "skip",
-  );
 
   // A session can outlive the user being blocked; getCurrentUser then
   // returns null although isAuthenticated is still true. Sign out so the
@@ -55,6 +75,5 @@ export function AuthGate({ children }: { children: ReactNode }) {
   if (isLoginPage) return null; // redirecting
   if (currentUser === undefined || currentUser === null) return <FullScreenSpinner />;
   if (currentUser.mustChangePassword) return <ChangePasswordScreen />;
-
-  return <AdminShell user={currentUser}>{children}</AdminShell>;
+  return <>{children}</>;
 }
