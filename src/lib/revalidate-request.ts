@@ -1,7 +1,13 @@
 import { PAGE_KEYS, SETTINGS_TAG } from "../../convex/lib/pages";
+import { POSTS_TAG } from "../../convex/lib/posts";
 
 /** Tags Convex may ask the site to refresh (convex/revalidate.ts). */
-const ALLOWED_TAGS = new Set<string>([SETTINGS_TAG, ...PAGE_KEYS.map((key) => `page:${key}`)]);
+const ALLOWED_TAGS = new Set<string>([SETTINGS_TAG, POSTS_TAG, ...PAGE_KEYS.map((key) => `page:${key}`)]);
+const POST_TAG = /^post:[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
+function isAllowedTag(tag: unknown): tag is string {
+  return typeof tag === "string" && tag.length <= 100 && (ALLOWED_TAGS.has(tag) || POST_TAG.test(tag));
+}
 
 /** Compares two strings in time independent of where they differ. */
 export function safeEqual(a: string, b: string) {
@@ -24,7 +30,7 @@ export function parseRevalidateRequest(
   if (!authorization || !safeEqual(authorization, `Bearer ${secret}`)) return { ok: false, status: 401 };
   const tags = (body as { tags?: unknown } | null)?.tags;
   if (!Array.isArray(tags) || tags.length === 0 || tags.length > 20) return { ok: false, status: 400 };
-  const known = tags.filter((tag): tag is string => typeof tag === "string" && ALLOWED_TAGS.has(tag));
+  const known = tags.filter(isAllowedTag);
   if (known.length !== tags.length) return { ok: false, status: 400 };
   return { ok: true, tags: [...new Set(known)] };
 }

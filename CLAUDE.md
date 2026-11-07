@@ -68,10 +68,20 @@ this repo, now and later — do not relax them for convenience.
   accordion, bento, …). Admins edit their text and images, reorder and hide
   them; they don't invent new layouts. A new section type is added in code
   (validator + admin editor + public renderer + both languages).
-- Rich text is TipTap JSON, validated against an allow-list of nodes and
-  marks (`convex/lib/richText.ts`) and rendered to HTML **on the server**
-  for the public site. Never render raw user HTML.
-- Slugs are unique and generated with `convex/lib/slugs.ts`.
+- Rich text is TipTap JSON, **sanitized** on the server by
+  `sanitizeRichText` (`convex/lib/richText.ts`): unknown nodes/marks and
+  unsafe links are refused, extra attributes dropped, images referenced
+  only by library id (`mediaImage { mediaId }`). The public site renders it
+  with its own `RichText` component (`src/components/site/rich-text.tsx`) -
+  no TipTap and never raw HTML on public pages. The admin editor
+  (`src/components/admin/blog/rich-text-editor.tsx`) only enables what the
+  allow-list accepts; extend both together.
+- Blog posts have **one slug for both languages** (`/fr/blog/<slug>`,
+  `/en/blog/<slug>`), unique, made by `slugify` / checked by `cleanSlug`
+  (`convex/lib/posts.ts`). Permissions: `blog.write` creates and edits
+  **own drafts**; `blog.edit_all` edits any post (published edits go live
+  on save); `blog.publish` publishes/unpublishes and requires title,
+  summary and text in both languages; only drafts can be deleted.
 - Page sections live in `convex/lib/sections.ts` (validators,
   `validateSections`, `newSection`, and `resolveSections`, the one pure
   function both `pages.getPublished` and the admin preview use). Their
@@ -80,8 +90,12 @@ this repo, now and later — do not relax them for convenience.
 - Publishing (and saving settings) schedules `internal.revalidate.notify`
   with the cache tags it changed (`page:<key>`, `settings`); public
   loaders in `src/lib/content.ts` tag their cache with the same names
-  (`convex/lib/pages.ts`). A new public content type adds its tags to
-  both and to `ALLOWED_TAGS` in `src/lib/revalidate-request.ts`.
+  (`convex/lib/pages.ts`, `convex/lib/posts.ts`). A new public content
+  type adds its tags to both and to `src/lib/revalidate-request.ts`.
+- Dynamic public routes (e.g. `/blog/[slug]`) need `generateStaticParams`
+  returning **at least one** param with Cache Components (a placeholder
+  that renders `notFound()` when there's no content yet), and read the
+  param inside `<Suspense>` so new content is served without a rebuild.
 
 ## Images
 
@@ -290,7 +304,9 @@ registry and delete guard, `MediaPicker`), and the company pages: public
 home/about/solutions/innovation/projects/contact (floating navbar, typed
 sections, footer from settings, cached with tag revalidation), the page
 editor at `/admin/pages` (FR/EN draft, live preview, publish) and
-`/admin/settings`.
+`/admin/settings`, and the blog: public list (`/blog`, paginated) and
+article pages, a latest-posts section, and the admin at `/admin/blog`
+(TipTap editor per language, cover, tags, draft → publish).
 Next steps, one PR each into `develop`: blog, product catalogue, projects, SEO + performance,
 deployment docs.
 

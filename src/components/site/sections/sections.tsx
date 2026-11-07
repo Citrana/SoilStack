@@ -6,6 +6,7 @@ import { ContactInfoSection } from "./contact-info";
 import { CtaSection } from "./cta";
 import { FeatureGridSection } from "./feature-grid";
 import { HeroSection } from "./hero";
+import { LatestPostsSection } from "./latest-posts";
 import { StatsSection } from "./stats";
 import { TextImageSection } from "./text-image";
 
@@ -36,6 +37,8 @@ export function Sections({ sections, locale }: { sections: PublicSection[]; loca
             return <CtaSection key={key} section={section} locale={locale} />;
           case "contactInfo":
             return <ContactInfoSection key={key} section={section} locale={locale} />;
+          case "latestPosts":
+            return <LatestPostsSection key={key} section={section} locale={locale} />;
         }
       })}
     </>

@@ -9,6 +9,7 @@ import {
   Settings,
   LayoutDashboard,
   Menu,
+  Newspaper,
   ShieldCheck,
   UserRound,
   Users,
@@ -31,8 +32,8 @@ import { cn } from "@/lib/utils";
 type CurrentUser = NonNullable<FunctionReturnType<typeof api.users.getCurrentUser>>;
 
 type NavItem = {
-  href: "/admin" | "/admin/pages" | "/admin/media" | "/admin/settings" | "/admin/users" | "/admin/roles" | "/admin/audit";
-  key: "dashboard" | "pages" | "media" | "settings" | "users" | "roles" | "audit";
+  href: "/admin" | "/admin/pages" | "/admin/blog" | "/admin/media" | "/admin/settings" | "/admin/users" | "/admin/roles" | "/admin/audit";
+  key: "dashboard" | "pages" | "blog" | "media" | "settings" | "users" | "roles" | "audit";
   icon: LucideIcon;
   /** Shown only to holders of any of these (UI only - see CLAUDE.md). */
   anyOf?: readonly PermissionKey[];
@@ -42,6 +43,7 @@ type NavItem = {
 export const ADMIN_NAV: readonly NavItem[] = [
   { href: "/admin", key: "dashboard", icon: LayoutDashboard },
   { href: "/admin/pages", key: "pages", icon: FileText, anyOf: ["pages.edit", "pages.publish"] },
+  { href: "/admin/blog", key: "blog", icon: Newspaper, anyOf: ["blog.write", "blog.edit_all", "blog.publish"] },
   { href: "/admin/media", key: "media", icon: ImageIcon, anyOf: MEDIA_BROWSE_PERMISSIONS },
   { href: "/admin/settings", key: "settings", icon: Settings, anyOf: ["settings.manage"] },
   { href: "/admin/users", key: "users", icon: Users, anyOf: ["users.manage"] },

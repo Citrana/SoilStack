@@ -3,6 +3,7 @@ import { v } from "convex/values";
 import { authTables } from "@convex-dev/auth/server";
 import { auditActionValidator } from "./lib/audit";
 import { locValidator } from "./lib/i18n";
+import { locRichValidator } from "./lib/richText";
 import { pageKeyValidator } from "./lib/pages";
 import { sectionValidator, seoValidator } from "./lib/sections";
 import { settingsFields } from "./lib/settings";
@@ -99,6 +100,26 @@ export default defineSchema({
     updatedAt: v.number(),
     updatedBy: v.union(v.id("users"), v.null()),
   }).index("by_key", ["key"]),
+
+  // Blog posts (convex/posts.ts). One slug for both languages.
+  posts: defineTable({
+    slug: v.string(),
+    title: locValidator,
+    excerpt: locValidator,
+    // Sanitized TipTap JSON per language (convex/lib/richText.ts).
+    body: locRichValidator,
+    coverImageId: v.optional(v.id("media")),
+    tags: v.array(v.string()),
+    status: v.union(v.literal("draft"), v.literal("published")),
+    publishedAt: v.optional(v.number()),
+    readingMinutes: v.object({ fr: v.number(), en: v.number() }),
+    authorId: v.id("users"),
+    updatedAt: v.number(),
+    updatedBy: v.id("users"),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status_and_publishedAt", ["status", "publishedAt"])
+    .index("by_authorId", ["authorId"]),
 
   // Single row: contact details, social links, footer (all public).
   siteSettings: defineTable(settingsFields),

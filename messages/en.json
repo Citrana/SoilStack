@@ -91,7 +91,8 @@
       "openMenu": "Open the menu",
       "media": "Images",
       "pages": "Pages",
-      "settings": "Settings"
+      "settings": "Settings",
+      "blog": "Blog"
     },
     "dashboard": {
       "title": "Hello {name}",
@@ -104,7 +105,8 @@
         "audit": "See who changed what, and when.",
         "media": "Upload images and manage their alt text.",
         "pages": "Edit and publish the site’s pages.",
-        "settings": "Contact details, social links and footer."
+        "settings": "Contact details, social links and footer.",
+        "blog": "Write and publish blog articles."
       }
     },
     "account": {
@@ -269,7 +271,8 @@
       "rolePermissions": "Role permission",
       "media": "Image",
       "pages": "Page",
-      "siteSettings": "Site settings"
+      "siteSettings": "Site settings",
+      "posts": "Article"
     }
   },
   "Media": {
@@ -319,7 +322,8 @@
       "projects": "Projects",
       "contact": "Contact",
       "openMenu": "Open the menu",
-      "closeMenu": "Close the menu"
+      "closeMenu": "Close the menu",
+      "blog": "Blog"
     },
     "contact": {
       "phone": "Phone",
@@ -380,7 +384,8 @@
       "bento": "Cards",
       "stats": "Key figures",
       "cta": "Call to action",
-      "contactInfo": "Contact details"
+      "contactInfo": "Contact details",
+      "latestPosts": "Latest posts"
     },
     "descriptions": {
       "hero": "Badge, big title, short text, buttons and a wide photo.",
@@ -390,7 +395,8 @@
       "bento": "Up to 4 tall cards: dark green, light green or photo.",
       "stats": "Up to 4 key figures.",
       "cta": "A green band with a title and a button.",
-      "contactInfo": "Shows the phone, WhatsApp, email and address from Settings."
+      "contactInfo": "Shows the phone, WhatsApp, email and address from Settings.",
+      "latestPosts": "The newest blog articles, updated automatically."
     },
     "fields": {
       "eyebrow": "Badge (small text above the title)",
@@ -422,7 +428,9 @@
       "addFigure": "Add a figure",
       "value": "Value (e.g. 120+)",
       "label": "Label",
-      "contactInfoHint": "The details themselves are edited in Settings."
+      "contactInfoHint": "The details themselves are edited in Settings.",
+      "postCount": "Number of posts",
+      "latestPostsHint": "Shows the most recently published blog articles."
     },
     "icons": {
       "Sprout": "Sprout",
@@ -490,5 +498,93 @@
     "save": "Save",
     "saving": "Saving…",
     "saved": "Settings saved. The site updates within a few seconds."
+  },
+  "Blog": {
+    "eyebrow": "Blog",
+    "title": "Our news",
+    "subtitle": "What we do in the field, our projects and our advice for farmers.",
+    "metaTitle": "Blog — SoilStack",
+    "metaDescription": "News from SoilStack: projects, field work and farming advice in the DRC.",
+    "empty": "No articles yet. Come back soon!",
+    "noMore": "There are no more articles.",
+    "pagination": "Blog pages",
+    "newer": "Newer",
+    "older": "Older",
+    "page": "Page {page}",
+    "readingTime": "{minutes} min read",
+    "back": "All articles",
+    "tags": "Tags",
+    "related": "Read also",
+    "allPosts": "All articles"
+  },
+  "RichText": {
+    "toolbar": "Text formatting",
+    "bold": "Bold",
+    "italic": "Italic",
+    "heading2": "Heading",
+    "heading3": "Subheading",
+    "bulletList": "Bulleted list",
+    "orderedList": "Numbered list",
+    "quote": "Quote",
+    "separator": "Separator",
+    "link": "Link",
+    "image": "Image",
+    "undo": "Undo",
+    "redo": "Redo",
+    "linkPrompt": "Link address (https://…, mailto:…, tel:… or /fr/page). Leave empty to remove the link.",
+    "linkInvalid": "This link isn’t allowed. Use https://, mailto:, tel: or a site page starting with /."
+  },
+  "BlogAdmin": {
+    "title": "Blog",
+    "subtitle": "Articles about what SoilStack is doing. Write a draft in both languages, then publish.",
+    "accessDenied": "You don’t have access to this page.",
+    "newPost": "New article",
+    "newPostDescription": "Start with a French title; you’ll add the English version and the text next.",
+    "titleFr": "Title (French)",
+    "create": "Create",
+    "creating": "Creating…",
+    "empty": "No articles yet.",
+    "searchPlaceholder": "Search articles…",
+    "titleHeader": "Article",
+    "statusHeader": "Status",
+    "authorHeader": "Author",
+    "updatedHeader": "Last edited",
+    "allStatuses": "All",
+    "statusDraft": "Draft",
+    "statusPublished": "Published",
+    "edit": "Edit",
+    "view": "View",
+    "untitled": "Untitled",
+    "back": "Back to articles",
+    "byAuthor": "By {name}",
+    "unsaved": "Unsaved changes",
+    "readOnly": "You can view this article but not change it: published articles are edited by editors, and drafts by their author.",
+    "fields": {
+      "title": "Title",
+      "slug": "Address",
+      "excerpt": "Summary (shown on the blog list)",
+      "cover": "Cover photo",
+      "tags": "Tags",
+      "body": "Text"
+    },
+    "slugHint": "Lowercase letters, digits and hyphens. Follows the title until you change it.",
+    "slugPublishedHint": "Changing the address of a published article breaks links shared before.",
+    "tagsPlaceholder": "maize, soil, Kivu",
+    "tagsHint": "Separated by commas, up to 8.",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Draft saved.",
+    "savedLive": "Saved. The article updates on the site within a few seconds.",
+    "publish": "Publish",
+    "publishing": "Publishing…",
+    "publishedToast": "Published. The article appears on the blog within a few seconds.",
+    "unpublish": "Unpublish",
+    "unpublishedToast": "Unpublished: the article is a draft again.",
+    "missingBeforePublish": "Missing before publishing: {fields}.",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this draft for good?",
+    "deleted": "Article deleted.",
+    "preview": "Preview",
+    "previewTitle": "Preview ({lang}) · as on the site"
   }
 }

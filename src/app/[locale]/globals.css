@@ -80,3 +80,40 @@
     @apply bg-background text-foreground font-sans;
   }
 }
+
+/* Article body (src/components/site/rich-text.tsx): readable on phones. */
+@layer components {
+  .rich-text {
+    @apply flex flex-col gap-5 text-[1.0625rem] leading-relaxed text-foreground/90;
+  }
+  .rich-text h2 {
+    @apply mt-6 text-2xl font-semibold tracking-tight text-foreground;
+  }
+  .rich-text h3 {
+    @apply mt-4 text-xl font-semibold tracking-tight text-foreground;
+  }
+  .rich-text ul {
+    @apply flex list-disc flex-col gap-2 pl-6;
+  }
+  .rich-text ol {
+    @apply flex list-decimal flex-col gap-2 pl-6;
+  }
+  .rich-text li > p {
+    @apply inline;
+  }
+  .rich-text a {
+    @apply font-medium text-leaf underline underline-offset-4;
+  }
+  .rich-text blockquote {
+    @apply border-l-4 border-leaf pl-4 text-muted-foreground italic;
+  }
+  .rich-text hr {
+    @apply my-4 border-border;
+  }
+  .rich-text figure {
+    @apply my-2 flex flex-col gap-2;
+  }
+  .rich-text figcaption {
+    @apply text-center text-sm text-muted-foreground;
+  }
+}
