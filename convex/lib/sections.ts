@@ -3,6 +3,7 @@ import type { Id } from "../_generated/dataModel";
 import { appError } from "./errors";
 import { locValidator, type Loc } from "./i18n";
 import type { MediaRef, PublicImage } from "./media";
+import type { PostCard } from "./posts";
 import { pageKeyValidator } from "./pages";
 
 /**
@@ -116,6 +117,14 @@ export const contactInfoSection = v.object({
   intro: optionalLoc,
 });
 
+export const latestPostsSection = v.object({
+  ...base,
+  type: v.literal("latestPosts"),
+  title: locValidator,
+  intro: optionalLoc,
+  count: v.number(),
+});
+
 export const sectionValidator = v.union(
   heroSection,
   featureGridSection,
@@ -125,6 +134,7 @@ export const sectionValidator = v.union(
   statsSection,
   ctaSection,
   contactInfoSection,
+  latestPostsSection,
 );
 export type Section = Infer<typeof sectionValidator>;
 export type SectionType = Section["type"];
@@ -138,6 +148,7 @@ export const SECTION_TYPES: readonly SectionType[] = [
   "stats",
   "cta",
   "contactInfo",
+  "latestPosts",
 ];
 
 export const seoValidator = v.object({ title: locValidator, description: locValidator });
@@ -155,6 +166,8 @@ export const SECTION_LIMITS = {
   statItems: 4,
   seoTitle: 70,
   seoDescription: 200,
+  latestPostsMin: 3,
+  latestPostsMax: 6,
 } as const;
 
 const URL_PATTERN = /^(https:\/\/[^\s]+|mailto:[^\s@]+@[^\s@]+|tel:\+?[0-9 ()-]{3,})$/;
@@ -249,6 +262,17 @@ export function validateSections(sections: readonly Section[]) {
         checkLoc(section.title, S, "Title");
         checkLoc(section.intro, L, "Intro");
         break;
+      case "latestPosts":
+        checkLoc(section.title, S, "Title");
+        checkLoc(section.intro, L, "Intro");
+        if (
+          !Number.isInteger(section.count) ||
+          section.count < SECTION_LIMITS.latestPostsMin ||
+          section.count > SECTION_LIMITS.latestPostsMax
+        ) {
+          fail("Number of posts must be between 3 and 6.");
+        }
+        break;
     }
   }
 }
@@ -293,12 +317,22 @@ export type PublicContact = {
 
 type ImageLookup = (id: Id<"media"> | undefined) => PublicImage | null;
 
+/** True when a section needs the latest blog posts. */
+export function needsLatestPosts(sections: readonly Section[]) {
+  return sections.some((s) => s.type === "latestPosts" && !s.hidden);
+}
+
 /**
  * Sections as the public site renders them: images resolved, hidden
- * sections removed, contact sections filled. Pure, so the admin preview
- * runs the very same code on the draft.
+ * sections removed, contact and latest-posts sections filled. Pure, so the
+ * admin preview runs the very same code on the draft.
  */
-export function resolveSections(sections: readonly Section[], image: ImageLookup, contact: PublicContact) {
+export function resolveSections(
+  sections: readonly Section[],
+  image: ImageLookup,
+  contact: PublicContact,
+  latestPosts: readonly PostCard[] = [],
+) {
   return sections
     .filter((section) => !section.hidden)
     .map((section) => {
@@ -315,6 +349,8 @@ export function resolveSections(sections: readonly Section[], image: ImageLookup
           return { ...section, cards: section.cards.map((card) => ({ ...card, image: image(card.image) })) };
         case "contactInfo":
           return { ...section, contact };
+        case "latestPosts":
+          return { ...section, posts: latestPosts.slice(0, section.count) };
         default:
           return section;
       }
@@ -345,5 +381,7 @@ export function newSection(type: SectionType): Section {
       return { ...common, type, title: empty(), button: { label: empty(), link: { kind: "page", page: "contact" } } };
     case "contactInfo":
       return { ...common, type, title: empty() };
+    case "latestPosts":
+      return { ...common, type, title: { fr: "Nos dernières actualités", en: "Latest news" }, count: 3 };
   }
 }

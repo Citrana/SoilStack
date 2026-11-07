@@ -8,8 +8,10 @@ import { DEFAULT_PAGES } from "./lib/defaultContent";
 import { appError } from "./lib/errors";
 import { publicImage, setMediaUsages, type PublicImage } from "./lib/media";
 import { PAGE_KEYS, pageKeyValidator, pageTag, type PageKey } from "./lib/pages";
+import { latestPublished, toPostCard } from "./lib/posts";
 import { authedMutation, authedQuery, type AuthedMutationCtx } from "./lib/rbac";
 import {
+  needsLatestPosts,
   resolveSections,
   sectionMediaIds,
   sectionMediaRefs,
@@ -215,10 +217,13 @@ export const getPublished = query({
     const { sections, seo } = page.published;
     const images = await imageMap(ctx, sectionMediaIds(sections));
     const contact = toPublicContact(await loadSettings(ctx));
+    const latestPosts = needsLatestPosts(sections)
+      ? await Promise.all((await latestPublished(ctx, 6)).map((post) => toPostCard(ctx, post)))
+      : [];
     return {
       key,
       seo,
-      sections: resolveSections(sections, (id) => (id ? (images.get(id) ?? null) : null), contact),
+      sections: resolveSections(sections, (id) => (id ? (images.get(id) ?? null) : null), contact, latestPosts),
       publishedAt: page.publishedAt ?? null,
     };
   },
