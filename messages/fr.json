@@ -319,7 +319,8 @@
       "projects": "Projets",
       "contact": "Contact",
       "openMenu": "Ouvrir le menu",
-      "closeMenu": "Fermer le menu"
+      "closeMenu": "Fermer le menu",
+      "blog": "Blog"
     },
     "contact": {
       "phone": "Téléphone",
@@ -380,7 +381,8 @@
       "bento": "Cartes",
       "stats": "Chiffres clés",
       "cta": "Appel à l’action",
-      "contactInfo": "Coordonnées"
+      "contactInfo": "Coordonnées",
+      "latestPosts": "Derniers articles"
     },
     "descriptions": {
       "hero": "Badge, grand titre, texte court, boutons et une grande photo.",
@@ -390,7 +392,8 @@
       "bento": "Jusqu’à 4 grandes cartes : vert foncé, vert clair ou photo.",
       "stats": "Jusqu’à 4 chiffres clés.",
       "cta": "Un bandeau vert avec un titre et un bouton.",
-      "contactInfo": "Affiche le téléphone, WhatsApp, l’e-mail et l’adresse des Paramètres."
+      "contactInfo": "Affiche le téléphone, WhatsApp, l’e-mail et l’adresse des Paramètres.",
+      "latestPosts": "Les derniers articles du blog, mis à jour automatiquement."
     },
     "fields": {
       "eyebrow": "Badge (petit texte au-dessus du titre)",
@@ -422,7 +425,9 @@
       "addFigure": "Ajouter un chiffre",
       "value": "Valeur (ex. 120+)",
       "label": "Libellé",
-      "contactInfoHint": "Les coordonnées elles-mêmes se modifient dans Paramètres."
+      "contactInfoHint": "Les coordonnées elles-mêmes se modifient dans Paramètres.",
+      "postCount": "Nombre d’articles",
+      "latestPostsHint": "Les articles affichés sont les derniers publiés sur le blog."
     },
     "icons": {
       "Sprout": "Pousse",
@@ -490,5 +495,23 @@
     "save": "Enregistrer",
     "saving": "Enregistrement…",
     "saved": "Paramètres enregistrés. Le site se met à jour en quelques secondes."
+  },
+  "Blog": {
+    "eyebrow": "Blog",
+    "title": "Nos actualités",
+    "subtitle": "Ce que nous faisons sur le terrain, nos projets et nos conseils pour les agriculteurs.",
+    "metaTitle": "Blog — SoilStack",
+    "metaDescription": "Les actualités de SoilStack : projets, terrain et conseils agricoles en RDC.",
+    "empty": "Aucun article pour l’instant. Revenez bientôt !",
+    "noMore": "Il n’y a plus d’articles.",
+    "pagination": "Pages du blog",
+    "newer": "Plus récents",
+    "older": "Plus anciens",
+    "page": "Page {page}",
+    "readingTime": "{minutes} min de lecture",
+    "back": "Tous les articles",
+    "tags": "Mots-clés",
+    "related": "À lire aussi",
+    "allPosts": "Tous les articles"
   }
 }

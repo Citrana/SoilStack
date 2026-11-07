@@ -221,6 +221,30 @@ function ContactInfoEditor(props: EditorProps<"contactInfo">) {
   );
 }
 
+function LatestPostsEditor(props: EditorProps<"latestPosts">) {
+  const t = useTranslations("Sections.fields");
+  const { section } = props;
+  const set = useSet(props);
+  const id = section.id;
+  return (
+    <>
+      <LocalizedField id={`${id}-title`} label={t("title")} value={section.title} onChange={(v) => set("title", v)} />
+      <LocalizedField id={`${id}-intro`} label={t("intro")} value={section.intro ?? EMPTY_LOC} onChange={(v) => set("intro", optional(v))} multiline />
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor={`${id}-count`}>{t("postCount")}</Label>
+        <NativeSelect id={`${id}-count`} value={section.count} onChange={(e) => set("count", Number(e.target.value))}>
+          {[3, 4, 5, 6].map((n) => (
+            <option key={n} value={n}>
+              {n}
+            </option>
+          ))}
+        </NativeSelect>
+      </div>
+      <p className="text-sm text-muted-foreground">{t("latestPostsHint")}</p>
+    </>
+  );
+}
+
 /** The fields of one section, by type. */
 export function SectionFields({
   section,
@@ -248,5 +272,7 @@ export function SectionFields({
       return <CtaEditor section={section} onChange={onChange} images={images} />;
     case "contactInfo":
       return <ContactInfoEditor section={section} onChange={onChange} images={images} />;
+    case "latestPosts":
+      return <LatestPostsEditor section={section} onChange={onChange} images={images} />;
   }
 }

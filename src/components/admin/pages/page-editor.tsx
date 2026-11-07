@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { api } from "../../../../convex/_generated/api";
 import { isPageKey, type PageKey } from "../../../../convex/lib/pages";
 import {
+  needsLatestPosts,
   newSection,
   resolveSections,
   SECTION_TYPES,
@@ -173,6 +174,7 @@ function Editor({ pageKey, initial, meta }: { pageKey: PageKey; initial: Draft; 
   const mediaIds = useMemo(() => sectionMediaIds(draft.sections), [draft.sections]);
   const images = useQuery(api.media.publicImages, mediaIds.length ? { mediaIds } : "skip") ?? {};
   const settings = useQuery(api.settings.getPublic) ?? EMPTY_SETTINGS;
+  const latest = useQuery(api.posts.listPublished, preview && needsLatestPosts(draft.sections) ? { page: 1 } : "skip");
 
   const setSections = (sections: Section[]) => setDraft((d) => ({ ...d, sections }));
   const updateSection = (index: number, section: Section) => setSections(draft.sections.map((s, i) => (i === index ? section : s)));
@@ -210,7 +212,7 @@ function Editor({ pageKey, initial, meta }: { pageKey: PageKey; initial: Draft; 
   }
 
   const previewSections = preview
-    ? resolveSections(draft.sections, (id) => (id ? (images[id] ?? null) : null), toPublicContact(settings))
+    ? resolveSections(draft.sections, (id) => (id ? (images[id] ?? null) : null), toPublicContact(settings), latest?.posts ?? [])
     : [];
   const dateFormat = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short" });
 

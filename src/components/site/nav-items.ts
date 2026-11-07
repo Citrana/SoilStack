@@ -7,4 +7,5 @@ export const SITE_NAV = [
   { key: "solutions", href: PAGE_PATHS.solutions },
   { key: "innovation", href: PAGE_PATHS.innovation },
   { key: "projects", href: PAGE_PATHS.projects },
+  { key: "blog", href: "/blog" },
 ] as const;
