@@ -25,6 +25,14 @@ Shared server-side helpers, not routable Convex functions themselves.
   `MEDIA_BROWSE_PERMISSIONS`, `setMediaUsages` / `clearMediaUsages` (the
   usage registry every image-storing feature writes), `mediaUsedBy`, and
   `publicImage` (what public queries return for an image).
+- `richText.ts` — the rich-text allow-list: `sanitizeRichText` (the only
+  way rich text gets stored), `richTextMediaIds`, `plainText`,
+  `readingMinutes`, `isAllowedHref`, validators.
+- `posts.ts` — blog helpers: `slugify` / `cleanSlug`, `cleanTags`, limits,
+  `PostCard` + `toPostCard`, `latestPublished`, cache tags.
+- `pages.ts` / `sections.ts` / `settings.ts` / `defaultContent.ts` — page
+  keys and paths, the typed sections (validation, `resolveSections`),
+  site settings rules, and the seeded starter content.
 - `i18n.ts` — `locValidator` (`{ fr, en }`), `pickLoc`, `trimLoc`.
 - `password.ts` — `generateStrongPassword` (admin-created accounts and
   resets) and `MIN_PASSWORD_LENGTH` (shared with the UI).
