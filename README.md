@@ -40,7 +40,15 @@ pnpm dlx convex dev
 > `pnpm dlx convex login` and then `pnpm dlx convex dev` to link it to
 > your Convex account and a cloud project.
 
-Then, in a second terminal, run the app:
+Then, in a second terminal, seed the reference data (permissions, the
+Super Admin role and the starter roles) — safe to run any number of times,
+and worth re-running after pulling changes:
+
+```bash
+pnpm dlx convex run seed:seedReferenceData
+```
+
+Then run the app:
 
 ```bash
 pnpm dev
@@ -48,6 +56,33 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) — it redirects to
 `/fr` (or `/en` for an English browser).
+
+## Authentication setup (first time only, per deployment)
+
+The admin lives at `/fr/admin` (or `/en/admin`). There is no public
+sign-up: accounts are created by an administrator.
+
+1. **Signing keys.** Convex Auth needs `JWT_PRIVATE_KEY`, `JWKS` and
+   `SITE_URL` on the deployment. The simplest way is
+   `pnpm dlx @convex-dev/auth --web-server-url http://localhost:3000`
+   (it may also offer to edit files that already exist — keep the repo's
+   versions), or follow the
+   [manual setup](https://labs.convex.dev/auth/setup/manual). Check with
+   `pnpm dlx convex env list`.
+2. **First Super Admin.** Set who it is, then run the seed once:
+
+   ```bash
+   pnpm dlx convex env set SUPER_ADMIN_NAME "Your Name"
+   pnpm dlx convex env set SUPER_ADMIN_EMAIL you@example.com
+   pnpm dlx convex run seed:seedSuperAdmin
+   ```
+
+   The output shows a **temporary password, once**. Log in at
+   `/fr/admin/login` with it; you'll be asked to choose your own. Running
+   it again does nothing once a Super Admin exists.
+3. **Everyone else**: the Super Admin creates their accounts in
+   **Users** and shares the temporary password shown once. A forgotten
+   password is reset there too.
 
 ## Scripts
 
