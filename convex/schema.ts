@@ -3,6 +3,9 @@ import { v } from "convex/values";
 import { authTables } from "@convex-dev/auth/server";
 import { auditActionValidator } from "./lib/audit";
 import { locValidator } from "./lib/i18n";
+import { pageKeyValidator } from "./lib/pages";
+import { sectionValidator, seoValidator } from "./lib/sections";
+import { settingsFields } from "./lib/settings";
 
 /**
  * Single source of truth for every table. Tables are added feature by
@@ -82,6 +85,23 @@ export default defineSchema({
   })
     .index("by_mediaId", ["mediaId"])
     .index("by_ownerTable_and_ownerId", ["ownerTable", "ownerId"]),
+
+  // The six company pages (convex/lib/pages.ts), seeded once, never
+  // deleted. Edits go to `draft`; publishing copies it to `published`.
+  pages: defineTable({
+    key: pageKeyValidator,
+    draft: v.object({ seo: seoValidator, sections: v.array(sectionValidator) }),
+    published: v.union(
+      v.object({ seo: seoValidator, sections: v.array(sectionValidator) }),
+      v.null(),
+    ),
+    publishedAt: v.optional(v.number()),
+    updatedAt: v.number(),
+    updatedBy: v.union(v.id("users"), v.null()),
+  }).index("by_key", ["key"]),
+
+  // Single row: contact details, social links, footer (all public).
+  siteSettings: defineTable(settingsFields),
 
   // Append-only (CLAUDE.md, "Audit logging"). Written only by logAudit.
   auditLogs: defineTable({

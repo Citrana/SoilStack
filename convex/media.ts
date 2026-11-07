@@ -7,6 +7,8 @@ import {
   MEDIA_BROWSE_PERMISSIONS,
   MEDIA_LIMITS,
   mediaUsedBy,
+  publicImage,
+  type PublicImage,
 } from "./lib/media";
 import { authedMutation, authedQuery } from "./lib/rbac";
 
@@ -180,5 +182,22 @@ export const remove = authedMutation({
       before: snapshot(media, ["filename", "alt", "mimeType", "size", "width", "height"]),
     });
     return null;
+  },
+});
+
+/**
+ * Images as the public site sees them, for the admin's live preview of an
+ * unsaved draft. Unknown ids are left out.
+ */
+export const publicImages = authedQuery({
+  args: { mediaIds: v.array(v.id("media")) },
+  handler: async (ctx, { mediaIds }) => {
+    await ctx.requireAnyPermission(MEDIA_BROWSE_PERMISSIONS);
+    const images: Record<string, PublicImage> = {};
+    for (const id of [...new Set(mediaIds)].slice(0, 100)) {
+      const image = await publicImage(ctx, id);
+      if (image) images[id] = image;
+    }
+    return images;
   },
 });
