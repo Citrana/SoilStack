@@ -3,11 +3,6 @@
     "title": "SoilStack — Agri-tech en RDC",
     "description": "SoilStack accompagne les agriculteurs de la RDC avec des solutions agricoles innovantes et durables."
   },
-  "Home": {
-    "eyebrow": "Agri-tech en RDC",
-    "title": "Cultiver l'avenir de l'agriculture congolaise",
-    "subtitle": "Le site SoilStack est en construction."
-  },
   "LocaleSwitcher": {
     "label": "Langue",
     "fr": "Français",
@@ -307,5 +302,31 @@
     "pickTitle": "Choisir une image",
     "pickDescription": "Choisissez une image de la bibliothèque ou téléversez-en une nouvelle.",
     "pickConfirm": "Utiliser cette image"
+  },
+  "Site": {
+    "nav": {
+      "label": "Navigation principale",
+      "home": "Accueil",
+      "about": "À propos",
+      "solutions": "Solutions",
+      "innovation": "Innovation",
+      "projects": "Projets",
+      "contact": "Contact",
+      "openMenu": "Ouvrir le menu",
+      "closeMenu": "Fermer le menu"
+    },
+    "contact": {
+      "phone": "Téléphone",
+      "whatsapp": "WhatsApp",
+      "email": "E-mail",
+      "address": "Adresse",
+      "soon": "Nos coordonnées seront bientôt disponibles."
+    },
+    "footer": {
+      "pages": "Pages",
+      "contact": "Contact",
+      "rights": "© SoilStack. Tous droits réservés.",
+      "admin": "Administration"
+    }
   }
 }

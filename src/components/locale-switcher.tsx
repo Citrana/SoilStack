@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 /** FR / EN toggle that keeps the visitor on the same page. */
-export function LocaleSwitcher({ className }: { className?: string }) {
+export function LocaleSwitcher({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
   const t = useTranslations("LocaleSwitcher");
   const locale = useLocale();
   const router = useRouter();
@@ -18,7 +18,11 @@ export function LocaleSwitcher({ className }: { className?: string }) {
     <div
       role="group"
       aria-label={t("label")}
-      className={cn("inline-flex rounded-full border bg-card p-0.5 text-xs", className)}
+      className={cn(
+        "inline-flex rounded-full border p-0.5 text-xs",
+        tone === "dark" ? "border-white/15 bg-white/5" : "bg-card",
+        className,
+      )}
     >
       {routing.locales.map((loc: Locale) => (
         <button
@@ -37,8 +41,12 @@ export function LocaleSwitcher({ className }: { className?: string }) {
           className={cn(
             "min-h-9 min-w-11 rounded-full px-3 font-medium uppercase transition-colors",
             loc === locale
-              ? "bg-primary text-primary-foreground"
-              : "text-muted-foreground hover:text-foreground",
+              ? tone === "dark"
+                ? "bg-white text-ink"
+                : "bg-primary text-primary-foreground"
+              : tone === "dark"
+                ? "text-white/70 hover:text-white"
+                : "text-muted-foreground hover:text-foreground",
           )}
         >
           {loc}

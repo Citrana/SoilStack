@@ -3,11 +3,6 @@
     "title": "SoilStack — Agri-tech in the DRC",
     "description": "SoilStack supports farmers in the DRC with innovative, sustainable agricultural solutions."
   },
-  "Home": {
-    "eyebrow": "Agri-tech in the DRC",
-    "title": "Growing the future of Congolese agriculture",
-    "subtitle": "The SoilStack website is under construction."
-  },
   "LocaleSwitcher": {
     "label": "Language",
     "fr": "Français",
@@ -307,5 +302,31 @@
     "pickTitle": "Choose an image",
     "pickDescription": "Pick an image from the library, or upload a new one.",
     "pickConfirm": "Use this image"
+  },
+  "Site": {
+    "nav": {
+      "label": "Main navigation",
+      "home": "Home",
+      "about": "About",
+      "solutions": "Solutions",
+      "innovation": "Innovation",
+      "projects": "Projects",
+      "contact": "Contact",
+      "openMenu": "Open the menu",
+      "closeMenu": "Close the menu"
+    },
+    "contact": {
+      "phone": "Phone",
+      "whatsapp": "WhatsApp",
+      "email": "Email",
+      "address": "Address",
+      "soon": "Our contact details will be available soon."
+    },
+    "footer": {
+      "pages": "Pages",
+      "contact": "Contact",
+      "rights": "© SoilStack. All rights reserved.",
+      "admin": "Admin"
+    }
   }
 }
