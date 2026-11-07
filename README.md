@@ -84,6 +84,22 @@ sign-up: accounts are created by an administrator.
    **Users** and shares the temporary password shown once. A forgotten
    password is reset there too.
 
+## Instant updates after publishing (first time only, per deployment)
+
+Public pages are cached. When something is published in the admin, Convex
+tells the site to refresh it. Both sides share a secret:
+
+```bash
+# Generate one value and use it in both places.
+node -e 'console.log(require("crypto").randomBytes(32).toString("hex"))'
+pnpm dlx convex env set REVALIDATE_SECRET <value>   # Convex
+echo "REVALIDATE_SECRET=<value>" >> .env.local       # Next.js (Vercel: project env vars)
+```
+
+Convex's `SITE_URL` must point to the site (`http://localhost:3000` in
+development, the real domain in production). Without the secret, pages
+still refresh on their own within an hour.
+
 ## Scripts
 
 | Command          | What it does                                  |
