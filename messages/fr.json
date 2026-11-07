@@ -1,0 +1,21 @@
+{
+  "Metadata": {
+    "title": "SoilStack — Agri-tech en RDC",
+    "description": "SoilStack accompagne les agriculteurs de la RDC avec des solutions agricoles innovantes et durables."
+  },
+  "Home": {
+    "eyebrow": "Agri-tech en RDC",
+    "title": "Cultiver l'avenir de l'agriculture congolaise",
+    "subtitle": "Le site SoilStack est en construction."
+  },
+  "LocaleSwitcher": {
+    "label": "Langue",
+    "fr": "Français",
+    "en": "English"
+  },
+  "NotFound": {
+    "title": "Page introuvable",
+    "description": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "backHome": "Retour à l'accueil"
+  }
+}
