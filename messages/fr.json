@@ -54,7 +54,10 @@
     "OWN_ACCOUNT": "Vous ne pouvez pas faire cela sur votre propre compte.",
     "LAST_SUPER_ADMIN": "C'est le dernier super administrateur actif : gardez-en au moins un.",
     "ROLE_LOCKED": "Le rôle Super administrateur est verrouillé.",
-    "ROLE_IN_USE": "Attribuez d'abord un autre rôle aux utilisateurs de ce rôle."
+    "ROLE_IN_USE": "Attribuez d'abord un autre rôle aux utilisateurs de ce rôle.",
+    "INVALID_FILE": "Ce type de fichier n’est pas pris en charge. Utilisez JPEG, PNG, WebP ou AVIF.",
+    "FILE_TOO_LARGE": "L’image est trop lourde (5 Mo maximum).",
+    "MEDIA_IN_USE": "Cette image est encore utilisée sur le site. Retirez-la d’abord de là."
   },
   "Auth": {
     "logout": "Se déconnecter",

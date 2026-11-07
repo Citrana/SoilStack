@@ -17,6 +17,9 @@ export const ERROR_CODES = [
   "LAST_SUPER_ADMIN",
   "ROLE_LOCKED",
   "ROLE_IN_USE",
+  "INVALID_FILE",
+  "FILE_TOO_LARGE",
+  "MEDIA_IN_USE",
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

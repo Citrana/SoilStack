@@ -54,7 +54,10 @@
     "OWN_ACCOUNT": "You can't do this on your own account.",
     "LAST_SUPER_ADMIN": "This is the last active Super Admin: keep at least one.",
     "ROLE_LOCKED": "The Super Admin role is locked.",
-    "ROLE_IN_USE": "Move this role's users to another role first."
+    "ROLE_IN_USE": "Move this role's users to another role first.",
+    "INVALID_FILE": "This file type is not supported. Use JPEG, PNG, WebP or AVIF.",
+    "FILE_TOO_LARGE": "The image is too large (5 MB maximum).",
+    "MEDIA_IN_USE": "This image is still used on the site. Remove it from there first."
   },
   "Auth": {
     "logout": "Log out",
