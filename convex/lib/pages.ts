@@ -1,18 +1,12 @@
-import { v, type Infer } from "convex/values";
+/**
+ * Plain data only (no Convex imports): the public site's phone menu uses
+ * PAGE_PATHS, and anything imported here ships to every visitor. The
+ * validator lives in ./pageKey.ts.
+ */
 
 /** The company pages. Each exists exactly once (seeded) and is never deleted. */
 export const PAGE_KEYS = ["home", "about", "solutions", "innovation", "projects", "contact"] as const;
 export type PageKey = (typeof PAGE_KEYS)[number];
-
-export const pageKeyValidator = v.union(
-  v.literal("home"),
-  v.literal("about"),
-  v.literal("solutions"),
-  v.literal("innovation"),
-  v.literal("projects"),
-  v.literal("contact"),
-);
-export type PageKeyValue = Infer<typeof pageKeyValidator>;
 
 /** Internal pathname of each page (src/i18n/routing.ts localizes it). */
 export const PAGE_PATHS = {

@@ -2,12 +2,15 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Logo } from "./logo";
-import { MobileMenu } from "./mobile-menu";
+import { MobileMenu, type MobileMenuLabels } from "./mobile-menu";
 import { SITE_NAV } from "./nav-items";
 
 /** Floating dark pill navbar (as in the design reference). */
 export async function Navbar() {
   const t = await getTranslations("Site.nav");
+  const ts = await getTranslations("LocaleSwitcher");
+  const switcher = { label: ts("label"), fr: ts("fr"), en: ts("en") };
+  const nav = Object.fromEntries([...SITE_NAV.map((item) => item.key), "contact" as const].map((key) => [key, t(key)])) as MobileMenuLabels["nav"];
   return (
     <header className="fixed inset-x-0 top-3 z-50 px-3">
       <nav
@@ -27,7 +30,7 @@ export async function Navbar() {
           ))}
         </ul>
         <div className="hidden items-center gap-2 lg:flex">
-          <LocaleSwitcher tone="dark" />
+          <LocaleSwitcher tone="dark" labels={switcher} />
           <Link
             href="/contact"
             className="inline-flex h-10 items-center gap-2 rounded-full border border-white/15 px-4 text-sm hover:bg-white/10"
@@ -36,7 +39,7 @@ export async function Navbar() {
             {t("contact")}
           </Link>
         </div>
-        <MobileMenu />
+        <MobileMenu labels={{ open: t("openMenu"), close: t("closeMenu"), nav, switcher }} />
       </nav>
     </header>
   );

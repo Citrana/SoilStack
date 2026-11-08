@@ -1,14 +1,25 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import { routing, type Locale } from "@/i18n/routing";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
+/** Translated labels, passed in so public pages ship no client translations. */
+export type LocaleSwitcherLabels = { label: string; fr: string; en: string };
+
 /** FR / EN toggle that keeps the visitor on the same page. */
-export function LocaleSwitcher({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
-  const t = useTranslations("LocaleSwitcher");
+export function LocaleSwitcher({
+  labels,
+  className,
+  tone = "light",
+}: {
+  labels: LocaleSwitcherLabels;
+  className?: string;
+  tone?: "light" | "dark";
+}) {
+  const t = (key: keyof LocaleSwitcherLabels) => labels[key];
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
