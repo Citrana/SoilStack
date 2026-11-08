@@ -82,6 +82,15 @@ this repo, now and later — do not relax them for convenience.
   **own drafts**; `blog.edit_all` edits any post (published edits go live
   on save); `blog.publish` publishes/unpublishes and requires title,
   summary and text in both languages; only drafts can be deleted.
+- Products (`convex/products.ts`) follow the same model: one slug for both
+  languages (`convex/lib/slugs.ts`), status `draft | published |
+  archived`. `products.manage` creates/edits/archives products and manages
+  categories; `products.publish` publishes (needs name + short
+  description in both languages and at least one photo). Published
+  products are archived, never deleted; only drafts can be deleted, and a
+  category is deleted only when no product uses it. There is no cart or
+  checkout: product pages offer "Order on WhatsApp" (when a number is set
+  in Settings) or Contact.
 - Page sections live in `convex/lib/sections.ts` (validators,
   `validateSections`, `newSection`, and `resolveSections`, the one pure
   function both `pages.getPublished` and the admin preview use). Their
@@ -142,7 +151,10 @@ this repo, now and later — do not relax them for convenience.
 
 - Product prices are **USD only** and optional: `priceCents` is an integer
   in cents; missing means "Price on request". Never store money as a float.
-  Parse and format only with `convex/lib/money.ts`.
+  Parse and format only with `convex/lib/money.ts` (`parseUsdToCents`,
+  `formatUsd`, `centsToInput`). Input is unambiguous on purpose: spaces
+  group thousands, one `.` or `,` is the decimal separator ("12.345" is
+  refused, not guessed).
 
 ## Audit logging
 
@@ -181,6 +193,8 @@ this repo, now and later — do not relax them for convenience.
   …), never hardcoded hex values in components.
 - UI is **mobile-first**: design for ~360px wide first (tap targets ≥ 44px,
   no horizontal page scroll).
+- The public navbar shows its links from `lg` (7 entries) and the phone
+  menu below; check 1024px when adding an entry.
 - Admin forms: fields the user must fill in use `<Label required>`;
   localized fields use `<LocalizedField>` (`src/components/admin/
   localized-field.tsx`). Inputs, selects and buttons are 44px tall on
@@ -306,7 +320,11 @@ sections, footer from settings, cached with tag revalidation), the page
 editor at `/admin/pages` (FR/EN draft, live preview, publish) and
 `/admin/settings`, and the blog: public list (`/blog`, paginated) and
 article pages, a latest-posts section, and the admin at `/admin/blog`
-(TipTap editor per language, cover, tags, draft → publish).
+(TipTap editor per language, cover, tags, draft → publish), and the product
+catalogue: public `/produits` with category filters and product pages
+(gallery, price or "Price on request", WhatsApp order button, JSON-LD), a
+featured-products section, and the admin at `/admin/products` (editor,
+photos, archive) and `/admin/products/categories`.
 Next steps, one PR each into `develop`: blog, product catalogue, projects, SEO + performance,
 deployment docs.
 

@@ -28,7 +28,14 @@ Shared server-side helpers, not routable Convex functions themselves.
 - `richText.ts` — the rich-text allow-list: `sanitizeRichText` (the only
   way rich text gets stored), `richTextMediaIds`, `plainText`,
   `readingMinutes`, `isAllowedHref`, validators.
-- `posts.ts` — blog helpers: `slugify` / `cleanSlug`, `cleanTags`, limits,
+- `money.ts` — USD prices in integer cents: `parseUsdToCents`, `formatUsd`,
+  `centsToInput`, `isValidPriceCents`.
+- `slugs.ts` — `slugify` / `cleanSlug` / `SLUG_PATTERN` for posts,
+  products and categories.
+- `products.ts` — catalogue helpers: limits, `ProductCard` +
+  `toProductCard`, `publishedProducts`, `featuredProducts`, cache tags, and
+  the starter categories (one-shot seed step).
+- `posts.ts` — blog helpers: `cleanTags`, limits,
   `PostCard` + `toPostCard`, `latestPublished`, cache tags.
 - `pages.ts` / `sections.ts` / `settings.ts` / `defaultContent.ts` — page
   keys and paths, the typed sections (validation, `resolveSections`),
