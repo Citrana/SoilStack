@@ -3,6 +3,7 @@ import { api, internal } from "./_generated/api";
 import type { Id } from "./_generated/dataModel";
 import { DEFAULT_PAGES } from "./lib/defaultContent";
 import { newSection, type Section } from "./lib/sections";
+import { EMPTY_SETTINGS } from "./lib/settings";
 import { asUser, insertRole, insertUserWithRole, setupTest, type T } from "./lib/test.utils";
 
 async function setup() {
@@ -152,4 +153,41 @@ test("images used by a draft or a published page can't be deleted", async () => 
   // Published without it: free to delete.
   await asUser(t, adminId).mutation(api.pages.publish, { key: "home" });
   await asUser(t, adminId).mutation(api.media.remove, { mediaId });
+});
+
+test("resetContentToDefaults rewrites the text of every page and the tagline, keeps images and other settings, and audits", async () => {
+  const { t, adminId } = await setup();
+  const mediaId = await storeImage(t, adminId);
+  await asUser(t, adminId).mutation(api.pages.saveDraft, draftWith("Old title", { image: mediaId } as Partial<Section>));
+  await asUser(t, adminId).mutation(api.pages.publish, { key: "home" });
+  await t.run(async (ctx) => {
+    const row = (await ctx.db.query("siteSettings").first())!;
+    await ctx.db.patch("siteSettings", row._id, { phone: "+243 999 000 000", tagline: { fr: "Ancien", en: "Old" } });
+  });
+  const logsBefore = (await t.run((ctx) => ctx.db.query("auditLogs").collect())).length;
+
+  const result = await t.mutation(internal.pages.resetContentToDefaults, {});
+  expect(result.reset).toEqual(["home", "about", "solutions", "innovation", "projects", "contact", "siteSettings"]);
+
+  const home = await t.run((ctx) => ctx.db.query("pages").withIndex("by_key", (q) => q.eq("key", "home")).unique());
+  const hero = home!.published!.sections[0] as Extract<Section, { type: "hero" }>;
+  expect(hero.title).toEqual((DEFAULT_PAGES.home.sections[0] as Extract<Section, { type: "hero" }>).title);
+  expect(hero.image).toBe(mediaId);
+  expect(home!.draft).toEqual(home!.published);
+  const usages = await t.run((ctx) => ctx.db.query("mediaUsages").withIndex("by_mediaId", (q) => q.eq("mediaId", mediaId)).collect());
+  expect(usages.length).toBeGreaterThan(0);
+
+  const settings = await t.run((ctx) => ctx.db.query("siteSettings").first());
+  expect(settings!.phone).toBe("+243 999 000 000");
+  expect(settings!.tagline).toEqual(EMPTY_SETTINGS.tagline);
+
+  const logs = await t.run((ctx) => ctx.db.query("auditLogs").collect());
+  expect(logs.length - logsBefore).toBe(7);
+  expect(logs.slice(logsBefore).every((l) => l.action === "update" && l.actorId === adminId)).toBe(true);
+});
+
+test("resetContentToDefaults refuses without a Super Admin to record as the actor", async () => {
+  const t = await setupTest();
+  await t.mutation(internal.pages.seedContent, {});
+  await expect(t.mutation(internal.pages.resetContentToDefaults, {})).rejects.toThrow(/Super Admin/);
 });

@@ -35,8 +35,8 @@ export const EMPTY_SETTINGS: SiteSettings = {
   mapUrl: "",
   socials: {},
   tagline: {
-    fr: "Des sols mieux connus pour une agriculture plus productive en RDC.",
-    en: "Better-known soils for more productive farming in the DRC.",
+    fr: "La technologie agricole pour la RDC",
+    en: "Agricultural technology for the DRC",
   },
   footerText: { fr: "", en: "" },
 };

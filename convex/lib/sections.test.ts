@@ -8,6 +8,7 @@ import {
   SECTION_TYPES,
   sectionMediaIds,
   validateSections,
+  validateSeo,
   type Section,
 } from "./sections";
 
@@ -17,7 +18,10 @@ test("every section type has a blank template that validates, and so does the st
   const blanks = SECTION_TYPES.map((type) => newSection(type));
   expect(blanks.map((s) => s.type)).toEqual(SECTION_TYPES);
   expect(() => validateSections(blanks)).not.toThrow();
-  for (const key of PAGE_KEYS) expect(() => validateSections(DEFAULT_PAGES[key].sections)).not.toThrow();
+  for (const key of PAGE_KEYS) {
+    expect(() => validateSections(DEFAULT_PAGES[key].sections)).not.toThrow();
+    expect(() => validateSeo(DEFAULT_PAGES[key].seo)).not.toThrow();
+  }
 });
 
 test("validateSections rejects duplicate ids, too many items, long text and bad links", () => {

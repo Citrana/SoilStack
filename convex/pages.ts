@@ -3,11 +3,12 @@ import { internalMutation, query } from "./_generated/server";
 import type { MutationCtx, QueryCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 import { internal } from "./_generated/api";
-import { diff } from "./lib/audit";
+import { diff, logAudit } from "./lib/audit";
 import { DEFAULT_PAGES } from "./lib/defaultContent";
 import { appError } from "./lib/errors";
 import { publicImage, setMediaUsages, type PublicImage } from "./lib/media";
-import { PAGE_KEYS, pageKeyValidator, pageTag, type PageKey } from "./lib/pages";
+import { PAGE_KEYS, pageKeyValidator, pageTag, SETTINGS_TAG, type PageKey } from "./lib/pages";
+import { SUPER_ADMIN_ROLE_KEY } from "./lib/permissions";
 import { latestPublished, toPostCard } from "./lib/posts";
 import { authedMutation, authedQuery, type AuthedMutationCtx } from "./lib/rbac";
 import {
@@ -261,5 +262,115 @@ export const seedContent = internalMutation({
       created.push("siteSettings");
     }
     return { created };
+  },
+});
+
+/** The new default sections, keeping the photos already picked for a
+ * section with the same id and type (so a text reset never drops images). */
+function withImagesFrom(defaults: Section[], current: Section[]): Section[] {
+  const byId = new Map(current.map((s) => [s.id, s]));
+  return defaults.map((section) => {
+    const old = byId.get(section.id);
+    if (!old || old.type !== section.type) return section;
+    switch (section.type) {
+      case "hero":
+      case "textImage": {
+        const image = (old as typeof section).image;
+        return image ? { ...section, image } : section;
+      }
+      case "accordion":
+        return { ...section, images: (old as typeof section).images };
+      case "bento": {
+        const oldCards = (old as typeof section).cards;
+        return {
+          ...section,
+          cards: section.cards.map((card, i) => {
+            const image = oldCards[i]?.image;
+            return image ? { ...card, image } : card;
+          }),
+        };
+      }
+      default:
+        return section;
+    }
+  });
+}
+
+/**
+ * ONE-SHOT, data-rewriting: replaces the text of the six pages (draft AND
+ * published) and the footer tagline with the current defaults, keeping
+ * picked images and every other setting. Admin edits to the text are lost
+ * (the audit log keeps the old version). Run only with the owner's approval
+ * (CLAUDE.md, "Data changes"):  npx convex run pages:resetContentToDefaults
+ */
+export const resetContentToDefaults = internalMutation({
+  args: {},
+  returns: v.object({ reset: v.array(v.string()) }),
+  handler: async (ctx) => {
+    const role = await ctx.db
+      .query("roles")
+      .withIndex("by_key", (q) => q.eq("key", SUPER_ADMIN_ROLE_KEY))
+      .unique();
+    const actor = role
+      ? await ctx.db
+          .query("users")
+          .withIndex("by_roleId", (q) => q.eq("roleId", role._id))
+          .first()
+      : null;
+    if (!actor) {
+      throw appError("NOT_FOUND", "No Super Admin to record as the actor. Run seed:seedSuperAdmin first.");
+    }
+
+    const reset: string[] = [];
+    const now = Date.now();
+    for (const key of PAGE_KEYS) {
+      const page = await ctx.db
+        .query("pages")
+        .withIndex("by_key", (q) => q.eq("key", key))
+        .unique();
+      if (!page) continue; // seedContent creates missing pages
+      const current = page.published ?? page.draft;
+      const content = {
+        seo: DEFAULT_PAGES[key].seo,
+        sections: withImagesFrom(DEFAULT_PAGES[key].sections, current.sections),
+      };
+      await ctx.db.patch("pages", page._id, {
+        draft: content,
+        published: content,
+        publishedAt: now,
+        updatedAt: now,
+        updatedBy: null,
+      });
+      await syncMediaUsages(ctx, { ...page, draft: content, published: content });
+      await logAudit(ctx, {
+        actorId: actor._id,
+        action: "update",
+        entityTable: "pages",
+        entityId: page._id,
+        before: auditSummary(key, current),
+        after: { ...auditSummary(key, content), resetToDefaults: true },
+      });
+      reset.push(key);
+    }
+
+    const settings = await ctx.db.query("siteSettings").first();
+    if (settings) {
+      const changes = diff({ tagline: settings.tagline }, { tagline: EMPTY_SETTINGS.tagline });
+      if (changes) {
+        await ctx.db.patch("siteSettings", settings._id, { tagline: EMPTY_SETTINGS.tagline });
+        await logAudit(ctx, {
+          actorId: actor._id,
+          action: "update",
+          entityTable: "siteSettings",
+          entityId: settings._id,
+          before: changes.before,
+          after: changes.after,
+        });
+        reset.push("siteSettings");
+      }
+    }
+
+    await notify(ctx, [...PAGE_KEYS.map(pageTag), SETTINGS_TAG]);
+    return { reset };
   },
 });
