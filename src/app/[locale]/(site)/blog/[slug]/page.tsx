@@ -6,8 +6,11 @@ import { getFormatter, getTranslations, setRequestLocale } from "next-intl/serve
 import { notFound } from "next/navigation";
 import { getPathname, Link } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
+import { baseOpenGraph } from "@/lib/metadata";
 import { getPost, getPublishedSlugs } from "@/lib/content";
+import { JsonLd } from "@/components/site/json-ld";
 import { PostCard } from "@/components/site/post-card";
+import { absoluteUrl } from "@/lib/site-url";
 import { RichText } from "@/components/site/rich-text";
 import { SectionImage } from "@/components/site/sections/section-image";
 import { t as pick } from "@/components/site/sections/text";
@@ -34,6 +37,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/blog/[sl
       languages: Object.fromEntries(routing.locales.map((l) => [l, getPathname({ locale: l, href })])),
     },
     openGraph: {
+      ...baseOpenGraph(locale),
       type: "article",
       title: pick(post.title, locale),
       description: pick(post.excerpt, locale),
@@ -50,8 +54,19 @@ async function Article({ locale, params }: { locale: Locale; params: PageProps<"
   if (!post) notFound();
   const t = await getTranslations({ locale, namespace: "Blog" });
   const format = await getFormatter({ locale });
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: pick(post.title, locale),
+    description: pick(post.excerpt, locale),
+    datePublished: new Date(post.publishedAt).toISOString(),
+    inLanguage: locale,
+    ...(post.cover ? { image: [post.cover.url] } : {}),
+    publisher: { "@type": "Organization", name: "SoilStack", logo: { "@type": "ImageObject", url: absoluteUrl("/icon.svg") } },
+  };
   return (
     <article>
+      <JsonLd data={jsonLd} />
       <header className="mx-auto flex max-w-3xl flex-col gap-5">
         <Link href="/blog" className="inline-flex min-h-11 items-center gap-1 self-start text-sm text-muted-foreground hover:text-foreground">
           <ArrowLeft className="size-4" aria-hidden />

@@ -6,8 +6,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPathname, Link } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
+import { baseOpenGraph } from "@/lib/metadata";
 import { getProduct, getProductSlugs, getSettings } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { JsonLd } from "@/components/site/json-ld";
 import { Price } from "@/components/site/price";
 import { ProductCard } from "@/components/site/product-card";
 import { RichText } from "@/components/site/rich-text";
@@ -40,6 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: Object.fromEntries(routing.locales.map((l) => [l, getPathname({ locale: l, href })])),
     },
     openGraph: {
+      ...baseOpenGraph(locale),
       title: pick(product.name, locale),
       description: pick(product.shortDescription, locale),
       ...(product.image ? { images: [{ url: product.image.url, width: product.image.width, height: product.image.height }] } : {}),
@@ -61,8 +64,7 @@ function ProductJsonLd({ product, locale }: { product: NonNullable<Awaited<Retur
       ? { offers: { "@type": "Offer", price: (product.priceCents / 100).toFixed(2), priceCurrency: "USD", availability: "https://schema.org/InStock" } }
       : {}),
   };
-  // "<" escaped so text can never close the script tag.
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
+  return <JsonLd data={data} />;
 }
 
 async function Product({ locale, params, searchParams }: { locale: Locale; params: Props["params"]; searchParams: Props["searchParams"] }) {
