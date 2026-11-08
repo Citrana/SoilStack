@@ -324,7 +324,8 @@
       "contact": "Contact",
       "openMenu": "Open the menu",
       "closeMenu": "Close the menu",
-      "blog": "Blog"
+      "blog": "Blog",
+      "products": "Products"
     },
     "contact": {
       "phone": "Phone",
@@ -386,7 +387,8 @@
       "stats": "Key figures",
       "cta": "Call to action",
       "contactInfo": "Contact details",
-      "latestPosts": "Latest posts"
+      "latestPosts": "Latest posts",
+      "featuredProducts": "Featured products"
     },
     "descriptions": {
       "hero": "Badge, big title, short text, buttons and a wide photo.",
@@ -397,7 +399,8 @@
       "stats": "Up to 4 key figures.",
       "cta": "A green band with a title and a button.",
       "contactInfo": "Shows the phone, WhatsApp, email and address from Settings.",
-      "latestPosts": "The newest blog articles, updated automatically."
+      "latestPosts": "The newest blog articles, updated automatically.",
+      "featuredProducts": "Featured products (or the newest ones), updated automatically."
     },
     "fields": {
       "eyebrow": "Badge (small text above the title)",
@@ -431,7 +434,9 @@
       "label": "Label",
       "contactInfoHint": "The details themselves are edited in Settings.",
       "postCount": "Number of posts",
-      "latestPostsHint": "Shows the most recently published blog articles."
+      "latestPostsHint": "Shows the most recently published blog articles.",
+      "productCount": "Number of products",
+      "featuredProductsHint": "Tick “Featured” on a product to show it here."
     },
     "icons": {
       "Sprout": "Sprout",
@@ -587,5 +592,25 @@
     "deleted": "Article deleted.",
     "preview": "Preview",
     "previewTitle": "Preview ({lang}) · as on the site"
+  },
+  "Products": {
+    "eyebrow": "Products",
+    "title": "Our products",
+    "subtitle": "Fertilizers, seeds, tools and crop protection, for small and large farms alike.",
+    "metaTitle": "Products — SoilStack",
+    "metaDescription": "The SoilStack catalogue: fertilizers, seeds, tools and crop protection in the DRC.",
+    "categories": "Categories",
+    "all": "All",
+    "empty": "No products in this category yet.",
+    "priceOnRequest": "Price on request",
+    "allProducts": "All products",
+    "back": "All products",
+    "photo": "Photo {n}",
+    "orderWhatsapp": "Order on WhatsApp",
+    "contactUs": "Contact us",
+    "orderHint": "No online payment: our team confirms availability, price and delivery with you.",
+    "orderMessage": "Hello SoilStack, I’m interested in “{name}” ({path}).",
+    "related": "In the same category",
+    "emptyAll": "No products yet. Come back soon!"
   }
 }

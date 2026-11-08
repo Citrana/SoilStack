@@ -12,12 +12,12 @@ export async function Navbar() {
     <header className="fixed inset-x-0 top-3 z-50 px-3">
       <nav
         aria-label={t("label")}
-        className="relative mx-auto flex h-14 max-w-4xl items-center justify-between gap-2 rounded-full bg-ink/95 pr-1.5 pl-5 text-white shadow-lg ring-1 ring-white/10 backdrop-blur"
+        className="relative mx-auto flex h-14 max-w-5xl items-center justify-between gap-2 rounded-full bg-ink/95 pr-1.5 pl-5 text-white shadow-lg ring-1 ring-white/10 backdrop-blur"
       >
         <Link href="/" className="flex min-h-11 items-center" aria-label={t("home")}>
           <Logo />
         </Link>
-        <ul className="hidden items-center gap-1 text-sm md:flex">
+        <ul className="hidden items-center gap-0.5 text-sm lg:flex">
           {SITE_NAV.filter((item) => item.key !== "home").map(({ key, href }) => (
             <li key={key}>
               <Link href={href} className="rounded-full px-3 py-2 text-white/80 transition-colors hover:text-white">
@@ -26,7 +26,7 @@ export async function Navbar() {
             </li>
           ))}
         </ul>
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <LocaleSwitcher tone="dark" />
           <Link
             href="/contact"

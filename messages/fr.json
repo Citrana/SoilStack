@@ -324,7 +324,8 @@
       "contact": "Contact",
       "openMenu": "Ouvrir le menu",
       "closeMenu": "Fermer le menu",
-      "blog": "Blog"
+      "blog": "Blog",
+      "products": "Produits"
     },
     "contact": {
       "phone": "Téléphone",
@@ -386,7 +387,8 @@
       "stats": "Chiffres clés",
       "cta": "Appel à l’action",
       "contactInfo": "Coordonnées",
-      "latestPosts": "Derniers articles"
+      "latestPosts": "Derniers articles",
+      "featuredProducts": "Produits en vedette"
     },
     "descriptions": {
       "hero": "Badge, grand titre, texte court, boutons et une grande photo.",
@@ -397,7 +399,8 @@
       "stats": "Jusqu’à 4 chiffres clés.",
       "cta": "Un bandeau vert avec un titre et un bouton.",
       "contactInfo": "Affiche le téléphone, WhatsApp, l’e-mail et l’adresse des Paramètres.",
-      "latestPosts": "Les derniers articles du blog, mis à jour automatiquement."
+      "latestPosts": "Les derniers articles du blog, mis à jour automatiquement.",
+      "featuredProducts": "Les produits mis en vedette (ou les plus récents), mis à jour automatiquement."
     },
     "fields": {
       "eyebrow": "Badge (petit texte au-dessus du titre)",
@@ -431,7 +434,9 @@
       "label": "Libellé",
       "contactInfoHint": "Les coordonnées elles-mêmes se modifient dans Paramètres.",
       "postCount": "Nombre d’articles",
-      "latestPostsHint": "Les articles affichés sont les derniers publiés sur le blog."
+      "latestPostsHint": "Les articles affichés sont les derniers publiés sur le blog.",
+      "productCount": "Nombre de produits",
+      "featuredProductsHint": "Cochez « En vedette » sur un produit pour le montrer ici."
     },
     "icons": {
       "Sprout": "Pousse",
@@ -587,5 +592,25 @@
     "deleted": "Article supprimé.",
     "preview": "Aperçu",
     "previewTitle": "Aperçu ({lang}) · comme sur le site"
+  },
+  "Products": {
+    "eyebrow": "Produits",
+    "title": "Nos produits",
+    "subtitle": "Engrais, semences, outils et protection des cultures, pour les petites comme les grandes exploitations.",
+    "metaTitle": "Produits — SoilStack",
+    "metaDescription": "Le catalogue SoilStack : engrais, semences, outils et protection des cultures en RDC.",
+    "categories": "Catégories",
+    "all": "Tous",
+    "empty": "Aucun produit dans cette catégorie pour l’instant.",
+    "priceOnRequest": "Prix sur demande",
+    "allProducts": "Tous les produits",
+    "back": "Tous les produits",
+    "photo": "Photo {n}",
+    "orderWhatsapp": "Commander sur WhatsApp",
+    "contactUs": "Nous contacter",
+    "orderHint": "Pas de paiement en ligne : notre équipe confirme la disponibilité, le prix et la livraison avec vous.",
+    "orderMessage": "Bonjour SoilStack, je suis intéressé(e) par « {name} » ({path}).",
+    "related": "Dans la même catégorie",
+    "emptyAll": "Aucun produit pour l’instant. Revenez bientôt !"
   }
 }
