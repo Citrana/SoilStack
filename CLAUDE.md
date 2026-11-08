@@ -293,6 +293,11 @@ contributor, for every change.
   (Vitest). Any failing test blocks the commit. Hooks are installed
   automatically by `pnpm install` (via the `prepare` script).
 - Node 22+ is required (Convex CLI); `.nvmrc` pins it (`nvm use`).
+- **Deployment:** production follows `main` (Vercel + Convex prod; build
+  command and preview rule in `vercel.json`). `docs/deployment.md` is the
+  guide. A release that needs commands on prod (env vars, seeds,
+  migrations) gets a row in its **release log** (section 11) in the same
+  PR: settings before the merge into `main`, seeds/migrations after.
 
 ## Authentication
 
@@ -368,8 +373,9 @@ public project pages, a projects-list section, and `/admin/projects`
 and SEO + performance: sitemap, robots, metadata and share image, icons,
 structured data, a framed not-found page, no translations or Convex code
 in the public bundle (`docs/performance.md`).
-Next step: deployment docs (Vercel + Convex production, environment
-variables, first Super Admin, Search Console).
+The deployment guide is written (`docs/deployment.md`, `vercel.json`); the
+production setup itself (Convex prod, Vercel, domain) is still to be done
+with the owner's accounts, following its section 4.
 
 <!-- convex-ai-start -->
 

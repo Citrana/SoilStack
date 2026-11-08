@@ -107,6 +107,26 @@ environment for production) is the public site's absolute address, used
 by the sitemap, share links and structured data — e.g.
 `https://soilstack.cd` in production, `http://localhost:3000` locally.
 
+## Deployment
+
+Production runs on **Vercel** (website) and a **Convex production
+deployment** (data), following the `main` branch. The full guide - first
+setup in order, releases, domain, Search Console, backups, troubleshooting
+- is in [docs/deployment.md](./docs/deployment.md).
+
+| Variable | Where | What for |
+|---|---|---|
+| `CONVEX_DEPLOY_KEY` | Vercel (Production) | lets the build push functions and schema to Convex prod |
+| `REVALIDATE_SECRET` | Vercel **and** Convex (same value) | publishing refreshes the cached pages |
+| `NEXT_PUBLIC_SITE_URL` | Vercel | the site's address in the sitemap, share links and structured data |
+| `ENABLE_EXPERIMENTAL_COREPACK` | Vercel | `1`: build with the pnpm version from `package.json` |
+| `SITE_URL` | Convex | the site's address, for sign-in and the refresh notice |
+| `JWT_PRIVATE_KEY`, `JWKS` | Convex | sign-in keys (`npx @convex-dev/auth --prod`) |
+| `SUPER_ADMIN_NAME`, `SUPER_ADMIN_EMAIL` | Convex | who `seed:seedSuperAdmin` creates |
+
+Locally, copy `.env.example` to `.env.local` (`convex dev` fills in the
+Convex values).
+
 ## Scripts
 
 | Command          | What it does                                  |
