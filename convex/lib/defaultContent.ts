@@ -3,8 +3,9 @@ import type { Section, Seo } from "./sections";
 
 /**
  * Starter content for the six company pages, seeded once (pages.seedContent)
- * and then edited in the admin. Generic on purpose: no figures or claims
- * that SoilStack hasn't confirmed.
+ * and then edited in the admin. It describes what SoilStack actually offers
+ * (software, AI crop advice, drones, supplies, agronomists) - no figures,
+ * client numbers or claims that SoilStack hasn't confirmed.
  */
 type PageSeed = { seo: Seo; sections: Section[] };
 
@@ -12,10 +13,10 @@ const contactCta = (id: string): Section => ({
   id,
   hidden: false,
   type: "cta",
-  title: { fr: "Parlons de votre exploitation", en: "Let’s talk about your farm" },
+  title: { fr: "Un projet, une question ?", en: "Have a project or a question?" },
   text: {
-    fr: "Dites-nous ce que vous cultivez et ce que vous voulez améliorer : notre équipe vous répond.",
-    en: "Tell us what you grow and what you want to improve: our team will get back to you.",
+    fr: "Parlez-nous de votre exploitation ou de votre organisation, et nous reviendrons vers vous.",
+    en: "Tell us about your farm or organization and we’ll get back to you.",
   },
   button: { label: { fr: "Nous contacter", en: "Contact us" }, link: { kind: "page", page: "contact" } },
 });
@@ -23,10 +24,10 @@ const contactCta = (id: string): Section => ({
 export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
   home: {
     seo: {
-      title: { fr: "SoilStack — Agri-tech en RDC", en: "SoilStack — Agri-tech in the DRC" },
+      title: { fr: "SoilStack — Technologie agricole en RDC", en: "SoilStack — Agricultural technology in the DRC" },
       description: {
-        fr: "SoilStack aide les agriculteurs de la RDC à mieux connaître leurs sols et à augmenter leurs rendements grâce à des solutions simples et durables.",
-        en: "SoilStack helps farmers in the DRC understand their soils and grow better yields with simple, sustainable solutions.",
+        fr: "SoilStack conçoit des logiciels, des outils d’IA et des solutions agricoles pour les exploitations de la RDC, de la petite parcelle familiale à la grande ferme commerciale.",
+        en: "SoilStack builds software, AI tools and farming solutions for farmers across the DRC, from small family plots to large commercial farms.",
       },
     },
     sections: [
@@ -36,15 +37,18 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         type: "hero",
         eyebrow: { fr: "Agri-tech en RDC", en: "Agri-tech in the DRC" },
         title: {
-          fr: "Des sols mieux connus pour des récoltes plus sûres",
-          en: "Better-known soils for more reliable harvests",
+          fr: "La technologie qui fait grandir les exploitations de la RDC",
+          en: "Technology that helps DRC farms grow",
         },
         subtitle: {
-          fr: "SoilStack accompagne les agriculteurs et les coopératives avec l’analyse des sols, des conseils adaptés et des outils numériques pensés pour le terrain.",
-          en: "SoilStack supports farmers and cooperatives with soil analysis, tailored advice and digital tools designed for the field.",
+          fr: "SoilStack conçoit des logiciels, des outils d’intelligence artificielle et des solutions agricoles pour les agriculteurs de toute la RDC, de la petite parcelle familiale à la grande exploitation commerciale.",
+          en: "SoilStack builds software, AI tools and farming solutions for farmers across the DRC, from small family plots to large commercial farms.",
         },
-        primaryCta: { label: { fr: "Nos solutions", en: "Our solutions" }, link: { kind: "page", page: "solutions" } },
-        secondaryCta: { label: { fr: "Nous contacter", en: "Contact us" }, link: { kind: "page", page: "contact" } },
+        primaryCta: {
+          label: { fr: "Découvrir nos solutions", en: "Explore our solutions" },
+          link: { kind: "page", page: "solutions" },
+        },
+        secondaryCta: { label: { fr: "Parlons-en", en: "Talk to us" }, link: { kind: "page", page: "contact" } },
       },
       {
         id: "features",
@@ -52,35 +56,35 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         type: "featureGrid",
         items: [
           {
-            icon: "Sprout",
-            title: { fr: "Analyse des sols", en: "Soil analysis" },
-            text: {
-              fr: "Comprendre la fertilité de chaque parcelle avant de semer.",
-              en: "Understand the fertility of each plot before planting.",
-            },
-          },
-          {
             icon: "BarChart3",
-            title: { fr: "Conseils sur mesure", en: "Tailored advice" },
+            title: { fr: "Logiciel de gestion agricole", en: "Farm management software" },
             text: {
-              fr: "Des recommandations claires sur les cultures et les apports.",
-              en: "Clear recommendations on crops and inputs.",
+              fr: "Suivez vos parcelles, vos travaux et vos dépenses au même endroit.",
+              en: "Keep track of your plots, work and costs in one place.",
             },
           },
           {
-            icon: "Tractor",
-            title: { fr: "Intrants de qualité", en: "Quality inputs" },
+            icon: "Cpu",
+            title: { fr: "Conseils IA pour vos cultures", en: "AI crop advice" },
             text: {
-              fr: "Les bons produits, au bon moment, pour chaque exploitation.",
-              en: "The right products, at the right time, for each farm.",
+              fr: "Repérez tôt les problèmes sur vos cultures et sachez quoi faire.",
+              en: "Spots crop problems early and recommends what to do.",
             },
           },
           {
-            icon: "Users",
-            title: { fr: "Formation", en: "Training" },
+            icon: "Droplets",
+            title: { fr: "Services de drones", en: "Drone services" },
             text: {
-              fr: "Accompagner les agriculteurs et les coopératives sur le terrain.",
-              en: "Supporting farmers and cooperatives in the field.",
+              fr: "Surveillance aérienne et pulvérisation de vos champs.",
+              en: "Aerial monitoring and spraying for your fields.",
+            },
+          },
+          {
+            icon: "Sprout",
+            title: { fr: "Intrants agricoles", en: "Agricultural supplies" },
+            text: {
+              fr: "Engrais, semences et outils pour les petites comme les grandes exploitations.",
+              en: "Fertilizer, seeds and tools for small and large farms.",
             },
           },
         ],
@@ -90,31 +94,28 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         hidden: false,
         type: "accordion",
         eyebrow: { fr: "Comment nous aidons", en: "How we help" },
-        title: {
-          fr: "Une démarche simple, de la parcelle à la récolte",
-          en: "A simple approach, from plot to harvest",
-        },
+        title: { fr: "Des outils, des produits et des personnes", en: "Tools, products and people" },
         images: [],
         items: [
           {
-            title: { fr: "Diagnostic", en: "Assessment" },
+            title: { fr: "Vous nous parlez de votre exploitation", en: "You tell us about your farm" },
             body: {
-              fr: "Nous visitons l’exploitation, prélevons des échantillons de sol et écoutons vos objectifs.",
-              en: "We visit the farm, take soil samples and listen to your goals.",
+              fr: "Ce que vous cultivez, la taille de vos parcelles, ce qui vous freine.",
+              en: "What you grow, how big your plots are, what’s holding you back.",
             },
           },
           {
-            title: { fr: "Recommandations", en: "Recommendations" },
+            title: { fr: "Nous vous proposons les bons outils", en: "We suggest the right tools" },
             body: {
-              fr: "Vous recevez un plan clair : cultures adaptées, apports conseillés et calendrier.",
-              en: "You receive a clear plan: suitable crops, recommended inputs and a calendar.",
+              fr: "Logiciel, conseils IA, drones ou intrants : seulement ce qui vous sert vraiment.",
+              en: "Software, AI advice, drones or supplies: only what is actually useful to you.",
             },
           },
           {
-            title: { fr: "Suivi", en: "Follow-up" },
+            title: { fr: "Un agronome reste à vos côtés", en: "An agronomist stays with you" },
             body: {
-              fr: "Nous suivons les résultats saison après saison pour ajuster le plan.",
-              en: "We track results season after season to adjust the plan.",
+              fr: "Quand vous avez besoin d’une vraie personne, nos agronomes vous répondent et suivent vos résultats.",
+              en: "When you need a real person, our agronomists answer and follow your results.",
             },
           },
         ],
@@ -127,8 +128,8 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
     seo: {
       title: { fr: "À propos — SoilStack", en: "About — SoilStack" },
       description: {
-        fr: "Découvrez SoilStack, notre mission et notre équipe au service de l’agriculture congolaise.",
-        en: "Discover SoilStack, our mission and our team serving Congolese agriculture.",
+        fr: "Une équipe de la RDC qui conçoit des outils et fournit des produits pour une agriculture plus productive et plus rentable.",
+        en: "A team from the DRC building tools and supplying products for more productive, more profitable farming.",
       },
     },
     sections: [
@@ -137,10 +138,13 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         hidden: false,
         type: "hero",
         eyebrow: { fr: "À propos", en: "About us" },
-        title: { fr: "Au service de l’agriculture congolaise", en: "Serving Congolese agriculture" },
+        title: {
+          fr: "Une équipe de la RDC, au service des agriculteurs",
+          en: "A team from the DRC, working for farmers",
+        },
         subtitle: {
-          fr: "SoilStack est une entreprise agri-tech née en RDC, avec une conviction : une agriculture plus productive commence par une meilleure connaissance des sols.",
-          en: "SoilStack is an agri-tech company born in the DRC, with one conviction: more productive farming starts with knowing the soil better.",
+          fr: "Nous sommes une équipe de la RDC, et nous construisons des solutions pour les agriculteurs d’ici.",
+          en: "We are a team from the DRC, building solutions for the farmers who work here.",
         },
       },
       {
@@ -148,10 +152,10 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         hidden: false,
         type: "textImage",
         eyebrow: { fr: "Notre mission", en: "Our mission" },
-        title: { fr: "Rendre l’expertise agronomique accessible", en: "Making agronomy expertise accessible" },
+        title: { fr: "Rendre l’expertise agronomique accessible", en: "Make agronomic expertise accessible" },
         body: {
-          fr: "Nous mettons à la portée des agriculteurs des outils et des conseils autrefois réservés aux grandes exploitations.\n\nNotre équipe travaille au plus près du terrain, avec les coopératives et les partenaires locaux.",
-          en: "We bring farmers tools and advice that used to be available only to large farms.\n\nOur team works close to the field, with cooperatives and local partners.",
+          fr: "Les agriculteurs de la RDC font face aux maladies des cultures, à une météo imprévisible, à des intrants coûteux et à un accès limité aux conseils d’experts.\n\nNous concevons les outils et fournissons les produits qui rendent l’agriculture plus productive et plus rentable, pour les petites exploitations familiales comme pour les grandes fermes commerciales.",
+          en: "Farmers in the DRC face crop disease, unpredictable weather, costly inputs and little access to expert advice.\n\nWe build the tools and supply the products that make farming more productive and profitable, for small family farms and large commercial ones alike.",
         },
         imageSide: "right",
       },
@@ -163,19 +167,31 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         title: { fr: "Ce qui nous guide", en: "What guides us" },
         items: [
           {
-            icon: "Leaf",
-            title: { fr: "Durabilité", en: "Sustainability" },
-            text: { fr: "Préserver les sols pour les générations futures.", en: "Protecting soils for future generations." },
+            icon: "ShieldCheck",
+            title: { fr: "Des conseils vérifiés par des agronomes", en: "Advice checked by agronomists" },
+            text: {
+              fr: "Ce que recommandent nos outils est relu par des agronomes avant d’arriver jusqu’à vous.",
+              en: "What our tools recommend is reviewed by agronomists before it reaches you.",
+            },
           },
           {
             icon: "Users",
-            title: { fr: "Proximité", en: "Closeness" },
-            text: { fr: "Être présents sur le terrain, aux côtés des agriculteurs.", en: "Being in the field, alongside farmers." },
+            title: { fr: "Construit avec les agriculteurs, sur le terrain", en: "Built with farmers, on the ground" },
+            text: {
+              fr: "Nous testons nos solutions dans de vraies exploitations, avec celles et ceux qui les utilisent.",
+              en: "We test our solutions on real farms, with the people who use them.",
+            },
           },
           {
-            icon: "ShieldCheck",
-            title: { fr: "Fiabilité", en: "Reliability" },
-            text: { fr: "Des conseils fondés sur des données vérifiées.", en: "Advice based on verified data." },
+            icon: "Leaf",
+            title: {
+              fr: "Honnêtes sur ce que nos outils peuvent faire, ou pas",
+              en: "Honest about what our tools can and can’t do",
+            },
+            text: {
+              fr: "L’IA ne remplace pas un agronome. Nous vous disons clairement où s’arrêtent nos outils.",
+              en: "AI doesn’t replace an agronomist. We tell you clearly where our tools stop.",
+            },
           },
         ],
       },
@@ -187,8 +203,8 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
     seo: {
       title: { fr: "Solutions — SoilStack", en: "Solutions — SoilStack" },
       description: {
-        fr: "Analyse des sols, conseils agronomiques, intrants et formation : les solutions SoilStack pour les agriculteurs de la RDC.",
-        en: "Soil analysis, agronomy advice, inputs and training: SoilStack’s solutions for farmers in the DRC.",
+        fr: "Logiciel de gestion agricole, conseils IA, drones, intrants et agronomes : les solutions SoilStack pour les exploitations de la RDC.",
+        en: "Farm management software, AI crop advice, drones, supplies and agronomists: SoilStack’s solutions for farms in the DRC.",
       },
     },
     sections: [
@@ -197,45 +213,52 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         hidden: false,
         type: "hero",
         eyebrow: { fr: "Solutions", en: "Solutions" },
-        title: { fr: "Des solutions pour chaque étape de la saison", en: "Solutions for every stage of the season" },
+        title: { fr: "Des solutions pour chaque exploitation", en: "Solutions for every farm" },
         subtitle: {
-          fr: "Du diagnostic du sol à la récolte, nous proposons des services concrets, adaptés aux réalités des exploitations congolaises.",
-          en: "From soil assessment to harvest, we offer practical services suited to the realities of Congolese farms.",
+          fr: "Logiciel, intelligence artificielle, drones, intrants et agronomes : choisissez ce qui convient à votre exploitation, petite ou grande.",
+          en: "Software, AI, drones, supplies and agronomists: pick what fits your farm, small or large.",
         },
       },
       {
         id: "list",
         hidden: false,
         type: "accordion",
-        title: { fr: "Nos services", en: "Our services" },
+        title: { fr: "Nos solutions", en: "Our solutions" },
         images: [],
         items: [
           {
-            title: { fr: "Analyse des sols", en: "Soil analysis" },
+            title: { fr: "Logiciel de gestion agricole", en: "Farm management software" },
             body: {
-              fr: "Prélèvement, analyse et interprétation pour connaître le potentiel de chaque parcelle.",
-              en: "Sampling, analysis and interpretation to know the potential of each plot.",
+              fr: "Planifiez vos saisons, suivez vos parcelles, vos travaux et vos dépenses, et gardez l’historique de votre exploitation.",
+              en: "Plan your seasons, track your plots, work and costs, and keep a record of your farm over time.",
             },
           },
           {
-            title: { fr: "Conseil agronomique", en: "Agronomy advice" },
+            title: { fr: "Conseils IA pour vos cultures", en: "AI crop advice" },
             body: {
-              fr: "Un plan de culture et de fertilisation adapté à vos objectifs et à votre budget.",
-              en: "A cropping and fertilisation plan suited to your goals and budget.",
+              fr: "Notre outil d’IA repère tôt les problèmes sur vos cultures, comme les maladies ou les carences, et vous recommande quoi faire.",
+              en: "Our AI tool spots crop problems early, such as disease or nutrient deficiencies, and recommends what to do.",
             },
           },
           {
-            title: { fr: "Intrants", en: "Inputs" },
+            title: { fr: "Services de drones", en: "Drone services" },
             body: {
-              fr: "Semences, engrais et équipements sélectionnés pour leur qualité.",
-              en: "Seeds, fertilisers and equipment selected for their quality.",
+              fr: "Surveillance aérienne pour voir l’état de vos champs d’un coup d’œil, et pulvérisation précise là où il le faut.",
+              en: "Aerial monitoring to see the state of your fields at a glance, and precise spraying where it’s needed.",
             },
           },
           {
-            title: { fr: "Formation et suivi", en: "Training and follow-up" },
+            title: { fr: "Intrants agricoles", en: "Agricultural supplies" },
             body: {
-              fr: "Des sessions pratiques et un suivi régulier pour les agriculteurs et les coopératives.",
-              en: "Hands-on sessions and regular follow-up for farmers and cooperatives.",
+              fr: "Engrais, semences et outils, pour les petites parcelles comme pour les grandes exploitations.",
+              en: "Fertilizer, seeds and tools, for small plots and large farms alike.",
+            },
+          },
+          {
+            title: { fr: "Accompagnement par des experts", en: "Expert support" },
+            body: {
+              fr: "Quand vous avez besoin de parler à quelqu’un, de vrais agronomes vous répondent et vous conseillent.",
+              en: "When you need a person, real agronomists are there to answer and advise you.",
             },
           },
         ],
@@ -248,8 +271,8 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
     seo: {
       title: { fr: "Innovation — SoilStack", en: "Innovation — SoilStack" },
       description: {
-        fr: "Comment SoilStack utilise les données et le numérique pour une agriculture plus précise en RDC.",
-        en: "How SoilStack uses data and digital tools for more precise farming in the DRC.",
+        fr: "Comment SoilStack utilise l’IA, les drones et les données pour une agriculture plus sûre en RDC.",
+        en: "How SoilStack uses AI, drones and data to take the guesswork out of farming in the DRC.",
       },
     },
     sections: [
@@ -258,10 +281,10 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         hidden: false,
         type: "hero",
         eyebrow: { fr: "Innovation", en: "Innovation" },
-        title: { fr: "La technologie au service du terrain", en: "Technology that serves the field" },
+        title: { fr: "Cultiver avec moins d’incertitude", en: "Farming with less guesswork" },
         subtitle: {
-          fr: "Nous développons des outils simples, qui fonctionnent même avec une connexion limitée, pour transformer les données en décisions.",
-          en: "We build simple tools that work even with limited connectivity, turning data into decisions.",
+          fr: "Nous utilisons l’IA, les drones et les données pour aider les agriculteurs à prendre de meilleures décisions, sans avoir à deviner.",
+          en: "We use AI, drones and data to take the guesswork out of farming.",
         },
       },
       {
@@ -269,11 +292,15 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         hidden: false,
         type: "bento",
         eyebrow: { fr: "Nos axes", en: "Our focus" },
-        title: { fr: "Construire une agriculture plus précise", en: "Building more precise farming" },
+        title: { fr: "Pensé et testé en RDC", en: "Built and tested in the DRC" },
+        intro: {
+          fr: "Nos outils sont conçus et testés dans des exploitations congolaises, avec des agronomes locaux.",
+          en: "Our tools are built and tested on DRC farms, with local agronomists.",
+        },
         cards: [
-          { title: { fr: "Données des sols", en: "Soil data" }, tone: "dark" },
-          { title: { fr: "Cartographie des parcelles", en: "Plot mapping" }, tone: "light" },
-          { title: { fr: "Outils mobiles", en: "Mobile tools" }, tone: "dark" },
+          { title: { fr: "Intelligence artificielle", en: "Artificial intelligence" }, tone: "dark" },
+          { title: { fr: "Drones", en: "Drones" }, tone: "light" },
+          { title: { fr: "Données agricoles", en: "Farm data" }, tone: "dark" },
         ],
       },
       contactCta("cta"),
@@ -284,8 +311,8 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
     seo: {
       title: { fr: "Projets — SoilStack", en: "Projects — SoilStack" },
       description: {
-        fr: "Les projets menés par SoilStack avec les agriculteurs et les partenaires en RDC.",
-        en: "Projects led by SoilStack with farmers and partners in the DRC.",
+        fr: "Ce que construit SoilStack : notre plateforme, les drones, les intrants et une API pour les partenaires.",
+        en: "What SoilStack is building: our platform, drones, supplies and an API for partners.",
       },
     },
     sections: [
@@ -294,11 +321,50 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         hidden: false,
         type: "hero",
         eyebrow: { fr: "Projets", en: "Projects" },
-        title: { fr: "Nos projets sur le terrain", en: "Our projects in the field" },
+        title: { fr: "Ce que nous construisons", en: "What we’re building" },
         subtitle: {
-          fr: "Découvrez les initiatives que nous menons avec les agriculteurs, les coopératives et nos partenaires.",
-          en: "Discover the initiatives we run with farmers, cooperatives and our partners.",
+          fr: "Où en sont nos projets aujourd’hui, et ce qui arrive ensuite.",
+          en: "Where our projects stand today, and what comes next.",
         },
+      },
+      {
+        id: "list",
+        hidden: false,
+        type: "featureGrid",
+        items: [
+          {
+            icon: "Cpu",
+            title: { fr: "Plateforme SoilStack", en: "SoilStack Platform" },
+            text: {
+              fr: "En développement. Notre logiciel de gestion agricole et nos conseils IA, réunis dans un même outil.",
+              en: "In development. Our farm management software and AI crop advice, together in one tool.",
+            },
+          },
+          {
+            icon: "Droplets",
+            title: { fr: "Drones", en: "Drones" },
+            text: {
+              fr: "Prévu. Surveillance aérienne et pulvérisation des champs.",
+              en: "Planned. Aerial monitoring and field spraying.",
+            },
+          },
+          {
+            icon: "Sprout",
+            title: { fr: "Intrants", en: "Supplies" },
+            text: {
+              fr: "Prévu. Engrais, semences et outils pour les exploitations de toutes tailles.",
+              en: "Planned. Fertilizer, seeds and tools for farms of every size.",
+            },
+          },
+          {
+            icon: "Globe",
+            title: { fr: "API pour les partenaires", en: "API for partners" },
+            text: {
+              fr: "Prévu. Pour que coopératives, ONG et entreprises intègrent nos outils à leurs propres services.",
+              en: "Planned. So cooperatives, NGOs and businesses can build our tools into their own services.",
+            },
+          },
+        ],
       },
       contactCta("cta"),
     ],
@@ -320,8 +386,8 @@ export const DEFAULT_PAGES: Record<PageKey, PageSeed> = {
         eyebrow: { fr: "Contact", en: "Contact" },
         title: { fr: "Parlons de votre projet", en: "Let’s talk about your project" },
         subtitle: {
-          fr: "Une question sur nos solutions ou nos produits ? Notre équipe vous répond.",
-          en: "A question about our solutions or products? Our team will answer.",
+          fr: "Parlez-nous de votre exploitation ou de votre organisation, et nous reviendrons vers vous.",
+          en: "Tell us about your farm or organization and we’ll get back to you.",
         },
       },
       {
