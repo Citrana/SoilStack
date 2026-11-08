@@ -66,19 +66,23 @@ export function ImageField({
   );
 }
 
-/** Up to `max` images, in order. */
+/** Up to `max` images, in order (optionally reorderable with ← →). */
 export function ImageListField({
   label,
   value,
   onChange,
   images,
   max,
+  reorderable = false,
+  hint,
 }: {
   label: string;
   value: Id<"media">[];
   onChange: (value: Id<"media">[]) => void;
   images: ImageMap;
   max: number;
+  reorderable?: boolean;
+  hint?: string;
 }) {
   const t = useTranslations("Sections");
   const [open, setOpen] = useState(false);
@@ -87,8 +91,30 @@ export function ImageListField({
       <span className="text-sm font-medium">{label}</span>
       <div className="flex flex-wrap gap-2">
         {value.map((mediaId, i) => (
-          <div key={`${mediaId}-${i}`} className="relative size-20 overflow-hidden rounded-lg border">
+          <div key={`${mediaId}-${i}`} className="relative size-24 overflow-hidden rounded-lg border">
             <Thumb image={images[mediaId]} />
+            {reorderable ? (
+              <div className="absolute inset-x-1 bottom-1 flex justify-between">
+                <button
+                  type="button"
+                  aria-label={t("moveLeft")}
+                  disabled={i === 0}
+                  onClick={() => onChange(value.map((id, j) => (j === i - 1 ? value[i] : j === i ? value[i - 1] : id)))}
+                  className="flex size-8 items-center justify-center rounded-full bg-card/90 shadow disabled:opacity-0"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  aria-label={t("moveRight")}
+                  disabled={i === value.length - 1}
+                  onClick={() => onChange(value.map((id, j) => (j === i + 1 ? value[i] : j === i ? value[i + 1] : id)))}
+                  className="flex size-8 items-center justify-center rounded-full bg-card/90 shadow disabled:opacity-0"
+                >
+                  →
+                </button>
+              </div>
+            ) : null}
             <button
               type="button"
               aria-label={t("removeImage")}
@@ -103,13 +129,14 @@ export function ImageListField({
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="flex size-20 items-center justify-center rounded-lg border-2 border-dashed text-muted-foreground hover:border-leaf"
+            className="flex size-24 items-center justify-center rounded-lg border-2 border-dashed text-muted-foreground hover:border-leaf"
             aria-label={t("chooseImage")}
           >
             <ImagePlus className="size-5" aria-hidden />
           </button>
         ) : null}
       </div>
+      {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
       <MediaPicker open={open} onOpenChange={setOpen} onPick={(mediaId) => onChange([...value, mediaId])} />
     </div>
   );

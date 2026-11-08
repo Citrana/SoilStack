@@ -150,7 +150,7 @@ export const create = authedMutation({
     await ctx.requireAnyPermission(["blog.write", "blog.edit_all"]);
     const title = trimLoc(args.title);
     checkPostText(title, { fr: "", en: "" });
-    const slug = await uniqueSlug(ctx, slugify(title.fr || title.en));
+    const slug = await uniqueSlug(ctx, slugify(title.fr || title.en, "article"));
     const now = Date.now();
     const post = {
       slug,

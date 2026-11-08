@@ -5,6 +5,7 @@ import { BentoSection } from "./bento";
 import { ContactInfoSection } from "./contact-info";
 import { CtaSection } from "./cta";
 import { FeatureGridSection } from "./feature-grid";
+import { FeaturedProductsSection } from "./featured-products";
 import { HeroSection } from "./hero";
 import { LatestPostsSection } from "./latest-posts";
 import { StatsSection } from "./stats";
@@ -39,6 +40,8 @@ export function Sections({ sections, locale }: { sections: PublicSection[]; loca
             return <ContactInfoSection key={key} section={section} locale={locale} />;
           case "latestPosts":
             return <LatestPostsSection key={key} section={section} locale={locale} />;
+          case "featuredProducts":
+            return <FeaturedProductsSection key={key} section={section} locale={locale} />;
         }
       })}
     </>

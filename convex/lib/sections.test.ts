@@ -57,7 +57,7 @@ test("resolveSections drops hidden sections, resolves images and fills contact s
   const accordion = { ...newSection("accordion"), images: ["m1", "gone"] } as unknown as Section;
   const hidden = { ...newSection("stats"), hidden: true };
   const contactSection = newSection("contactInfo");
-  const resolved = resolveSections([hero, accordion, hidden, contactSection], (id) => (id === "m1" ? image : null), contact);
+  const resolved = resolveSections([hero, accordion, hidden, contactSection], (id) => (id === "m1" ? image : null), { contact });
   expect(resolved.map((s) => s.type)).toEqual(["hero", "accordion", "contactInfo"]);
   expect(resolved[0]).toMatchObject({ image });
   expect(resolved[1]).toMatchObject({ images: [image] });

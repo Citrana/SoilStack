@@ -1,12 +1,13 @@
 import { PAGE_KEYS, SETTINGS_TAG } from "../../convex/lib/pages";
 import { POSTS_TAG } from "../../convex/lib/posts";
+import { PRODUCTS_TAG } from "../../convex/lib/products";
 
 /** Tags Convex may ask the site to refresh (convex/revalidate.ts). */
-const ALLOWED_TAGS = new Set<string>([SETTINGS_TAG, POSTS_TAG, ...PAGE_KEYS.map((key) => `page:${key}`)]);
-const POST_TAG = /^post:[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const ALLOWED_TAGS = new Set<string>([SETTINGS_TAG, POSTS_TAG, PRODUCTS_TAG, ...PAGE_KEYS.map((key) => `page:${key}`)]);
+const ITEM_TAG = /^(post|product):[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 function isAllowedTag(tag: unknown): tag is string {
-  return typeof tag === "string" && tag.length <= 100 && (ALLOWED_TAGS.has(tag) || POST_TAG.test(tag));
+  return typeof tag === "string" && tag.length <= 100 && (ALLOWED_TAGS.has(tag) || ITEM_TAG.test(tag));
 }
 
 /** Compares two strings in time independent of where they differ. */

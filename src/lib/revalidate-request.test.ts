@@ -7,6 +7,8 @@ test("parseRevalidateRequest checks the secret and only accepts known tags", () 
   expect(ok({ tags: ["page:nope"] })).toEqual({ ok: false, status: 400 });
   expect(ok({ tags: ["posts", "post:recolte-2026"] })).toEqual({ ok: true, tags: ["posts", "post:recolte-2026"] });
   expect(ok({ tags: ["post:Bad Slug"] })).toEqual({ ok: false, status: 400 });
+  expect(ok({ tags: ["products", "product:npk-17"] })).toEqual({ ok: true, tags: ["products", "product:npk-17"] });
+  expect(ok({ tags: ["productx:a"] })).toEqual({ ok: false, status: 400 });
   expect(ok({ tags: ["post:"] })).toEqual({ ok: false, status: 400 });
   expect(ok({ tags: [] })).toEqual({ ok: false, status: 400 });
   expect(ok(null)).toEqual({ ok: false, status: 400 });

@@ -4,6 +4,7 @@ import { appError } from "./errors";
 import { locValidator, type Loc } from "./i18n";
 import type { MediaRef, PublicImage } from "./media";
 import type { PostCard } from "./posts";
+import type { ProductCard } from "./products";
 import { pageKeyValidator } from "./pages";
 
 /**
@@ -125,6 +126,14 @@ export const latestPostsSection = v.object({
   count: v.number(),
 });
 
+export const featuredProductsSection = v.object({
+  ...base,
+  type: v.literal("featuredProducts"),
+  title: locValidator,
+  intro: optionalLoc,
+  count: v.number(),
+});
+
 export const sectionValidator = v.union(
   heroSection,
   featureGridSection,
@@ -135,6 +144,7 @@ export const sectionValidator = v.union(
   ctaSection,
   contactInfoSection,
   latestPostsSection,
+  featuredProductsSection,
 );
 export type Section = Infer<typeof sectionValidator>;
 export type SectionType = Section["type"];
@@ -149,6 +159,7 @@ export const SECTION_TYPES: readonly SectionType[] = [
   "cta",
   "contactInfo",
   "latestPosts",
+  "featuredProducts",
 ];
 
 export const seoValidator = v.object({ title: locValidator, description: locValidator });
@@ -168,6 +179,8 @@ export const SECTION_LIMITS = {
   seoDescription: 200,
   latestPostsMin: 3,
   latestPostsMax: 6,
+  featuredProductsMin: 3,
+  featuredProductsMax: 8,
 } as const;
 
 const URL_PATTERN = /^(https:\/\/[^\s]+|mailto:[^\s@]+@[^\s@]+|tel:\+?[0-9 ()-]{3,})$/;
@@ -273,6 +286,17 @@ export function validateSections(sections: readonly Section[]) {
           fail("Number of posts must be between 3 and 6.");
         }
         break;
+      case "featuredProducts":
+        checkLoc(section.title, S, "Title");
+        checkLoc(section.intro, L, "Intro");
+        if (
+          !Number.isInteger(section.count) ||
+          section.count < SECTION_LIMITS.featuredProductsMin ||
+          section.count > SECTION_LIMITS.featuredProductsMax
+        ) {
+          fail("Number of products must be between 3 and 8.");
+        }
+        break;
     }
   }
 }
@@ -322,17 +346,24 @@ export function needsLatestPosts(sections: readonly Section[]) {
   return sections.some((s) => s.type === "latestPosts" && !s.hidden);
 }
 
+/** True when a section needs the featured products. */
+export function needsFeaturedProducts(sections: readonly Section[]) {
+  return sections.some((s) => s.type === "featuredProducts" && !s.hidden);
+}
+
+/** Data some sections show besides their own fields. */
+export type SectionData = {
+  contact: PublicContact;
+  latestPosts?: readonly PostCard[];
+  featuredProducts?: readonly ProductCard[];
+};
+
 /**
  * Sections as the public site renders them: images resolved, hidden
- * sections removed, contact and latest-posts sections filled. Pure, so the
- * admin preview runs the very same code on the draft.
+ * sections removed, contact / latest-posts / featured-products sections
+ * filled. Pure, so the admin preview runs the very same code on the draft.
  */
-export function resolveSections(
-  sections: readonly Section[],
-  image: ImageLookup,
-  contact: PublicContact,
-  latestPosts: readonly PostCard[] = [],
-) {
+export function resolveSections(sections: readonly Section[], image: ImageLookup, data: SectionData) {
   return sections
     .filter((section) => !section.hidden)
     .map((section) => {
@@ -348,9 +379,11 @@ export function resolveSections(
         case "bento":
           return { ...section, cards: section.cards.map((card) => ({ ...card, image: image(card.image) })) };
         case "contactInfo":
-          return { ...section, contact };
+          return { ...section, contact: data.contact };
         case "latestPosts":
-          return { ...section, posts: latestPosts.slice(0, section.count) };
+          return { ...section, posts: (data.latestPosts ?? []).slice(0, section.count) };
+        case "featuredProducts":
+          return { ...section, products: (data.featuredProducts ?? []).slice(0, section.count) };
         default:
           return section;
       }
@@ -383,5 +416,7 @@ export function newSection(type: SectionType): Section {
       return { ...common, type, title: empty() };
     case "latestPosts":
       return { ...common, type, title: { fr: "Nos dernières actualités", en: "Latest news" }, count: 3 };
+    case "featuredProducts":
+      return { ...common, type, title: { fr: "Nos produits", en: "Our products" }, count: 4 };
   }
 }

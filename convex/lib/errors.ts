@@ -20,6 +20,7 @@ export const ERROR_CODES = [
   "INVALID_FILE",
   "FILE_TOO_LARGE",
   "MEDIA_IN_USE",
+  "CATEGORY_IN_USE",
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];
