@@ -24,7 +24,7 @@ test("seedRbac seeds the catalog, a locked Super Admin and the starter roles, id
   );
   expect(roles.find((r) => r.key === "super_admin")?.isSystem).toBe(true);
   expect(roles.filter((r) => r.isSystem)).toHaveLength(1);
-  expect(steps).toHaveLength(1);
+  expect(steps).toHaveLength(2);
 });
 
 test("the Super Admin holds every permission; a starter role only its defaults; anonymous nothing", async () => {

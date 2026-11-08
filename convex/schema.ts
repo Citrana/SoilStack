@@ -152,6 +152,26 @@ export default defineSchema({
     .index("by_categoryId", ["categoryId"])
     .index("by_status_and_featured", ["status", "featured"]),
 
+  // Projects (convex/projects.ts): what SoilStack is building, in a manual order.
+  projects: defineTable({
+    slug: v.string(),
+    title: locValidator,
+    summary: locValidator,
+    body: locRichValidator,
+    stage: v.union(v.literal("planned"), v.literal("in_progress"), v.literal("completed")),
+    location: v.optional(locValidator),
+    year: v.optional(v.string()),
+    coverImageId: v.optional(v.id("media")),
+    galleryIds: v.array(v.id("media")),
+    status: v.union(v.literal("draft"), v.literal("published")),
+    order: v.number(),
+    updatedAt: v.number(),
+    updatedBy: v.union(v.id("users"), v.null()),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status_and_order", ["status", "order"])
+    .index("by_order", ["order"]),
+
   // Single row: contact details, social links, footer (all public).
   siteSettings: defineTable(settingsFields),
 

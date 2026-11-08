@@ -116,4 +116,10 @@ export const SEED_STEPS: readonly SeedStep[] = [
       },
     ],
   },
+  {
+    // Projects arrive: the Content Editor, who runs the company pages,
+    // also manages the projects shown on them.
+    key: "2026-11-projects-content-editor",
+    grants: [["content_editor", "projects.manage"]],
+  },
 ];
