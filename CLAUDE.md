@@ -91,6 +91,13 @@ this repo, now and later — do not relax them for convenience.
   category is deleted only when no product uses it. There is no cart or
   checkout: product pages offer "Order on WhatsApp" (when a number is set
   in Settings) or Contact.
+- Projects (`convex/projects.ts`) have a **stage** (`planned |
+  in_progress | completed`, the badge) besides their publish status, and a
+  manual display order (`order`, ↑↓ in the admin). One permission,
+  `projects.manage`, does everything (the Content Editor holds it by a
+  seed step); publishing needs title, summary and story in both
+  languages; only drafts are deleted. They appear on the site through the
+  `projectsList` section and their own `/projets/<slug>` pages.
 - Page sections live in `convex/lib/sections.ts` (validators,
   `validateSections`, `newSection`, and `resolveSections`, the one pure
   function both `pages.getPublished` and the admin preview use). Their
@@ -324,7 +331,9 @@ article pages, a latest-posts section, and the admin at `/admin/blog`
 catalogue: public `/produits` with category filters and product pages
 (gallery, price or "Price on request", WhatsApp order button, JSON-LD), a
 featured-products section, and the admin at `/admin/products` (editor,
-photos, archive) and `/admin/products/categories`.
+photos, archive) and `/admin/products/categories`, and the projects:
+public project pages, a projects-list section, and `/admin/projects`
+(ordered list, editor with stage, location, year, cover, gallery, story).
 Next steps, one PR each into `develop`: blog, product catalogue, projects, SEO + performance,
 deployment docs.
 

@@ -11,10 +11,12 @@ import { PAGE_KEYS, pageKeyValidator, pageTag, SETTINGS_TAG, type PageKey } from
 import { SUPER_ADMIN_ROLE_KEY } from "./lib/permissions";
 import { latestPublished, toPostCard } from "./lib/posts";
 import { featuredProducts, toProductCard } from "./lib/products";
+import { publishedProjects, toProjectCard } from "./lib/projects";
 import { authedMutation, authedQuery, type AuthedMutationCtx } from "./lib/rbac";
 import {
   needsFeaturedProducts,
   needsLatestPosts,
+  needsProjects,
   resolveSections,
   sectionMediaIds,
   sectionMediaRefs,
@@ -226,6 +228,9 @@ export const getPublished = query({
     const products = needsFeaturedProducts(sections)
       ? await Promise.all((await featuredProducts(ctx, 8)).map((p) => toProductCard(ctx, p)))
       : [];
+    const projects = needsProjects(sections)
+      ? await Promise.all((await publishedProjects(ctx)).map((p) => toProjectCard(ctx, p)))
+      : [];
     return {
       key,
       seo,
@@ -233,6 +238,7 @@ export const getPublished = query({
         contact,
         latestPosts,
         featuredProducts: products,
+        projects,
       }),
       publishedAt: page.publishedAt ?? null,
     };

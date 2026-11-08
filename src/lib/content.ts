@@ -4,17 +4,18 @@ import { api } from "../../convex/_generated/api";
 import { pageTag, SETTINGS_TAG, type PageKey } from "../../convex/lib/pages";
 import { POSTS_TAG, postTag } from "../../convex/lib/posts";
 import { PRODUCTS_TAG, productTag } from "../../convex/lib/products";
+import { PROJECTS_TAG, projectTag } from "../../convex/lib/projects";
 
 /**
  * Public content, read on the server and cached (CLAUDE.md, "Performance").
  * Each entry holds both languages. Publishing in the admin refreshes the
  * tag through /api/revalidate; cacheLife("hours") is the safety net.
  * A page also depends on the settings (contact section), the blog (latest
- * posts) and the catalogue (featured products).
+ * posts), the catalogue (featured products) and the projects list.
  */
 export async function getPage(key: PageKey) {
   "use cache";
-  cacheTag(pageTag(key), SETTINGS_TAG, POSTS_TAG, PRODUCTS_TAG);
+  cacheTag(pageTag(key), SETTINGS_TAG, POSTS_TAG, PRODUCTS_TAG, PROJECTS_TAG);
   cacheLife("hours");
   return await fetchQuery(api.pages.getPublished, { key });
 }
@@ -68,6 +69,20 @@ export async function getProductSlugs() {
   cacheTag(PRODUCTS_TAG);
   cacheLife("hours");
   return await fetchQuery(api.products.publishedSlugs, {});
+}
+
+export async function getProject(slug: string) {
+  "use cache";
+  cacheTag(projectTag(slug), PROJECTS_TAG);
+  cacheLife("hours");
+  return await fetchQuery(api.projects.getBySlug, { slug });
+}
+
+export async function getProjectSlugs() {
+  "use cache";
+  cacheTag(PROJECTS_TAG);
+  cacheLife("hours");
+  return await fetchQuery(api.projects.publishedSlugs, {});
 }
 
 export type PublishedPage = NonNullable<Awaited<ReturnType<typeof getPage>>>;

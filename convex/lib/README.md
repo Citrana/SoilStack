@@ -35,6 +35,8 @@ Shared server-side helpers, not routable Convex functions themselves.
 - `products.ts` — catalogue helpers: limits, `ProductCard` +
   `toProductCard`, `publishedProducts`, `featuredProducts`, cache tags, and
   the starter categories (one-shot seed step).
+- `projects.ts` — projects helpers: stages, limits, `ProjectCard` +
+  `toProjectCard`, `publishedProjects`, cache tags, starter projects.
 - `posts.ts` — blog helpers: `cleanTags`, limits,
   `PostCard` + `toPostCard`, `latestPublished`, cache tags.
 - `pages.ts` / `sections.ts` / `settings.ts` / `defaultContent.ts` — page

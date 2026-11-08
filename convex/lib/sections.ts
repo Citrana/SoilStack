@@ -5,6 +5,7 @@ import { locValidator, type Loc } from "./i18n";
 import type { MediaRef, PublicImage } from "./media";
 import type { PostCard } from "./posts";
 import type { ProductCard } from "./products";
+import type { ProjectCard } from "./projects";
 import { pageKeyValidator } from "./pages";
 
 /**
@@ -134,6 +135,13 @@ export const featuredProductsSection = v.object({
   count: v.number(),
 });
 
+export const projectsListSection = v.object({
+  ...base,
+  type: v.literal("projectsList"),
+  title: locValidator,
+  intro: optionalLoc,
+});
+
 export const sectionValidator = v.union(
   heroSection,
   featureGridSection,
@@ -145,6 +153,7 @@ export const sectionValidator = v.union(
   contactInfoSection,
   latestPostsSection,
   featuredProductsSection,
+  projectsListSection,
 );
 export type Section = Infer<typeof sectionValidator>;
 export type SectionType = Section["type"];
@@ -160,6 +169,7 @@ export const SECTION_TYPES: readonly SectionType[] = [
   "contactInfo",
   "latestPosts",
   "featuredProducts",
+  "projectsList",
 ];
 
 export const seoValidator = v.object({ title: locValidator, description: locValidator });
@@ -297,6 +307,10 @@ export function validateSections(sections: readonly Section[]) {
           fail("Number of products must be between 3 and 8.");
         }
         break;
+      case "projectsList":
+        checkLoc(section.title, S, "Title");
+        checkLoc(section.intro, L, "Intro");
+        break;
     }
   }
 }
@@ -351,11 +365,17 @@ export function needsFeaturedProducts(sections: readonly Section[]) {
   return sections.some((s) => s.type === "featuredProducts" && !s.hidden);
 }
 
+/** True when a section needs the published projects. */
+export function needsProjects(sections: readonly Section[]) {
+  return sections.some((s) => s.type === "projectsList" && !s.hidden);
+}
+
 /** Data some sections show besides their own fields. */
 export type SectionData = {
   contact: PublicContact;
   latestPosts?: readonly PostCard[];
   featuredProducts?: readonly ProductCard[];
+  projects?: readonly ProjectCard[];
 };
 
 /**
@@ -384,6 +404,8 @@ export function resolveSections(sections: readonly Section[], image: ImageLookup
           return { ...section, posts: (data.latestPosts ?? []).slice(0, section.count) };
         case "featuredProducts":
           return { ...section, products: (data.featuredProducts ?? []).slice(0, section.count) };
+        case "projectsList":
+          return { ...section, projects: [...(data.projects ?? [])] };
         default:
           return section;
       }
@@ -418,5 +440,7 @@ export function newSection(type: SectionType): Section {
       return { ...common, type, title: { fr: "Nos dernières actualités", en: "Latest news" }, count: 3 };
     case "featuredProducts":
       return { ...common, type, title: { fr: "Nos produits", en: "Our products" }, count: 4 };
+    case "projectsList":
+      return { ...common, type, title: { fr: "Nos projets", en: "Our projects" } };
   }
 }
