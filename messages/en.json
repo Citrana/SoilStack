@@ -93,7 +93,8 @@
       "media": "Images",
       "pages": "Pages",
       "settings": "Settings",
-      "blog": "Blog"
+      "blog": "Blog",
+      "products": "Products"
     },
     "dashboard": {
       "title": "Hello {name}",
@@ -107,7 +108,8 @@
         "media": "Upload images and manage their alt text.",
         "pages": "Edit and publish the site’s pages.",
         "settings": "Contact details, social links and footer.",
-        "blog": "Write and publish blog articles."
+        "blog": "Write and publish blog articles.",
+        "products": "Manage the catalogue, prices and categories."
       }
     },
     "account": {
@@ -273,7 +275,9 @@
       "media": "Image",
       "pages": "Page",
       "siteSettings": "Site settings",
-      "posts": "Article"
+      "posts": "Article",
+      "products": "Product",
+      "productCategories": "Product category"
     }
   },
   "Media": {
@@ -474,7 +478,9 @@
     "show": "Show on the site",
     "hiddenBadge": "Hidden",
     "deleteSection": "Delete the section",
-    "deleteConfirm": "Delete this section from the draft?"
+    "deleteConfirm": "Delete this section from the draft?",
+    "moveLeft": "Move left",
+    "moveRight": "Move right"
   },
   "Settings": {
     "title": "Site settings",
@@ -612,5 +618,94 @@
     "orderMessage": "Hello SoilStack, I’m interested in “{name}” ({path}).",
     "related": "In the same category",
     "emptyAll": "No products yet. Come back soon!"
+  },
+  "ProductsAdmin": {
+    "title": "Products",
+    "subtitle": "The catalogue shown on the site. Visitors browse and contact you to order.",
+    "accessDenied": "You don’t have access to this page.",
+    "newProduct": "New product",
+    "newProductDescription": "Start with a French name and a category; add the rest next.",
+    "nameFr": "Name (French)",
+    "category": "Category",
+    "chooseCategory": "Choose a category",
+    "create": "Create",
+    "creating": "Creating…",
+    "categoriesLink": "Categories",
+    "empty": "No products yet.",
+    "searchPlaceholder": "Search products…",
+    "nameHeader": "Product",
+    "priceHeader": "Price",
+    "statusHeader": "Status",
+    "allStatuses": "All",
+    "allCategories": "All categories",
+    "statusDraft": "Draft",
+    "statusPublished": "Published",
+    "statusArchived": "Archived",
+    "featured": "Featured",
+    "edit": "Edit",
+    "view": "View",
+    "untitled": "Untitled",
+    "priceOnRequest": "Price on request",
+    "back": "Back to products",
+    "unsaved": "Unsaved changes",
+    "fields": {
+      "name": "Name",
+      "slug": "Address",
+      "price": "Price (USD)",
+      "unit": "Unit (e.g. 50 kg bag)",
+      "featured": "Featured (shown first and in “Featured products” sections)",
+      "shortDescription": "Short description (shown on the card)",
+      "photos": "Photos",
+      "description": "Description"
+    },
+    "pricePlaceholder": "e.g. 35 or 12.50",
+    "priceOnRequestHint": "Empty: “Price on request” is shown.",
+    "priceInvalid": "Write the price like 35 or 12.50 (spaces for thousands).",
+    "photosHint": "Up to {max}. The first is the main photo; use the arrows to reorder.",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Product saved.",
+    "savedLive": "Saved. The product updates on the site within a few seconds.",
+    "publish": "Publish",
+    "publishing": "Publishing…",
+    "publishedToast": "Published. The product appears in the catalogue within a few seconds.",
+    "unpublish": "Unpublish",
+    "unpublishedToast": "Unpublished: the product is a draft again.",
+    "archive": "Archive",
+    "archiveConfirm": "Archive this product? It leaves the site but is kept.",
+    "archivedToast": "Product archived.",
+    "restore": "Restore",
+    "restoredToast": "Product restored as a draft.",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this draft for good?",
+    "deleted": "Product deleted.",
+    "missingBeforePublish": "Missing before publishing: {fields}.",
+    "preview": "Preview",
+    "previewTitle": "Preview ({lang}) · as on the site"
+  },
+  "Categories": {
+    "title": "Product categories",
+    "subtitle": "Shown as filters in the catalogue, in this order.",
+    "accessDenied": "You don’t have access to this page.",
+    "back": "Back to products",
+    "add": "Add a category",
+    "addTitle": "New category",
+    "editTitle": "Edit the category",
+    "name": "Name",
+    "slug": "Address",
+    "slugHint": "Used in the catalogue filter link. Lowercase letters, digits and hyphens.",
+    "description": "Description (shown above the filtered products)",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Category saved.",
+    "productCount": "{count, plural, =0 {No products} one {# product} other {# products}}",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteBlocked": "Move its products to another category first.",
+    "deleteConfirm": "Delete the category {name}?",
+    "deleted": "Category deleted.",
+    "empty": "No categories yet."
   }
 }

@@ -93,7 +93,8 @@
       "media": "Images",
       "pages": "Pages",
       "settings": "Paramètres",
-      "blog": "Blog"
+      "blog": "Blog",
+      "products": "Produits"
     },
     "dashboard": {
       "title": "Bonjour {name}",
@@ -107,7 +108,8 @@
         "media": "Téléverser des images et gérer leur texte alternatif.",
         "pages": "Modifier et publier les pages du site.",
         "settings": "Coordonnées, réseaux sociaux et pied de page.",
-        "blog": "Rédiger et publier les articles du blog."
+        "blog": "Rédiger et publier les articles du blog.",
+        "products": "Gérer le catalogue, les prix et les catégories."
       }
     },
     "account": {
@@ -273,7 +275,9 @@
       "media": "Image",
       "pages": "Page",
       "siteSettings": "Paramètres du site",
-      "posts": "Article"
+      "posts": "Article",
+      "products": "Produit",
+      "productCategories": "Catégorie de produits"
     }
   },
   "Media": {
@@ -474,7 +478,9 @@
     "show": "Afficher sur le site",
     "hiddenBadge": "Masquée",
     "deleteSection": "Supprimer la section",
-    "deleteConfirm": "Supprimer cette section du brouillon ?"
+    "deleteConfirm": "Supprimer cette section du brouillon ?",
+    "moveLeft": "Déplacer à gauche",
+    "moveRight": "Déplacer à droite"
   },
   "Settings": {
     "title": "Paramètres du site",
@@ -612,5 +618,94 @@
     "orderMessage": "Bonjour SoilStack, je suis intéressé(e) par « {name} » ({path}).",
     "related": "Dans la même catégorie",
     "emptyAll": "Aucun produit pour l’instant. Revenez bientôt !"
+  },
+  "ProductsAdmin": {
+    "title": "Produits",
+    "subtitle": "Le catalogue affiché sur le site. Les visiteurs consultent et vous contactent pour commander.",
+    "accessDenied": "Vous n’avez pas accès à cette page.",
+    "newProduct": "Nouveau produit",
+    "newProductDescription": "Commencez par un nom en français et une catégorie ; vous ajouterez le reste ensuite.",
+    "nameFr": "Nom (français)",
+    "category": "Catégorie",
+    "chooseCategory": "Choisissez une catégorie",
+    "create": "Créer",
+    "creating": "Création…",
+    "categoriesLink": "Catégories",
+    "empty": "Aucun produit pour l’instant.",
+    "searchPlaceholder": "Rechercher un produit…",
+    "nameHeader": "Produit",
+    "priceHeader": "Prix",
+    "statusHeader": "Statut",
+    "allStatuses": "Tous",
+    "allCategories": "Toutes les catégories",
+    "statusDraft": "Brouillon",
+    "statusPublished": "Publié",
+    "statusArchived": "Archivé",
+    "featured": "En vedette",
+    "edit": "Modifier",
+    "view": "Voir",
+    "untitled": "Sans nom",
+    "priceOnRequest": "Prix sur demande",
+    "back": "Retour aux produits",
+    "unsaved": "Modifications non enregistrées",
+    "fields": {
+      "name": "Nom",
+      "slug": "Adresse",
+      "price": "Prix (USD)",
+      "unit": "Unité (ex. sac de 50 kg)",
+      "featured": "En vedette (affiché en premier et dans les sections « Produits en vedette »)",
+      "shortDescription": "Description courte (affichée sur la carte)",
+      "photos": "Photos",
+      "description": "Description"
+    },
+    "pricePlaceholder": "ex. 35 ou 12,50",
+    "priceOnRequestHint": "Vide : « Prix sur demande » est affiché.",
+    "priceInvalid": "Écrivez le prix comme 35 ou 12,50 (espaces pour les milliers).",
+    "photosHint": "Jusqu’à {max}. La première est la photo principale ; utilisez les flèches pour réordonner.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Produit enregistré.",
+    "savedLive": "Enregistré. Le produit se met à jour sur le site en quelques secondes.",
+    "publish": "Publier",
+    "publishing": "Publication…",
+    "publishedToast": "Publié. Le produit apparaît dans le catalogue en quelques secondes.",
+    "unpublish": "Dépublier",
+    "unpublishedToast": "Dépublié : le produit est de nouveau un brouillon.",
+    "archive": "Archiver",
+    "archiveConfirm": "Archiver ce produit ? Il quitte le site mais il est conservé.",
+    "archivedToast": "Produit archivé.",
+    "restore": "Restaurer",
+    "restoredToast": "Produit restauré en brouillon.",
+    "delete": "Supprimer",
+    "deleteConfirm": "Supprimer définitivement ce brouillon ?",
+    "deleted": "Produit supprimé.",
+    "missingBeforePublish": "À compléter avant de publier : {fields}.",
+    "preview": "Aperçu",
+    "previewTitle": "Aperçu ({lang}) · comme sur le site"
+  },
+  "Categories": {
+    "title": "Catégories de produits",
+    "subtitle": "Affichées comme filtres dans le catalogue, dans cet ordre.",
+    "accessDenied": "Vous n’avez pas accès à cette page.",
+    "back": "Retour aux produits",
+    "add": "Ajouter une catégorie",
+    "addTitle": "Nouvelle catégorie",
+    "editTitle": "Modifier la catégorie",
+    "name": "Nom",
+    "slug": "Adresse",
+    "slugHint": "Utilisée dans le lien du filtre du catalogue. Lettres minuscules, chiffres et tirets.",
+    "description": "Description (affichée au-dessus des produits filtrés)",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Catégorie enregistrée.",
+    "productCount": "{count, plural, =0 {Aucun produit} one {# produit} other {# produits}}",
+    "moveUp": "Monter",
+    "moveDown": "Descendre",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "deleteBlocked": "Déplacez d’abord ses produits vers une autre catégorie.",
+    "deleteConfirm": "Supprimer la catégorie {name} ?",
+    "deleted": "Catégorie supprimée.",
+    "empty": "Aucune catégorie pour l’instant."
   }
 }
