@@ -26,6 +26,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { useLocaleSwitcherLabels } from "@/components/admin/use-locale-switcher-labels";
 import { LogoutButton } from "@/components/admin/logout-button";
 import { useRoleText } from "@/components/admin/use-role-text";
 import { useMyPermissions } from "@/lib/use-can";
@@ -135,6 +136,7 @@ export function AdminShell({
 }) {
   const t = useTranslations("Admin.nav");
   const roleText = useRoleText();
+  const switcherLabels = useLocaleSwitcherLabels();
   const [menuOpen, setMenuOpen] = useState(false);
   const roleName = user.roleName ? roleText({ name: user.roleName }).name : null;
 
@@ -155,7 +157,7 @@ export function AdminShell({
         <div className="flex flex-col gap-3 border-t pt-3">
           {userBlock}
           <div className="flex items-center justify-between gap-2">
-            <LocaleSwitcher />
+            <LocaleSwitcher labels={switcherLabels} />
             <LogoutButton />
           </div>
         </div>
@@ -184,7 +186,7 @@ export function AdminShell({
             <div className="flex flex-col gap-3 border-t pt-3">
               {userBlock}
               <div className="flex items-center justify-between gap-2">
-                <LocaleSwitcher />
+                <LocaleSwitcher labels={switcherLabels} />
                 <LogoutButton />
               </div>
             </div>

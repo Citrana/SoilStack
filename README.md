@@ -100,6 +100,13 @@ Convex's `SITE_URL` must point to the site (`http://localhost:3000` in
 development, the real domain in production). Without the secret, pages
 still refresh on their own within an hour.
 
+## Site URL
+
+`NEXT_PUBLIC_SITE_URL` (in `.env.local`, and in the hosting provider's
+environment for production) is the public site's absolute address, used
+by the sitemap, share links and structured data — e.g.
+`https://soilstack.cd` in production, `http://localhost:3000` locally.
+
 ## Scripts
 
 | Command          | What it does                                  |

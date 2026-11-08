@@ -19,6 +19,7 @@ import type * as lib_errors from "../lib/errors.js";
 import type * as lib_i18n from "../lib/i18n.js";
 import type * as lib_media from "../lib/media.js";
 import type * as lib_money from "../lib/money.js";
+import type * as lib_pageKey from "../lib/pageKey.js";
 import type * as lib_pages from "../lib/pages.js";
 import type * as lib_password from "../lib/password.js";
 import type * as lib_permissions from "../lib/permissions.js";
@@ -60,6 +61,7 @@ declare const fullApi: ApiFromModules<{
   "lib/i18n": typeof lib_i18n;
   "lib/media": typeof lib_media;
   "lib/money": typeof lib_money;
+  "lib/pageKey": typeof lib_pageKey;
   "lib/pages": typeof lib_pages;
   "lib/password": typeof lib_password;
   "lib/permissions": typeof lib_permissions;

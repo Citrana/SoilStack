@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/blog">):
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations({ locale, namespace: "Blog" });
   return {
-    title: t("metaTitle"),
+    title: { absolute: t("metaTitle") },
     description: t("metaDescription"),
     alternates: {
       canonical: getPathname({ locale, href: "/blog" }),

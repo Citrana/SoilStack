@@ -6,7 +6,7 @@ import type { MediaRef, PublicImage } from "./media";
 import type { PostCard } from "./posts";
 import type { ProductCard } from "./products";
 import type { ProjectCard } from "./projects";
-import { pageKeyValidator } from "./pages";
+import { pageKeyValidator } from "./pageKey";
 
 /**
  * Page sections: a fixed set of typed blocks (CLAUDE.md, "Content model").

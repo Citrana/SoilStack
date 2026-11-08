@@ -8,10 +8,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LocaleSwitcher } from "@/components/locale-switcher";
+import { useLocaleSwitcherLabels } from "@/components/admin/use-locale-switcher-labels";
 
 /** Email + password sign-in for the admin (no sign-up). */
 export function LoginForm() {
   const t = useTranslations("Auth.login");
+  const switcherLabels = useLocaleSwitcherLabels();
   const { signIn } = useAuthActions();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -79,7 +81,7 @@ export function LoginForm() {
           </form>
         </CardContent>
       </Card>
-      <LocaleSwitcher />
+      <LocaleSwitcher labels={switcherLabels} />
     </main>
   );
 }

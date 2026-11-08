@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { hasLocale } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages, getTranslations } from "next-intl/server";
 import { Toaster } from "sonner";
 import { routing } from "@/i18n/routing";
 import { ConvexClientProvider } from "@/lib/convex-client-provider";
@@ -25,13 +25,19 @@ export async function generateMetadata({
  * renders the page; each page gates itself with AuthGate. The frame reads
  * the URL, so it streams in after a spinner.
  */
-export default function AdminLayout({ children }: LayoutProps<"/[locale]/admin">) {
+export default async function AdminLayout({ children, params }: LayoutProps<"/[locale]/admin">) {
+  // The admin's client components translate everything: give them all
+  // messages. The explicit locale keeps this prerenderable (no headers()).
+  const { locale } = await params;
+  const messages = await getMessages({ locale: hasLocale(routing.locales, locale) ? locale : routing.defaultLocale });
   return (
-    <ConvexClientProvider>
-      <Suspense fallback={<FullScreenSpinner />}>
-        <AdminFrame>{children}</AdminFrame>
-      </Suspense>
-      <Toaster position="top-center" richColors closeButton />
-    </ConvexClientProvider>
+    <NextIntlClientProvider messages={messages}>
+      <ConvexClientProvider>
+        <Suspense fallback={<FullScreenSpinner />}>
+          <AdminFrame>{children}</AdminFrame>
+        </Suspense>
+        <Toaster position="top-center" richColors closeButton />
+      </ConvexClientProvider>
+    </NextIntlClientProvider>
   );
 }

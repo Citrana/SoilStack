@@ -153,6 +153,37 @@ this repo, now and later — do not relax them for convenience.
   under `/admin`.
 - No third-party scripts or embeds on public pages. Fonts come from
   `next/font` (self-hosted).
+- Public pages send **no translations to the browser**: the root layout
+  passes only `PUBLIC_CLIENT_NAMESPACES` (`src/i18n/public-messages.ts`,
+  empty today) and public client components get their labels as props
+  from server components; the admin layout provides all messages. A test
+  fails if a public client component calls `useTranslations`.
+- Files imported by public client components must not import Convex
+  (`convex/values`, `_generated`): e.g. `convex/lib/pages.ts` is plain data
+  and its validator lives in `convex/lib/pageKey.ts`.
+- Measure with the method in `docs/performance.md` after changing public
+  pages; update its table.
+
+## SEO
+
+- `metadataBase` comes from `NEXT_PUBLIC_SITE_URL` (`src/lib/site-url.ts`).
+  Titles use the template `"%s — SoilStack"`; company pages and the blog /
+  products lists set `title.absolute` (their text already ends with
+  "— SoilStack").
+- Next merges `openGraph` shallowly: a page that sets `openGraph` must
+  spread `baseOpenGraph(locale)` (`src/lib/metadata.ts`) first, or it loses
+  the site name and default share image (`[locale]/opengraph-image.tsx`).
+- `src/app/sitemap.ts` lists every public URL in FR and EN via
+  `buildSitemap` (`src/lib/seo.ts`); a new public content type adds its
+  published slugs there. `robots.ts` hides the admin, and everything on
+  non-production deployments.
+- Structured data goes through `<JsonLd>` (`src/components/site/json-ld.tsx`,
+  escapes `<`): Organization on Home, BlogPosting, Product.
+- Unknown articles, products and projects call `notFound()` inside the
+  streamed content: the status stays 200 and Next adds
+  `<meta name="robots" content="noindex">` (Next 16 docs), shown in the
+  site frame by `(site)/not-found.tsx`. A real 404 would need a lookup in
+  the proxy on every request — not done on purpose.
 
 ## Money
 
@@ -333,9 +364,12 @@ catalogue: public `/produits` with category filters and product pages
 featured-products section, and the admin at `/admin/products` (editor,
 photos, archive) and `/admin/products/categories`, and the projects:
 public project pages, a projects-list section, and `/admin/projects`
-(ordered list, editor with stage, location, year, cover, gallery, story).
-Next steps, one PR each into `develop`: blog, product catalogue, projects, SEO + performance,
-deployment docs.
+(ordered list, editor with stage, location, year, cover, gallery, story),
+and SEO + performance: sitemap, robots, metadata and share image, icons,
+structured data, a framed not-found page, no translations or Convex code
+in the public bundle (`docs/performance.md`).
+Next step: deployment docs (Vercel + Convex production, environment
+variables, first Super Admin, Search Console).
 
 <!-- convex-ai-start -->
 

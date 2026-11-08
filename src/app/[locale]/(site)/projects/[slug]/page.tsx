@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getPathname, Link } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
+import { baseOpenGraph } from "@/lib/metadata";
 import { getProject, getProjectSlugs } from "@/lib/content";
 import { ProjectCard, projectMeta, StageBadge } from "@/components/site/project-card";
 import { RichText } from "@/components/site/rich-text";
@@ -37,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: Object.fromEntries(routing.locales.map((l) => [l, getPathname({ locale: l, href })])),
     },
     openGraph: {
+      ...baseOpenGraph(locale),
       title: pick(project.title, locale),
       description: pick(project.summary, locale),
       ...(project.cover ? { images: [{ url: project.cover.url, width: project.cover.width, height: project.cover.height }] } : {}),

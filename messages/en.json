@@ -11,7 +11,9 @@
   "NotFound": {
     "title": "Page not found",
     "description": "The page you are looking for doesn't exist or has moved.",
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "products": "Our products",
+    "blog": "The blog"
   },
   "Common": {
     "close": "Close",

@@ -4,7 +4,7 @@ import { authTables } from "@convex-dev/auth/server";
 import { auditActionValidator } from "./lib/audit";
 import { locValidator } from "./lib/i18n";
 import { locRichValidator } from "./lib/richText";
-import { pageKeyValidator } from "./lib/pages";
+import { pageKeyValidator } from "./lib/pageKey";
 import { sectionValidator, seoValidator } from "./lib/sections";
 import { settingsFields } from "./lib/settings";
 
