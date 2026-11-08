@@ -94,7 +94,8 @@
       "pages": "Pages",
       "settings": "Paramètres",
       "blog": "Blog",
-      "products": "Produits"
+      "products": "Produits",
+      "projects": "Projets"
     },
     "dashboard": {
       "title": "Bonjour {name}",
@@ -109,7 +110,8 @@
         "pages": "Modifier et publier les pages du site.",
         "settings": "Coordonnées, réseaux sociaux et pied de page.",
         "blog": "Rédiger et publier les articles du blog.",
-        "products": "Gérer le catalogue, les prix et les catégories."
+        "products": "Gérer le catalogue, les prix et les catégories.",
+        "projects": "Présenter les projets de SoilStack et leur avancement."
       }
     },
     "account": {
@@ -277,7 +279,8 @@
       "siteSettings": "Paramètres du site",
       "posts": "Article",
       "products": "Produit",
-      "productCategories": "Catégorie de produits"
+      "productCategories": "Catégorie de produits",
+      "projects": "Projet"
     }
   },
   "Media": {
@@ -722,5 +725,50 @@
     "ctaText": "Ce projet vous intéresse ? Parlons-en.",
     "ctaButton": "Nous contacter",
     "others": "Nos autres projets"
+  },
+  "ProjectsAdmin": {
+    "title": "Projets",
+    "subtitle": "Ce que construit SoilStack. L’ordre ici est l’ordre sur le site.",
+    "accessDenied": "Vous n’avez pas accès à cette page.",
+    "newProject": "Nouveau projet",
+    "newProjectDescription": "Commencez par un titre en français ; vous ajouterez le reste ensuite.",
+    "titleFr": "Titre (français)",
+    "create": "Créer",
+    "creating": "Création…",
+    "empty": "Aucun projet pour l’instant.",
+    "untitled": "Sans titre",
+    "statusDraft": "Brouillon",
+    "statusPublished": "Publié",
+    "moveUp": "Monter",
+    "moveDown": "Descendre",
+    "back": "Retour aux projets",
+    "unsaved": "Modifications non enregistrées",
+    "fields": {
+      "title": "Titre",
+      "slug": "Adresse",
+      "stage": "Étape",
+      "year": "Année (ex. 2026 ou 2025–2026)",
+      "location": "Lieu (ex. Nord-Kivu)",
+      "summary": "Résumé (affiché sur la carte)",
+      "cover": "Photo de couverture",
+      "gallery": "Galerie photos",
+      "body": "L’histoire du projet"
+    },
+    "galleryHint": "Jusqu’à {max} photos, affichées sous le texte. Utilisez les flèches pour réordonner.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Projet enregistré.",
+    "savedLive": "Enregistré. Le projet se met à jour sur le site en quelques secondes.",
+    "publish": "Publier",
+    "publishing": "Publication…",
+    "publishedToast": "Publié. Ajoutez une section « Liste des projets » à une page pour l’afficher.",
+    "unpublish": "Dépublier",
+    "unpublishedToast": "Dépublié : le projet est de nouveau un brouillon.",
+    "delete": "Supprimer",
+    "deleteConfirm": "Supprimer définitivement ce brouillon ?",
+    "deleted": "Projet supprimé.",
+    "missingBeforePublish": "À compléter avant de publier : {fields}.",
+    "preview": "Aperçu",
+    "previewTitle": "Aperçu ({lang}) · comme sur le site"
   }
 }

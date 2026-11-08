@@ -31,6 +31,8 @@ export const routing = defineRouting({
     "/admin/products": "/admin/products",
     "/admin/products/categories": "/admin/products/categories",
     "/admin/products/[id]": "/admin/products/[id]",
+    "/admin/projects": "/admin/projects",
+    "/admin/projects/[id]": "/admin/projects/[id]",
     "/admin/pages": "/admin/pages",
     "/admin/pages/[key]": "/admin/pages/[key]",
     "/admin/settings": "/admin/settings",

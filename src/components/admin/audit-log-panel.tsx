@@ -20,7 +20,7 @@ import { useCan } from "@/lib/use-can";
 type AuditEntry = PaginatedQueryItem<typeof api.auditLogs.list>;
 
 /** Record types that write audit entries. Later features add theirs. */
-const ENTITY_TABLES = ["users", "roles", "rolePermissions", "media", "pages", "siteSettings", "posts", "products", "productCategories"] as const;
+const ENTITY_TABLES = ["users", "roles", "rolePermissions", "media", "pages", "siteSettings", "posts", "products", "productCategories", "projects"] as const;
 type EntityTable = (typeof ENTITY_TABLES)[number];
 
 function isEntityTable(table: string): table is EntityTable {

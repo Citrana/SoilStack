@@ -94,7 +94,8 @@
       "pages": "Pages",
       "settings": "Settings",
       "blog": "Blog",
-      "products": "Products"
+      "products": "Products",
+      "projects": "Projects"
     },
     "dashboard": {
       "title": "Hello {name}",
@@ -109,7 +110,8 @@
         "pages": "Edit and publish the site’s pages.",
         "settings": "Contact details, social links and footer.",
         "blog": "Write and publish blog articles.",
-        "products": "Manage the catalogue, prices and categories."
+        "products": "Manage the catalogue, prices and categories.",
+        "projects": "Show SoilStack’s projects and how far along they are."
       }
     },
     "account": {
@@ -277,7 +279,8 @@
       "siteSettings": "Site settings",
       "posts": "Article",
       "products": "Product",
-      "productCategories": "Product category"
+      "productCategories": "Product category",
+      "projects": "Project"
     }
   },
   "Media": {
@@ -722,5 +725,50 @@
     "ctaText": "Interested in this project? Let’s talk.",
     "ctaButton": "Contact us",
     "others": "Our other projects"
+  },
+  "ProjectsAdmin": {
+    "title": "Projects",
+    "subtitle": "What SoilStack is building. The order here is the order on the site.",
+    "accessDenied": "You don’t have access to this page.",
+    "newProject": "New project",
+    "newProjectDescription": "Start with a French title; you’ll add the rest next.",
+    "titleFr": "Title (French)",
+    "create": "Create",
+    "creating": "Creating…",
+    "empty": "No projects yet.",
+    "untitled": "Untitled",
+    "statusDraft": "Draft",
+    "statusPublished": "Published",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "back": "Back to projects",
+    "unsaved": "Unsaved changes",
+    "fields": {
+      "title": "Title",
+      "slug": "Address",
+      "stage": "Stage",
+      "year": "Year (e.g. 2026 or 2025–2026)",
+      "location": "Location (e.g. North Kivu)",
+      "summary": "Summary (shown on the card)",
+      "cover": "Cover photo",
+      "gallery": "Photo gallery",
+      "body": "The project’s story"
+    },
+    "galleryHint": "Up to {max} photos, shown under the story. Use the arrows to reorder.",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Project saved.",
+    "savedLive": "Saved. The project updates on the site within a few seconds.",
+    "publish": "Publish",
+    "publishing": "Publishing…",
+    "publishedToast": "Published. Add a “Projects list” section to a page to show it.",
+    "unpublish": "Unpublish",
+    "unpublishedToast": "Unpublished: the project is a draft again.",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this draft for good?",
+    "deleted": "Project deleted.",
+    "missingBeforePublish": "Missing before publishing: {fields}.",
+    "preview": "Preview",
+    "previewTitle": "Preview ({lang}) · as on the site"
   }
 }

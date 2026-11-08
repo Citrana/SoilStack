@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import {
   ExternalLink,
   FileText,
+  FolderKanban,
   History,
   ImageIcon,
   Settings,
@@ -33,8 +34,8 @@ import { cn } from "@/lib/utils";
 type CurrentUser = NonNullable<FunctionReturnType<typeof api.users.getCurrentUser>>;
 
 type NavItem = {
-  href: "/admin" | "/admin/pages" | "/admin/blog" | "/admin/products" | "/admin/media" | "/admin/settings" | "/admin/users" | "/admin/roles" | "/admin/audit";
-  key: "dashboard" | "pages" | "blog" | "products" | "media" | "settings" | "users" | "roles" | "audit";
+  href: "/admin" | "/admin/pages" | "/admin/projects" | "/admin/blog" | "/admin/products" | "/admin/media" | "/admin/settings" | "/admin/users" | "/admin/roles" | "/admin/audit";
+  key: "dashboard" | "pages" | "projects" | "blog" | "products" | "media" | "settings" | "users" | "roles" | "audit";
   icon: LucideIcon;
   /** Shown only to holders of any of these (UI only - see CLAUDE.md). */
   anyOf?: readonly PermissionKey[];
@@ -44,6 +45,7 @@ type NavItem = {
 export const ADMIN_NAV: readonly NavItem[] = [
   { href: "/admin", key: "dashboard", icon: LayoutDashboard },
   { href: "/admin/pages", key: "pages", icon: FileText, anyOf: ["pages.edit", "pages.publish"] },
+  { href: "/admin/projects", key: "projects", icon: FolderKanban, anyOf: ["projects.manage"] },
   { href: "/admin/blog", key: "blog", icon: Newspaper, anyOf: ["blog.write", "blog.edit_all", "blog.publish"] },
   { href: "/admin/products", key: "products", icon: Package, anyOf: ["products.manage", "products.publish"] },
   { href: "/admin/media", key: "media", icon: ImageIcon, anyOf: MEDIA_BROWSE_PERMISSIONS },
