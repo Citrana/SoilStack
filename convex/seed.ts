@@ -28,6 +28,7 @@ export const seedReferenceData = internalAction({
   handler: async (ctx) => {
     await ctx.runMutation(internal.rbac.seedRbac, {});
     await ctx.runMutation(internal.pages.seedContent, {});
+    await ctx.runMutation(internal.productCategories.seedCategories, {});
     return null;
   },
 });

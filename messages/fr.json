@@ -52,7 +52,8 @@
     "ROLE_IN_USE": "Attribuez d'abord un autre rôle aux utilisateurs de ce rôle.",
     "INVALID_FILE": "Ce type de fichier n’est pas pris en charge. Utilisez JPEG, PNG, WebP ou AVIF.",
     "FILE_TOO_LARGE": "L’image est trop lourde (5 Mo maximum).",
-    "MEDIA_IN_USE": "Cette image est encore utilisée sur le site. Retirez-la d’abord de là."
+    "MEDIA_IN_USE": "Cette image est encore utilisée sur le site. Retirez-la d’abord de là.",
+    "CATEGORY_IN_USE": "Cette catégorie contient encore des produits. Déplacez-les d’abord vers une autre catégorie."
   },
   "Auth": {
     "logout": "Se déconnecter",

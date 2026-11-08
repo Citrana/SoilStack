@@ -52,7 +52,8 @@
     "ROLE_IN_USE": "Move this role's users to another role first.",
     "INVALID_FILE": "This file type is not supported. Use JPEG, PNG, WebP or AVIF.",
     "FILE_TOO_LARGE": "The image is too large (5 MB maximum).",
-    "MEDIA_IN_USE": "This image is still used on the site. Remove it from there first."
+    "MEDIA_IN_USE": "This image is still used on the site. Remove it from there first.",
+    "CATEGORY_IN_USE": "This category still has products. Move them to another category first."
   },
   "Auth": {
     "logout": "Log out",

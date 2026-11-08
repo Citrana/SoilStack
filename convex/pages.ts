@@ -10,8 +10,10 @@ import { publicImage, setMediaUsages, type PublicImage } from "./lib/media";
 import { PAGE_KEYS, pageKeyValidator, pageTag, SETTINGS_TAG, type PageKey } from "./lib/pages";
 import { SUPER_ADMIN_ROLE_KEY } from "./lib/permissions";
 import { latestPublished, toPostCard } from "./lib/posts";
+import { featuredProducts, toProductCard } from "./lib/products";
 import { authedMutation, authedQuery, type AuthedMutationCtx } from "./lib/rbac";
 import {
+  needsFeaturedProducts,
   needsLatestPosts,
   resolveSections,
   sectionMediaIds,
@@ -221,10 +223,17 @@ export const getPublished = query({
     const latestPosts = needsLatestPosts(sections)
       ? await Promise.all((await latestPublished(ctx, 6)).map((post) => toPostCard(ctx, post)))
       : [];
+    const products = needsFeaturedProducts(sections)
+      ? await Promise.all((await featuredProducts(ctx, 8)).map((p) => toProductCard(ctx, p)))
+      : [];
     return {
       key,
       seo,
-      sections: resolveSections(sections, (id) => (id ? (images.get(id) ?? null) : null), contact, latestPosts),
+      sections: resolveSections(sections, (id) => (id ? (images.get(id) ?? null) : null), {
+        contact,
+        latestPosts,
+        featuredProducts: products,
+      }),
       publishedAt: page.publishedAt ?? null,
     };
   },

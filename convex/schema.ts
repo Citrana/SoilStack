@@ -121,6 +121,37 @@ export default defineSchema({
     .index("by_status_and_publishedAt", ["status", "publishedAt"])
     .index("by_authorId", ["authorId"]),
 
+  // Product catalogue (convex/products.ts, convex/productCategories.ts).
+  productCategories: defineTable({
+    slug: v.string(),
+    name: locValidator,
+    description: locValidator,
+    order: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_order", ["order"]),
+
+  products: defineTable({
+    slug: v.string(),
+    name: locValidator,
+    shortDescription: locValidator,
+    description: locRichValidator,
+    // USD cents; missing = "Price on request" (convex/lib/money.ts).
+    priceCents: v.optional(v.number()),
+    unit: v.optional(locValidator),
+    categoryId: v.id("productCategories"),
+    // The first is the main photo.
+    imageIds: v.array(v.id("media")),
+    status: v.union(v.literal("draft"), v.literal("published"), v.literal("archived")),
+    featured: v.boolean(),
+    updatedAt: v.number(),
+    updatedBy: v.id("users"),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status", ["status"])
+    .index("by_categoryId", ["categoryId"])
+    .index("by_status_and_featured", ["status", "featured"]),
+
   // Single row: contact details, social links, footer (all public).
   siteSettings: defineTable(settingsFields),
 

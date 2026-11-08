@@ -3,17 +3,18 @@ import { fetchQuery } from "convex/nextjs";
 import { api } from "../../convex/_generated/api";
 import { pageTag, SETTINGS_TAG, type PageKey } from "../../convex/lib/pages";
 import { POSTS_TAG, postTag } from "../../convex/lib/posts";
+import { PRODUCTS_TAG, productTag } from "../../convex/lib/products";
 
 /**
  * Public content, read on the server and cached (CLAUDE.md, "Performance").
  * Each entry holds both languages. Publishing in the admin refreshes the
  * tag through /api/revalidate; cacheLife("hours") is the safety net.
- * A page also depends on the settings (contact section) and the blog
- * (latest posts section).
+ * A page also depends on the settings (contact section), the blog (latest
+ * posts) and the catalogue (featured products).
  */
 export async function getPage(key: PageKey) {
   "use cache";
-  cacheTag(pageTag(key), SETTINGS_TAG, POSTS_TAG);
+  cacheTag(pageTag(key), SETTINGS_TAG, POSTS_TAG, PRODUCTS_TAG);
   cacheLife("hours");
   return await fetchQuery(api.pages.getPublished, { key });
 }
@@ -47,6 +48,29 @@ export async function getPublishedSlugs() {
   return await fetchQuery(api.posts.publishedSlugs, {});
 }
 
+/** The catalogue, optionally one category ("" = all). */
+export async function getCatalogue(category: string) {
+  "use cache";
+  cacheTag(PRODUCTS_TAG);
+  cacheLife("hours");
+  return await fetchQuery(api.products.catalogue, category ? { category } : {});
+}
+
+export async function getProduct(slug: string) {
+  "use cache";
+  cacheTag(productTag(slug), PRODUCTS_TAG);
+  cacheLife("hours");
+  return await fetchQuery(api.products.getBySlug, { slug });
+}
+
+export async function getProductSlugs() {
+  "use cache";
+  cacheTag(PRODUCTS_TAG);
+  cacheLife("hours");
+  return await fetchQuery(api.products.publishedSlugs, {});
+}
+
 export type PublishedPage = NonNullable<Awaited<ReturnType<typeof getPage>>>;
 export type PublicSettings = Awaited<ReturnType<typeof getSettings>>;
+export type PublishedProduct = NonNullable<Awaited<ReturnType<typeof getProduct>>>;
 export type PublishedPost = NonNullable<Awaited<ReturnType<typeof getPost>>>;
