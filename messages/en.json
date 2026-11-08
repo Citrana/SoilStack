@@ -392,7 +392,8 @@
       "cta": "Call to action",
       "contactInfo": "Contact details",
       "latestPosts": "Latest posts",
-      "featuredProducts": "Featured products"
+      "featuredProducts": "Featured products",
+      "projectsList": "Projects list"
     },
     "descriptions": {
       "hero": "Badge, big title, short text, buttons and a wide photo.",
@@ -404,7 +405,8 @@
       "cta": "A green band with a title and a button.",
       "contactInfo": "Shows the phone, WhatsApp, email and address from Settings.",
       "latestPosts": "The newest blog articles, updated automatically.",
-      "featuredProducts": "Featured products (or the newest ones), updated automatically."
+      "featuredProducts": "Featured products (or the newest ones), updated automatically.",
+      "projectsList": "The published projects, in the order set in Projects, updated automatically."
     },
     "fields": {
       "eyebrow": "Badge (small text above the title)",
@@ -440,7 +442,8 @@
       "postCount": "Number of posts",
       "latestPostsHint": "Shows the most recently published blog articles.",
       "productCount": "Number of products",
-      "featuredProductsHint": "Tick “Featured” on a product to show it here."
+      "featuredProductsHint": "Tick “Featured” on a product to show it here.",
+      "projectsListHint": "Manage the projects and their order in the Projects menu."
     },
     "icons": {
       "Sprout": "Sprout",
@@ -707,5 +710,17 @@
     "deleteConfirm": "Delete the category {name}?",
     "deleted": "Category deleted.",
     "empty": "No categories yet."
+  },
+  "Projects": {
+    "stages": {
+      "planned": "Planned",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "back": "All projects",
+    "gallery": "Project photos",
+    "ctaText": "Interested in this project? Let’s talk.",
+    "ctaButton": "Contact us",
+    "others": "Our other projects"
   }
 }

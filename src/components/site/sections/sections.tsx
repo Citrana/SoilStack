@@ -8,6 +8,7 @@ import { FeatureGridSection } from "./feature-grid";
 import { FeaturedProductsSection } from "./featured-products";
 import { HeroSection } from "./hero";
 import { LatestPostsSection } from "./latest-posts";
+import { ProjectsListSection } from "./projects-list";
 import { StatsSection } from "./stats";
 import { TextImageSection } from "./text-image";
 
@@ -42,6 +43,8 @@ export function Sections({ sections, locale }: { sections: PublicSection[]; loca
             return <LatestPostsSection key={key} section={section} locale={locale} />;
           case "featuredProducts":
             return <FeaturedProductsSection key={key} section={section} locale={locale} />;
+          case "projectsList":
+            return <ProjectsListSection key={key} section={section} locale={locale} />;
         }
       })}
     </>

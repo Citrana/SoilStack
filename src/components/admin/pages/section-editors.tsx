@@ -269,6 +269,20 @@ function FeaturedProductsEditor(props: EditorProps<"featuredProducts">) {
   );
 }
 
+function ProjectsListEditor(props: EditorProps<"projectsList">) {
+  const t = useTranslations("Sections.fields");
+  const { section } = props;
+  const set = useSet(props);
+  const id = section.id;
+  return (
+    <>
+      <LocalizedField id={`${id}-title`} label={t("title")} value={section.title} onChange={(v) => set("title", v)} />
+      <LocalizedField id={`${id}-intro`} label={t("intro")} value={section.intro ?? EMPTY_LOC} onChange={(v) => set("intro", optional(v))} multiline />
+      <p className="text-sm text-muted-foreground">{t("projectsListHint")}</p>
+    </>
+  );
+}
+
 /** The fields of one section, by type. */
 export function SectionFields({
   section,
@@ -300,5 +314,7 @@ export function SectionFields({
       return <LatestPostsEditor section={section} onChange={onChange} images={images} />;
     case "featuredProducts":
       return <FeaturedProductsEditor section={section} onChange={onChange} images={images} />;
+    case "projectsList":
+      return <ProjectsListEditor section={section} onChange={onChange} images={images} />;
   }
 }

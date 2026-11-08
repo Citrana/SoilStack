@@ -11,6 +11,7 @@ import { isPageKey, type PageKey } from "../../../../convex/lib/pages";
 import {
   needsFeaturedProducts,
   needsLatestPosts,
+  needsProjects,
   newSection,
   resolveSections,
   SECTION_TYPES,
@@ -177,6 +178,7 @@ function Editor({ pageKey, initial, meta }: { pageKey: PageKey; initial: Draft; 
   const settings = useQuery(api.settings.getPublic) ?? EMPTY_SETTINGS;
   const latest = useQuery(api.posts.listPublished, preview && needsLatestPosts(draft.sections) ? { page: 1 } : "skip");
   const catalogue = useQuery(api.products.catalogue, preview && needsFeaturedProducts(draft.sections) ? {} : "skip");
+  const projects = useQuery(api.projects.listPublished, preview && needsProjects(draft.sections) ? {} : "skip");
 
   const setSections = (sections: Section[]) => setDraft((d) => ({ ...d, sections }));
   const updateSection = (index: number, section: Section) => setSections(draft.sections.map((s, i) => (i === index ? section : s)));
@@ -218,6 +220,7 @@ function Editor({ pageKey, initial, meta }: { pageKey: PageKey; initial: Draft; 
         contact: toPublicContact(settings),
         latestPosts: latest?.posts ?? [],
         featuredProducts: catalogue?.products ?? [],
+        projects: projects ?? [],
       })
     : [];
   const dateFormat = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short" });

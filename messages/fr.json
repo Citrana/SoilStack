@@ -392,7 +392,8 @@
       "cta": "Appel à l’action",
       "contactInfo": "Coordonnées",
       "latestPosts": "Derniers articles",
-      "featuredProducts": "Produits en vedette"
+      "featuredProducts": "Produits en vedette",
+      "projectsList": "Liste des projets"
     },
     "descriptions": {
       "hero": "Badge, grand titre, texte court, boutons et une grande photo.",
@@ -404,7 +405,8 @@
       "cta": "Un bandeau vert avec un titre et un bouton.",
       "contactInfo": "Affiche le téléphone, WhatsApp, l’e-mail et l’adresse des Paramètres.",
       "latestPosts": "Les derniers articles du blog, mis à jour automatiquement.",
-      "featuredProducts": "Les produits mis en vedette (ou les plus récents), mis à jour automatiquement."
+      "featuredProducts": "Les produits mis en vedette (ou les plus récents), mis à jour automatiquement.",
+      "projectsList": "Les projets publiés, dans l’ordre choisi dans Projets, mis à jour automatiquement."
     },
     "fields": {
       "eyebrow": "Badge (petit texte au-dessus du titre)",
@@ -440,7 +442,8 @@
       "postCount": "Nombre d’articles",
       "latestPostsHint": "Les articles affichés sont les derniers publiés sur le blog.",
       "productCount": "Nombre de produits",
-      "featuredProductsHint": "Cochez « En vedette » sur un produit pour le montrer ici."
+      "featuredProductsHint": "Cochez « En vedette » sur un produit pour le montrer ici.",
+      "projectsListHint": "Gérez les projets et leur ordre dans le menu Projets."
     },
     "icons": {
       "Sprout": "Pousse",
@@ -707,5 +710,17 @@
     "deleteConfirm": "Supprimer la catégorie {name} ?",
     "deleted": "Catégorie supprimée.",
     "empty": "Aucune catégorie pour l’instant."
+  },
+  "Projects": {
+    "stages": {
+      "planned": "Prévu",
+      "in_progress": "En cours",
+      "completed": "Terminé"
+    },
+    "back": "Tous les projets",
+    "gallery": "Photos du projet",
+    "ctaText": "Ce projet vous intéresse ? Parlons-en.",
+    "ctaButton": "Nous contacter",
+    "others": "Nos autres projets"
   }
 }
