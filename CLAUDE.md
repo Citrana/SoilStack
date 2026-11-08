@@ -368,8 +368,8 @@ public project pages, a projects-list section, and `/admin/projects`
 and SEO + performance: sitemap, robots, metadata and share image, icons,
 structured data, a framed not-found page, no translations or Convex code
 in the public bundle (`docs/performance.md`).
-Next steps, one PR each into `develop`: blog, product catalogue, projects, SEO + performance,
-deployment docs.
+Next step: deployment docs (Vercel + Convex production, environment
+variables, first Super Admin, Search Console).
 
 <!-- convex-ai-start -->
 
