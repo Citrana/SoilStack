@@ -79,7 +79,7 @@ function Editor({ data }: { data: NonNullable<ReturnType<typeof useQuery<typeof 
   const [draft, setDraft] = useState<Draft>(initial);
   const [baseline, setBaseline] = useState<Draft>(initial);
   // Follow the title until the address is edited by hand (never published only).
-  const [slugTouched, setSlugTouched] = useState(post.status === "published" || post.publishedAt !== undefined || post.slug !== slugify(post.title.fr || post.title.en));
+  const [slugTouched, setSlugTouched] = useState(post.status === "published" || post.publishedAt !== undefined || post.slug !== slugify(post.title.fr || post.title.en, "article"));
   const [tab, setTab] = useState<"fr" | "en">("fr");
   const [busy, setBusy] = useState<null | "save" | "publish" | "unpublish" | "delete">(null);
   const [preview, setPreview] = useState<Locale | null>(null);
@@ -109,7 +109,7 @@ function Editor({ data }: { data: NonNullable<ReturnType<typeof useQuery<typeof 
 
   const set = <K extends keyof Draft>(key: K, value: Draft[K]) => setDraft((d) => ({ ...d, [key]: value }));
   const setTitle = (title: Loc) =>
-    setDraft((d) => ({ ...d, title, ...(slugTouched ? {} : { slug: slugify(title.fr || title.en) }) }));
+    setDraft((d) => ({ ...d, title, ...(slugTouched ? {} : { slug: slugify(title.fr || title.en, "article") }) }));
 
   const toArgs = () => ({
     postId: post._id,
